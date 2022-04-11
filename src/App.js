@@ -10,6 +10,8 @@ import Dashboard from './pages/Dashboard';
 import OverzichtWijzigen from './pages/OverzichtWijzigen';
 import TemplateBeheren from './pages/TemplateBeheren';
 import CategorieDashboard from './pages/CategorieDashboard';
+import Login from './pages/Login';
+import Itsme from './pages/Itsme';
 // Imports nodig voor de grid layout
 import { Grid } from "@mui/material";
 import { Outlet } from 'react-router-dom';
@@ -43,6 +45,8 @@ function App() {
         <Route path="/templateBeheren" element={<TemplateBeheren />} />
         <Route path="/overzichtWijzigen" element={<OverzichtWijzigen />} />
       </Route>
+      <Route path="/login" element={<Login />} />
+      <Route path="/itsme" element={<Itsme />} />
     </Routes>
 
       {/* <header className="App-header">

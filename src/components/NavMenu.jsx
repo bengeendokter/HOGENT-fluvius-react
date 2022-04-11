@@ -42,7 +42,7 @@ export default function NavMenu() {
               </div>
               <div>
                 <NavItemInloggenRegistreren
-                  to="/inlogpagina"
+                  to="/login"
                   label="Inloggen"
                   href="#responsive-header"
                 >
