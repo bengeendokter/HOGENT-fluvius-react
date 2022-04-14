@@ -30,8 +30,6 @@ import {
         setLoading(true);
         const data = await doelstellingApi.getAllDoelstellingen();
         setDoelstellingen(data.data);
-        console.log("hello")
-        console.log(doelstellingen)
         return true;
       } catch (error) {
         setError(error);
@@ -40,7 +38,7 @@ import {
         setLoading(false)
       }
 
-    }, [doelstellingen]);
+    }, []);
 
     useEffect(() => {
       if (/*authReady && */!initialLoad) {

@@ -5,10 +5,14 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
+import { DoelstellingProvider } from './contexts/DoelstellingProvider';
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-    <App />
+      <DoelstellingProvider>
+        <App />
+      </DoelstellingProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

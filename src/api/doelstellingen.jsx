@@ -10,7 +10,7 @@ export const getDoelstellingByID = async ({
 }) => {
     const { data } = await axios({
         method : "get",
-        url : `doelstellingen/${id}`
+        url : `doelstellingen/rol/${id}`
     });
       return data;
 };
