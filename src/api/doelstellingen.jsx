@@ -5,7 +5,7 @@ export const getAllDoelstellingen = async () => {
     return data;
 };
 
-export const getDoelstellingByID = async ({      
+export const getDoelstellingPerRolByID = async ({      
     id,
 }) => {
     const { data } = await axios({

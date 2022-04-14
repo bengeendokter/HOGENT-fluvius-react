@@ -47,7 +47,7 @@ import {
       }
     }, [/*authReady, */initialLoad, refreshDoelstellingen]);
 
-    const getDoelstellingByID = useCallback(async () => {
+    const getDoelstellingPerRolByID = useCallback(async () => {
       try {
         setError('');
         setLoading(true);
@@ -64,7 +64,7 @@ import {
 
     const value = useMemo(() => ({
       refreshDoelstellingen,
-      getDoelstellingByID,
+      getDoelstellingPerRolByID,
       //currentGame,
       //setCurrentGame,
       doelstellingen,
@@ -72,7 +72,7 @@ import {
       setError,
       loading,
       setLoading,
-    }), [refreshDoelstellingen, getDoelstellingByID, doelstellingen, error, setError, loading, setLoading])
+    }), [refreshDoelstellingen, getDoelstellingPerRolByID, doelstellingen, error, setError, loading, setLoading])
 
     return (
       <DoelstellingContext.Provider value={value}>
