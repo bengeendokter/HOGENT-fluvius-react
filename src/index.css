@@ -15,3 +15,72 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Navigation menu */
+nav ul{
+  color: white;
+}
+
+nav a {
+  text-decoration: none;
+  /* color:white; */
+}
+
+nav a.active {
+  background-color: white;
+  color: #004C69;
+}
+
+nav a.active:hover {
+  text-decoration: none;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+nav a {
+  display: block;
+  
+}
+
+/* HAMBURGER MENU */
+
+/* muisaanwijzer instellen */
+nav img#hamburger-icon {
+  cursor: pointer;
+}
+
+/* default verbergen we het menu */
+nav ul {
+  display: none;
+}
+
+/* als de checkbox checked is geven we het menu
+terug weer */
+nav #menu-checkbox:checked ~ ul {
+  display: block;
+}
+
+/* checkbox moet niet zichtbaar zijn */
+nav #menu-checkbox {
+  display: none;
+}
+
+/* we plaatsen een 'break point" bij 576px */
+@media screen and (min-width: 576px) {
+  /* in desktop view is het horizontaal menu altijd zichtbaar */
+  nav ul {
+    display: block;
+    text-align: left;
+  }
+
+  
+
+  /* in desktop view verbergen we het label dat het hamburger-icon bevat */
+  nav label[for='menu-checkbox'] {
+    display: none;
+  }
+}

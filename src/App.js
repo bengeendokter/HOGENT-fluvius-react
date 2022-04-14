@@ -19,15 +19,25 @@ import { Outlet } from 'react-router-dom';
 // Dit is nodig om de grid layout op te bouwen
 // extra library toevoegen: yarn add @mui/material @emotion/react @emotion/styled
 const PageLayout = () => (
-  <Grid container>
-    <Grid item md={2}>
-      <SideMenuBar />
-    </Grid>    
-    <Grid item md={10}>
-      <Outlet /> 
-    </Grid>     
-  </Grid>
+  <>
+<div className="grid grid-cols-1 md:grid-cols-6 ">
+  <div className="col-span-1"><SideMenuBar /></div>
+  <div className="col-span-5" ><Outlet /> </div>
+</div>
+</>
+
+
+
 );
+
+{/* <Grid container>
+<Grid item md={2} >
+  <SideMenu />
+</Grid>   
+<Grid item md={10}>
+  <Outlet /> 
+</Grid>     
+</Grid>  */}
 
 function App() {
   return (
