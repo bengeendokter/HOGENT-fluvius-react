@@ -30,6 +30,7 @@ import {
         setLoading(true);
         const data = await doelstellingApi.getAllDoelstellingen();
         setDoelstellingen(data.data);
+        console.log("hello")
         console.log(doelstellingen)
         return true;
       } catch (error) {
@@ -65,6 +66,7 @@ import {
 
     const value = useMemo(() => ({
       refreshDoelstellingen,
+      getDoelstellingByID,
       //currentGame,
       //setCurrentGame,
       doelstellingen,
@@ -72,7 +74,7 @@ import {
       setError,
       loading,
       setLoading,
-    }), [refreshDoelstellingen, doelstellingen, error, setError, loading, setLoading])
+    }), [refreshDoelstellingen, getDoelstellingByID, doelstellingen, error, setError, loading, setLoading])
 
     return (
       <DoelstellingContext.Provider value={value}>
