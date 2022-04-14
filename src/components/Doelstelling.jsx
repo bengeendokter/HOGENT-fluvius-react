@@ -1,5 +1,4 @@
 export default function Doelstelling(props) {
-
   const {name} = props;
 
   return (
