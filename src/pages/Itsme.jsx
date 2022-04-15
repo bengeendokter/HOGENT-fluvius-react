@@ -43,7 +43,7 @@ export default function Itsme() {
 
   return (
     <FormProvider {...methods}>
-      <div className="mx-auto w-1/4 xl:w-4/5 pt-10">
+      <div className="mx-auto w-2/3 xl:w-4/5 pt-10">
         
         {/* <form className="grid grid-cols-1 gap-y-4" onSubmit={handleSubmit(handleLogin)}> */}
         <form className="grid grid-cols-1 gap-y-4 text-left" >

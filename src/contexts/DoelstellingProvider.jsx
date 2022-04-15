@@ -51,7 +51,7 @@ import {
       try {
         setError('');
         setLoading(true);
-        const data = await doelstellingApi.getDoelstellingByID();
+        const data = await doelstellingApi.getDoelstellingPerRolByID();
         return data.data ?? null
       } catch (error) {
         setError(error);

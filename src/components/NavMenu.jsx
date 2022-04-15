@@ -5,7 +5,7 @@ const NavItemInloggenRegistreren = ({ to, label }) => (
   <span>
     <NavLink
       to={to}
-      className=" text-[#004C69] underline text-xl block mt-2 lg:block lg:mt-0 m-3 font-semibold"
+      className=" text-[#004C69] underline  md:text-xl block mt-2 lg:block lg:mt-0 m-3 font-semibold"
     >
       {label}
     </NavLink>

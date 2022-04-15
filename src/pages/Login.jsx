@@ -45,7 +45,7 @@ export default function Login() {
 
   return (
     <FormProvider {...methods}>
-      <div className="mx-auto w-1/4 xl:w-4/5 pt-10">
+      <div className="mx-auto w-2/3 xl:w-4/5 pt-10">
         
         {/* <form className="grid grid-cols-1 gap-y-4" onSubmit={handleSubmit(handleLogin)}> */}
         <form className="grid grid-cols-1 gap-y-4 text-left" >
@@ -82,10 +82,10 @@ export default function Login() {
               Meld aan
             </button>
             {/* onClick={handleCancel} */}
-            <div className="grid grid-cols-2 bg-[rgb(255,70,21)]">
-              <div className="justify-self-end mt-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 bg-[rgb(255,70,21)]">
+              <div className="md:justify-self-end justify-self-center mt-3">
             <Link to="/itsme" href="#responsive-header">
-            <button type="button" className="justify-self-end  mt-2 lg:inline-block  lg:mt-0   bg-[rgb(255,70,21)] xl:p-1 xl:text-xl  text-white">
+            <button type="button" className="md:justify-self-end justify-self-center mt-2 lg:inline-block  lg:mt-0   bg-[rgb(255,70,21)] xl:p-1 xl:text-xl  text-white">
               Aanmelden met
               
             </button>
@@ -94,9 +94,10 @@ export default function Login() {
             <img
                   src={itsme}
                   alt="itsme"
-                  className="w-1/6   lg:mt-0 justify-self-begin "
+                  className="w-1/6   lg:mt-0 md:justify-self-begin justify-self-center "
                 />
             </div>
+            
 
         </form>
       </div>
