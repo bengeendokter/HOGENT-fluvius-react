@@ -1,3 +1,6 @@
+import { NavLink } from "react-router-dom";
+import BarChart from "./BarChart";
+
 const Accordion = (props) => {
   const {naam, id, doelwaarde} = props;
 
@@ -26,9 +29,15 @@ const Accordion = (props) => {
         </h2>
         <div id={`collapseOne${id}`} className="accordion-collapse collapse show" aria-labelledby={`headingOne${id}`}>
           <div className="accordion-body py-4 px-5">
-          <span>{naam}</span>
-          <br />
+          
+          <NavLink
+			  to={`/doelstellingDashboard/${id}`}>
+           <span>{id}</span>   
+        </NavLink>
+        <br />
           <span>doelwaarde: {doelwaarde}</span>
+          <BarChart></BarChart>  
+
           
           
           </div>
