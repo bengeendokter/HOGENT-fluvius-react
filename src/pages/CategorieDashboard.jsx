@@ -1,8 +1,10 @@
 import Doelstelling from '../components/Doelstelling';
+import Accords from '../components/Accords';
 import DOELSTELLING_DATA from '../mock-data';
+import { useDoelstellingen} from '../contexts/DoelstellingProvider';
 
 export default function CategorieDashboard() {
-
+  const {doelstellingen} = useDoelstellingen();
 
   return (
     <>
@@ -12,11 +14,15 @@ export default function CategorieDashboard() {
           <div className="justify-self-end mr-2">Sdgs</div>
         </div>
 
+        {/*
         {DOELSTELLING_DATA.map(trans => 
 				<Doelstelling {...trans} />)}
+        */}
 
-        
-        
+      {doelstellingen.map(d => <Doelstelling key={d.id} { ...d }  ></Doelstelling>)}
+
+        {/*<Doelstelling {...doelstellingen[0]}></Doelstelling>*/}
+ 
       </div>
     </>
   );

@@ -17,7 +17,7 @@ code {
 }
 
 /* Navigation menu */
-nav ul{
+nav ul {
   color: white;
 }
 
@@ -43,7 +43,7 @@ nav ul {
 
 nav a {
   display: block;
-  
+
 }
 
 /* HAMBURGER MENU */
@@ -60,7 +60,7 @@ nav ul {
 
 /* als de checkbox checked is geven we het menu
 terug weer */
-nav #menu-checkbox:checked ~ ul {
+nav #menu-checkbox:checked~ul {
   display: block;
 }
 
@@ -71,16 +71,46 @@ nav #menu-checkbox {
 
 /* we plaatsen een 'break point" bij 576px */
 @media screen and (min-width: 576px) {
+
   /* in desktop view is het horizontaal menu altijd zichtbaar */
   nav ul {
     display: block;
     text-align: left;
   }
 
-  
+
 
   /* in desktop view verbergen we het label dat het hamburger-icon bevat */
   nav label[for='menu-checkbox'] {
     display: none;
   }
 }
+
+/**/
+.accordion {
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.accordion-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: pointer;
+  background-color: #21aeca;
+}
+
+.accordion-title:hover {
+  background-color: #3ab4cc;
+}
+
+.accordion-title,
+.accordion-content {
+  padding: 1rem;
+}
+
+.accordion-content {
+  background-color: #39b9d2;
+}
+
+/**/
