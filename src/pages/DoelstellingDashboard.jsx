@@ -1,5 +1,5 @@
-import Doelstelling from '../components/Doelstelling';
-import Accords from '../components/Accords';
+
+import Accordion from '../components/Accordion';
 import { useDoelstellingen} from '../contexts/DoelstellingProvider';
 import {useParams } from "react-router-dom";
 
@@ -25,8 +25,10 @@ export default function DoelstellingDashboard() {
           <div className="justify-self-end mr-2">Sdgs</div>
         </div>
 
-        <div className="accordion">
-          {doelstelling.subdoelstellingen && doelstelling.subdoelstellingen.map(d => <Accords {...d}></Accords>)}
+      
+
+        <div className="accordion min-w-full px-4">
+          {doelstelling.subdoelstellingen && doelstelling.subdoelstellingen.map(d => <Accordion {...d}></Accordion>)}
         </div>
 
       </div>

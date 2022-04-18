@@ -1,8 +1,5 @@
-const Accords = (props) => {
-  //const s1 = "{}";
-//id="headingOne5"
-
-  const {naam, id} = props;
+const Accordion = (props) => {
+  const {naam, id, doelwaarde} = props;
 
   return (
     <>
@@ -24,16 +21,20 @@ const Accords = (props) => {
             focus:outline-none
           " type="button" data-bs-toggle="collapse" data-bs-target={`#collapseOne${id}`} aria-expanded="true"
             aria-controls={`collapseOne${id}`}>
-            {naam}
+            <span>{naam}</span>
           </button>
         </h2>
         <div id={`collapseOne${id}`} className="accordion-collapse collapse show" aria-labelledby={`headingOne${id}`}>
           <div className="accordion-body py-4 px-5">
-            {naam}
+          <span>{naam}</span>
+          <br />
+          <span>doelwaarde: {doelwaarde}</span>
+          
+          
           </div>
         </div>
       </div>
     </>
   );
 };
-export default Accords;
+export default Accordion;
