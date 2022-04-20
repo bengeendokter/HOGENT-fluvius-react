@@ -7,6 +7,7 @@ export default function Dashboard()
   return (
     <>
       <h1 className={styles.title}>Dashboard</h1>
+      {/* TODO categorie container */}
       <div className={styles.categorie}>
         <div className={styles.categorie_heading}>
           <h2 className={styles.title_categorie}>

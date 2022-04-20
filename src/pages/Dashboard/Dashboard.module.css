@@ -1,50 +1,70 @@
 .title
 {
-    font-weight: bold;
-    color: var(--clr-primary);
+  font-weight: bold;
+  color: var(--clr-primary);
+  margin-inline-start: 0.1em;
 }
 
 .categorie
 {
-
+  display: grid;
+  border: var(--clr-primary) 2px solid;
+  margin: .3em;
 }
 
 .categorie_heading
 {
-
+  display: grid;
+  grid-auto-flow: column;
+  background: var(--clr-primary);
+  color: var(--clr-accent);
+  align-items: center;
+  grid-template-columns: 1fr auto auto;
+  padding: .3em;
 }
 
 .title_categorie
 {
-
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 .sdg_container
 {
-    
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: end;
+  grid-gap: .4em;
 }
 
 .sdg
 {
-
+  height: 2.2em;
 }
 
 .hide_button
 {
-
+  padding-inline-start: .3em;
+  font-weight: bold;
 }
 
 .doelstellingen_container
 {
-
+  display: grid;
+  padding: .4em;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  grid-gap: .6em;
 }
 
 .doelstelling
 {
-
+  border: var(--clr-primary) 2px solid;
+  width: 80%;
+  padding: .2em;
 }
 
 .title_doelstelling
 {
-
+  font-weight: bold;
 }
