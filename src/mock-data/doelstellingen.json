@@ -1,0 +1,144 @@
+{
+    "data": [
+    {
+        "id": 1,
+        "soort": "COMP",
+        "doelwaarde": 0,
+        "icon": "file:src/images/planet.jpg",
+        "jaar": 2020,
+        "naam": "CO2NeutraalVervoer",
+        "parent_doelstelling":
+        {
+            "id": null
+        },
+        "sdg_goal":
+        {
+            "id": 3
+        },
+        "formule":
+        {
+            "id": 1
+        },
+        "subdoelstellingen": [
+        {
+            "id": 6,
+            "soort": "LEAF",
+            "doelwaarde": 50,
+            "icon": "file:src/images/planet.jpg",
+            "jaar": 2020,
+            "naam": "CO2 mercedes",
+            "parent_doelstelling":
+            {
+                "id": 1
+            },
+            "sdg_goal":
+            {
+                "id": 4
+            },
+            "formule":
+            {
+                "id": 3
+            },
+            "datasource":
+            {
+                "id": 2
+            }
+        },
+        {
+            "id": 2,
+            "soort": "COMP",
+            "doelwaarde": 10,
+            "icon": "file:src/images/planet.jpg",
+            "jaar": 2020,
+            "naam": "CO2TrageAuto's",
+            "parent_doelstelling":
+            {
+                "id": 1
+            },
+            "sdg_goal":
+            {
+                "id": 3
+            },
+            "formule":
+            {
+                "id": 4
+            },
+            "subdoelstellingen": [
+            {
+                "id": 4,
+                "soort": "LEAF",
+                "doelwaarde": 40,
+                "icon": "file:src/images/planet.jpg",
+                "jaar": 2020,
+                "naam": "CO2 audi",
+                "parent_doelstelling":
+                {
+                    "id": 2
+                },
+                "sdg_goal":
+                {
+                    "id": 3
+                },
+                "formule":
+                {
+                    "id": 2
+                },
+                "datasource":
+                {
+                    "id": 5
+                }
+            },
+            {
+                "id": 5,
+                "soort": "LEAF",
+                "doelwaarde": 30,
+                "icon": "file:src/images/planet.jpg",
+                "jaar": 2020,
+                "naam": "CO2 bmw",
+                "parent_doelstelling":
+                {
+                    "id": 2
+                },
+                "sdg_goal":
+                {
+                    "id": 3
+                },
+                "formule":
+                {
+                    "id": 5
+                },
+                "datasource":
+                {
+                    "id": 4
+                }
+            }]
+        }]
+    },
+    {
+        "id": 3,
+        "soort": "LEAF",
+        "doelwaarde": 16,
+        "icon": "file:src/images/peace.png",
+        "jaar": 2020,
+        "naam": "Aantal kinderen",
+        "parent_doelstelling":
+        {
+            "id": null
+        },
+        "sdg_goal":
+        {
+            "id": 24
+        },
+        "formule":
+        {
+            "id": 6
+        },
+        "datasource":
+        {
+            "id": 3
+        }
+    }],
+    "count": 6,
+    "limit": 100,
+    "offset": 0
+}

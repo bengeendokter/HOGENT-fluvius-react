@@ -2,8 +2,13 @@ import styles from './Dashboard.module.css';
 import sdg1 from "../../images/sdg1.jpg";
 import sdg2 from "../../images/sdg2.jpg";
 
+import Doelstelling from '../../components/Doelstelling';
+import {useDoelstellingen} from '../../contexts/DoelstellingProvider';
+
 export default function Dashboard()
 {
+  const {doelstellingen} = useDoelstellingen();
+
   return (
     <>
       <h1 className={styles.title}>Dashboard</h1>
@@ -44,16 +49,7 @@ export default function Dashboard()
             <button className={styles.hide_button}>^</button>
           </div>
           <div className={styles.doelstellingen_container}>
-            <div className={styles.doelstelling}>
-              <h3 className={styles.title_doelstelling}>
-                Doelstelling 1
-              </h3>
-            </div>
-            <div className={styles.doelstelling}>
-              <h3 className={styles.title_doelstelling}>
-                Doelstelling 2
-              </h3>
-            </div>
+          {doelstellingen.map(d => <Doelstelling key={d.id} {...d}></Doelstelling>)}
           </div>
         </div>
       </div>

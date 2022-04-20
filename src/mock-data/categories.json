@@ -1,0 +1,21 @@
+{
+    "data": [
+    {
+        "CATEGORIEID": 1,
+        "ICON": "file:src/images/people.png",
+        "NAAM": "Economie"
+    },
+    {
+        "CATEGORIEID": 2,
+        "ICON": "file:src/images/planet.jpg",
+        "NAAM": "Omgeving"
+    },
+    {
+        "CATEGORIEID": 3,
+        "ICON": "file:src/images/peace.png",
+        "NAAM": "Sociaal"
+    }],
+    "count": 3,
+    "limit": 100,
+    "offset": 0
+}
