@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+:root
+{
+  --hsl-blauw-fluvius: 197, 58%, 27%;
+  --hsl-groen-fluvius: 70, 58%, 54%;
+  --hsl-black: 240, 100%, 0%;
+  --hsl-white: 240, 100%, 100%;
+
+  --clr-primary: hsla(var(--hsl-blauw-fluvius));
+  --clr-secondary: hsla(var(--hsl-groen-fluvius));
+  --clr-accent: hsla(var(--hsl-white));
+  --clr-background: hsla(var(--hsl-white));
+  --clr-foreground: hsla(var(--hsl-black));
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

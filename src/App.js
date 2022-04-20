@@ -71,13 +71,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/itsme" element={<Itsme />} />
       </Routes>
-
-      {/* <header className="App-header">
-        <img src="./assets/images/1.jpg" alt="SDG 1"className="App-logo" />
-        <p>
-          Dashbord van GR10.
-        </p>
-      </header> */}
     </div>
   );
 }
