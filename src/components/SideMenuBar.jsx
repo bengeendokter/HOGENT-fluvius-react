@@ -1,8 +1,11 @@
 import { NavLink, Link } from 'react-router-dom';
 import { useCallBack } from 'react';
 import hamburger from "../images/hamburger.png";
+import { useCategories} from '../contexts/CategorieProvider';
+
+
 export default function SideMenuBar() {
-    
+  const {categories} = useCategories();
  
   return (
     <>
@@ -36,18 +39,16 @@ export default function SideMenuBar() {
       <li><a href="#" className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-white hover:text-[#004C69]">
                     <span className="ml-6">Categorieën</span>
                 </a>
-                <NavLink
-			to="/categorieDashboard">
+                {categories.map(el => <>
+                  <NavLink key={el.CATEGORIEID}
+			to={`/categorieDashboard/${el.CATEGORIEID}`}>
                 <a href="#" className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-white hover:text-[#004C69]">
-                    <span className="ml-12">Economie</span>
+                    <span className="ml-12">{el.NAAM}</span>
                 </a>
                 </NavLink>
-                <a href="#" className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-white hover:text-[#004C69]">
-                    <span className="ml-12">Sociaal</span>
-                </a>
-                <a href="#" className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-white hover:text-[#004C69]">
-                    <span className="ml-12">Milieu</span>
-                </a></li>
+                </>)}
+
+                </li>
       
     </ul>
   </nav>

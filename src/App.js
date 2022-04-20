@@ -59,7 +59,7 @@ function App() {
         <Route path="/" element={<PageLayout />}>
           <Route index element={<Niks />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/categorieDashboard" element={<CategorieDashboard />} />
+          <Route path="/categorieDashboard/:id" element={<CategorieDashboard />} />
           <Route path="/templateBeheren" element={<TemplateBeheren />} />
           <Route path="/overzichtWijzigen" element={<OverzichtWijzigen />} />
           <Route
