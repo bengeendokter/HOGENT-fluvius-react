@@ -14,3 +14,13 @@ export const getDoelstellingPerRolByID = async ({
     });
       return data;
 };
+
+export const getDoelstellingByCategorieID = async ({      
+    id,
+}) => {
+    const { data } = await axios({
+        method : "get",
+        url : `doelstellingen/categorie/${id}`
+    });
+      return data;
+};

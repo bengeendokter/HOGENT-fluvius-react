@@ -18,7 +18,7 @@ export default function NavMenu() {
       <div className="bg-white" data-cy="inloggen_registreren">
         <div className="grid grid-cols-2 p-2">
           <div className="justify-self-start">
-            <Link to="/home" href="#responsive-header">
+            <Link to="/dashboard" href="#responsive-header">
               <div>
                 <img
                   src={logo}

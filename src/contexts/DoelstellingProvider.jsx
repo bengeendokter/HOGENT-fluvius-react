@@ -62,9 +62,25 @@ import {
 
     }, []);
 
+    const getDoelstellingByCategorieID = useCallback(async (id) => {
+      try {
+        setError('');
+        setLoading(true);
+        const data = await doelstellingApi.getDoelstellingByCategorieID(id);
+        return data.data ?? null
+      } catch (error) {
+        setError(error);
+        return null;
+      } finally {
+        setLoading(false)
+      }
+
+    }, []);
+
     const value = useMemo(() => ({
       refreshDoelstellingen,
       getDoelstellingPerRolByID,
+      getDoelstellingByCategorieID,
       //currentGame,
       //setCurrentGame,
       doelstellingen,
@@ -72,7 +88,7 @@ import {
       setError,
       loading,
       setLoading,
-    }), [refreshDoelstellingen, getDoelstellingPerRolByID, doelstellingen, error, setError, loading, setLoading])
+    }), [refreshDoelstellingen, getDoelstellingPerRolByID,getDoelstellingByCategorieID, doelstellingen, error, setError, loading, setLoading])
 
     return (
       <DoelstellingContext.Provider value={value}>

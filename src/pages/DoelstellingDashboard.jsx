@@ -7,7 +7,7 @@ import {useParams } from "react-router-dom";
 export default function DoelstellingDashboard() {
   const {doelstellingen} = useDoelstellingen();
   const { id } = useParams();
-
+  
   console.log(id);
 
   const doelstelling = doelstellingen.filter(e => e.id === Number(id))[0];
