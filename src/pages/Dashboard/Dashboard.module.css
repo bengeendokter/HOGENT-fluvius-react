@@ -2,14 +2,20 @@
 {
   font-weight: bold;
   color: var(--clr-primary);
-  margin-inline-start: 0.1em;
+  margin-inline-start: .1em;
+}
+
+.categorie_container
+{
+  display: grid;
+  grid-gap: .7em;
 }
 
 .categorie
 {
   display: grid;
   border: var(--clr-primary) 2px solid;
-  margin: .3em;
+  margin-inline: .5em;
 }
 
 .categorie_heading
