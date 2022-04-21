@@ -1,11 +1,14 @@
 
 import Accordion from '../components/Accordion';
-import { useDoelstellingen} from '../contexts/DoelstellingProvider';
+import { DoelstellingContext} from '../contexts/DoelstellingProvider';
 import {useParams } from "react-router-dom";
+import {
+  useContext
+} from 'react';
 
 
 export default function DoelstellingDashboard() {
-  const {doelstellingen} = useDoelstellingen();
+  const {doelstellingen} = useContext(DoelstellingContext);
   const { id } = useParams();
   
   console.log(id);

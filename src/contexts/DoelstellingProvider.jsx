@@ -11,7 +11,8 @@ import {
 //import { useSession } from './AuthProvider';
 
   export const DoelstellingContext = createContext();
-  export const useDoelstellingen = () => useContext(DoelstellingContext);
+  // export const useDoelstellingen = () => useContext(DoelstellingContext);
+  
 
   export const DoelstellingProvider = ({
     children
@@ -20,7 +21,10 @@ import {
     //const [currentGame, setCurrentGame] = useState({});
     const [error, setError] = useState();
     const [loading, setLoading] = useState(false);
+    const [catId, setCatId] = useState(0);
     const [doelstellingen, setDoelstellingen] = useState([]);
+    const [doelstellingenCat, setDoelstellingenCat] = useState([]);
+    
 
     //const { ready : authReady } = useSession();
 
@@ -62,12 +66,16 @@ import {
 
     }, []);
 
-    const getDoelstellingByCategorieID = useCallback(async (id) => {
+    const getDoelstellingByCategorieID = useCallback(async () => {
       try {
         setError('');
         setLoading(true);
-        const data = await doelstellingApi.getDoelstellingByCategorieID(id);
-        return data.data ?? null
+        
+        console.log(catId);
+        const data = await doelstellingApi.getDoelstellingByCategorieID(catId);
+        setDoelstellingenCat(data);
+        console.log(data);
+        return data;
       } catch (error) {
         setError(error);
         return null;
@@ -75,23 +83,25 @@ import {
         setLoading(false)
       }
 
-    }, []);
+    }, [catId]);
 
-    const value = useMemo(() => ({
-      refreshDoelstellingen,
-      getDoelstellingPerRolByID,
-      getDoelstellingByCategorieID,
-      //currentGame,
-      //setCurrentGame,
-      doelstellingen,
-      error,
-      setError,
-      loading,
-      setLoading,
-    }), [refreshDoelstellingen, getDoelstellingPerRolByID,getDoelstellingByCategorieID, doelstellingen, error, setError, loading, setLoading])
+    // const value = useMemo(() => ({
+    //   refreshDoelstellingen,
+    //   getDoelstellingPerRolByID,
+    //   getDoelstellingByCategorieID,
+    //   //currentGame,
+    //   //setCurrentGame,
+    //   doelstellingen,
+    //   error,
+    //   setCatId,
+    //   setError,
+    //   loading,
+    //   setLoading,
+      
+    // }), [setCatId, refreshDoelstellingen, getDoelstellingPerRolByID,getDoelstellingByCategorieID, doelstellingen, error, setError, loading, setLoading])
 
     return (
-      <DoelstellingContext.Provider value={value}>
+      <DoelstellingContext.Provider value={{doelstellingenCat, setCatId, refreshDoelstellingen, getDoelstellingPerRolByID,getDoelstellingByCategorieID, doelstellingen, error, setError, loading, setLoading}}>
         {children}
       </DoelstellingContext.Provider>
     );

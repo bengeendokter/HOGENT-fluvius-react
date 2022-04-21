@@ -1,13 +1,20 @@
 import Doelstelling from '../components/Doelstelling';
-import {useDoelstellingen} from '../contexts/DoelstellingProvider';
+import {DoelstellingContext} from '../contexts/DoelstellingProvider';
 import {useParams } from "react-router-dom";
+import {
+  useEffect, useContext
+} from 'react';
 
 export default function CategorieDashboard() {
-  const {doelstellingen,} = useDoelstellingen();
+  const {doelstellingenCat, getDoelstellingByCategorieID, setCatId} = useContext(DoelstellingContext);
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
 
-
+  useEffect(() =>
+  {
+    setCatId(id);
+    getDoelstellingByCategorieID();
+  }, [setCatId,getDoelstellingByCategorieID, id]);
 
   
   return (
@@ -19,7 +26,7 @@ export default function CategorieDashboard() {
         </div>
 
 
-      {doelstellingen.map(d => <Doelstelling key={d.id} { ...d }  ></Doelstelling>)}
+      {doelstellingenCat.map(d => <Doelstelling key={d.id} { ...d }  ></Doelstelling>)}
 
       </div>
     </>
