@@ -56,7 +56,7 @@ function App() {
       </Routes>
 
       <Routes>
-        <Route path="/" element={<PageLayout />}>
+        {/* <Route path="/" element={<PageLayout />}> */}
           <Route index element={<Niks />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/categorieDashboard/:id" element={<CategorieDashboard />} />
@@ -67,7 +67,7 @@ function App() {
             path="/doelstellingDashboard/:id"
             element={<DoelstellingDashboard />}
           />
-        </Route>
+        {/* </Route> */}
         <Route path="/login" element={<Login />} />
         <Route path="/itsme" element={<Itsme />} />
       </Routes>
