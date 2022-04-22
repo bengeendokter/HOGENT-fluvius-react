@@ -42,7 +42,7 @@ export default function NavMenu() {
             <div className="flex flex-row-reverse underline">
 	
 							<NavItemInloggenRegistreren to="/login" label="Inloggen" href="#responsive-header" >Inloggen</NavItemInloggenRegistreren>
-              <NavItemInloggenRegistreren to="/registratiepagina" label="Registreren" href="#responsive-header" className=" text-black underline block mt-2 lg:block lg:mt-0 m-3">Registreren</NavItemInloggenRegistreren>
+              <NavItemInloggenRegistreren to="/register" label="Registreren" href="#responsive-header" className=" text-black underline block mt-2 lg:block lg:mt-0 m-3">Registreren</NavItemInloggenRegistreren>
 	
             </div >
             <Link to="/home"><div className="flex justify-center"><img src={logo} alt="Logo" href="#responsive-header" className ="w-1/12 block  h-1/2 min-h-0 md:min-h-full lg:inline-block lg:mt-0 "/></div></Link>
