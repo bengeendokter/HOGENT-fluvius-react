@@ -6,6 +6,7 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { DoelstellingProvider } from "./contexts/DoelstellingProvider";
+import { SdgProvider } from "./contexts/SdgProvider";
 import { CategorieProvider } from "./contexts/CategorieProvider";
 import "tw-elements";
 
@@ -13,9 +14,11 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
     <CategorieProvider>
+    <SdgProvider>
       <DoelstellingProvider>
         <App />
       </DoelstellingProvider>
+      </SdgProvider>
       </CategorieProvider>
     </BrowserRouter>
   </React.StrictMode>,

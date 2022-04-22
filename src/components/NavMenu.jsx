@@ -1,6 +1,7 @@
 import { NavLink, Link } from 'react-router-dom';
 import { useCallback } from 'react';
 import logo from "../images/logo.png";
+import hamburger from "../images/hamburger.png";
 const NavItem = ({
 	to,
 	label
@@ -9,7 +10,7 @@ const NavItem = ({
 	<span>
 		<NavLink
 			to={to}
-			className="xl:inline-block mt-2  block  m-3 text-teal-200 hover:text-[#004C69] hover:bg-inherit bg-[#004C69]  p-2 rounded-xl text-white font-bold"
+			className="xl:inline-block mt-2  block  m-3 text-teal-200 hover:text-[#004C69] hover:bg-white bg-[#004C69]  p-2 rounded-xl text-white font-bold"
 			
 			>
 			
@@ -46,7 +47,8 @@ export default function NavMenu() {
             </div >
             <Link to="/home"><div className="flex justify-center"><img src={logo} alt="Logo" href="#responsive-header" className ="w-1/12 block  h-1/2 min-h-0 md:min-h-full lg:inline-block lg:mt-0 "/></div></Link>
           </div>
-		<nav className="flex items-center justify-between flex-wrap bg-teal-500 p-1 text-center bg-inherit">
+		<nav className="flex items-center justify-between flex-wrap text-center bg-white">
+	
       <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div className="text-sm lg:flex-grow">
 				  <NavItem to="/dashboard" label="DASHBOARD"  />
