@@ -47,7 +47,7 @@ export default function CategorieDashboard() {
 			>
 			Dashboard 
 		</NavLink>
-     - {currentCategorie.NAAM}
+    &nbsp;- {currentCategorie.NAAM}
     </div>
           <div className="justify-self-end mr-2">
             {arrayIcons.map(s => <img   src={`/assets${s}`} alt={`${s}`} className="w-12 inline-block p-1"/>)}
