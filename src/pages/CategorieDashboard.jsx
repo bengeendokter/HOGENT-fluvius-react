@@ -54,9 +54,11 @@ export default function CategorieDashboard() {
             
           </div>
         </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {doelstellingenCat.map(d => <Doelstelling key={d.id} { ...d }  ></Doelstelling>)}
+          </div>
 
-
-      {doelstellingenCat.map(d => <Doelstelling key={d.id} { ...d }  ></Doelstelling>)}
+      
 
       </div>
     </>

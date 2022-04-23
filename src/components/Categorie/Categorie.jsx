@@ -1,22 +1,22 @@
 import styles from './Categorie.module.css';
-
+import {DoelstellingContext} from '../../contexts/DoelstellingProvider';
 import Doelstelling from '../../components/Doelstelling';
 import { NavLink, Link } from 'react-router-dom';
 // import {useDoelstellingen} from '../../contexts/DoelstellingProvider';
 import {useCategories} from '../../contexts/CategorieProvider';
 import {SdgContext} from '../../contexts/SdgProvider';
 
-import doelstellingen from '../../mock-data/doelstellingen.json';
-import sdgs from '../../mock-data/sdgs.json';
+//import doelstellingen from '../../mock-data/doelstellingen.json';
+//import sdgs from '../../mock-data/sdgs.json';
 import {
     useEffect, useContext
   } from 'react';
 
 export default function Categorie(c)
 {
-    // const {doelstellingen} = useDoelstellingen();
-    const {sdgsCat, getSdgsByCategorieId, setCatId1} = useContext(SdgContext);
 
+    const {sdgsCat, getSdgsByCategorieId, setCatId1} = useContext(SdgContext);
+    const {doelstellingenCat, getDoelstellingByCategorieID, setCatId} = useContext(DoelstellingContext);
     // TOEGEVOEGD
     const {currentCategorie, setCurrent} = useCategories();
     const handleClick = () => {
@@ -24,12 +24,15 @@ export default function Categorie(c)
         console.log(currentCategorie);
     };
 
-
     useEffect(() =>
   {
+    setCatId(c.CATEGORIEID);
+    getDoelstellingByCategorieID();
     setCatId1(c.CATEGORIEID);
     getSdgsByCategorieId();
-  }, [setCatId1,getSdgsByCategorieId, c.CATEGORIEID]);
+  }, [setCatId,setCatId1, getDoelstellingByCategorieID,getSdgsByCategorieId, c.CATEGORIEID]);
+
+
 
   console.log("sdgscat", sdgsCat);
 
@@ -66,7 +69,7 @@ export default function Categorie(c)
                 <button className={styles.hide_button}>^</button>
             </div>
             <div className={styles.doelstellingen_container}>
-                {doelstellingen.data.map(d => <Doelstelling key={d.id} { ...d }  ></Doelstelling>)}
+                {doelstellingenCat.map(d => <Doelstelling key={d.id} { ...d }  ></Doelstelling>)}
             </div>
         </div>);
 };
