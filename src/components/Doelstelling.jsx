@@ -3,7 +3,6 @@ import BarChart from "./BarChart";
 
 export default function Doelstelling(d) {
   const {naam, id} = d;
-  
   return (
     <>
       <NavLink

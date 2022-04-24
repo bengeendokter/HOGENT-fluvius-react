@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Bar, Chart } from "react-chartjs-2";
 import zoomPlugin from "chartjs-plugin-zoom";
 import annotationPlugin from "chartjs-plugin-annotation";
@@ -30,6 +30,7 @@ const BarChart = ({naam, id}) => {
 
 
   const labels = [""];
+  //TODO veranderen naar doelwaarde
   const doelwaarde = id;
 
   //neem alle data van een doelstelling
@@ -41,7 +42,7 @@ const BarChart = ({naam, id}) => {
   const datas = dataD.map(d =>  {
     
     let teller = 1;
-    const kleur = `red`;
+    const kleur = `${ '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0').toUpperCase()}`;
     return {
       label: `${d.name}${teller++}`,
       data: labels.map(() => d.value),
@@ -85,7 +86,7 @@ const BarChart = ({naam, id}) => {
       zoom: {
         zoom: {
           wheel: {
-            enabled: true, // SET SCROOL ZOOM TO TRUE
+            enabled: false, // SET SCROLL ZOOM TO TRUE
           },
           mode: "xy",
           speed: 100,
