@@ -22,7 +22,8 @@ import {
     const [error, setError] = useState();
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
-    //const [doelstellingenCat, setDoelstellingenCat] = useState([]);
+    const [doelstellingId, setDoelstellingId] = useState(0);
+    const [doelstellingenData, setDoelstellingenData] = useState([]);
     
 
     //const { ready : authReady } = useSession();
@@ -75,7 +76,8 @@ import {
         try {
           setError('');
           setLoading(true);
-          const data = await dataApi.getAllDataByDoelstellingId(id);
+          const data = await dataApi.getAllDataByDoelstellingId(doelstellingId);
+          setDoelstellingenData(data);
           return data;
         } catch (error) {
           setError(error);
@@ -83,7 +85,7 @@ import {
         } finally {
           setLoading(false)
         }
-      }, []);
+      }, [doelstellingId]);
 
       useEffect(() => {
         if (/*authReady && */!initialLoad) {
@@ -112,12 +114,14 @@ import {
        getAllDataByDoelstellingId,
        //currentGame,
        //setCurrentGame,
+       setDoelstellingId,
+       doelstellingenData,
        data,
        error,
        setError,
        loading,
        setLoading,
-     }), [refreshData, getDataByDoelstellingId, getDataByDoelstellingIdAndYear, getAllDataByDoelstellingId, data, error, setError, loading, setLoading])
+     }), [refreshData,doelstellingenData,  setDoelstellingId, getDataByDoelstellingId, getDataByDoelstellingIdAndYear, getAllDataByDoelstellingId, data, error, setError, loading, setLoading])
 
     return (
       <DataContext.Provider value={value}>

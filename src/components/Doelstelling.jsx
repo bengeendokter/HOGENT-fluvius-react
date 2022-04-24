@@ -1,8 +1,27 @@
 import { NavLink } from "react-router-dom";
 import BarChart from "./BarChart";
+import {useData} from '../contexts/DataProvider'
+import { useEffect } from "react";
+
 
 export default function Doelstelling(d) {
   const {naam, id} = d;
+  //const {getDataByDoelstellingId, getDataByDoelstellingIdAndYear, getAllDataByDoelstellingId} = useData();
+
+  //const doelstelling = getDataByDoelstellingId(id);
+
+  console.log("test")
+  //console.log("de data is", doelstelling);
+
+  const { doelstellingenData, getAllDataByDoelstellingId, setDoelstellingId} = useData();
+
+  useEffect(() =>
+  {
+    setDoelstellingId(id);
+    getAllDataByDoelstellingId();
+  }, [setDoelstellingId,getAllDataByDoelstellingId, id]);
+
+  console.log("de array", doelstellingenData);
 
   return (
     <>
