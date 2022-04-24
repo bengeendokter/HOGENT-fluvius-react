@@ -13,21 +13,19 @@ import { DataProvider } from "./contexts/DataProvider";
 import "tw-elements";
 
 createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <BrowserRouter>
-    <DataProvider>
-    <CategorieProvider>
-    <SdgProvider>
-    <RolProvider>
-      <DoelstellingProvider>
-        <App />
-      </DoelstellingProvider>
-      </RolProvider>
-      </SdgProvider>
-      </CategorieProvider>
-      </DataProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+  <BrowserRouter>
+  <DataProvider>
+  <CategorieProvider>
+  <SdgProvider>
+  <RolProvider>
+    <DoelstellingProvider>
+      <App />
+    </DoelstellingProvider>
+    </RolProvider>
+    </SdgProvider>
+    </CategorieProvider>
+    </DataProvider>
+  </BrowserRouter>
 );
 
 // If you want your app to work offline and load faster, you can change
