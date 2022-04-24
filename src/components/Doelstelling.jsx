@@ -1,5 +1,8 @@
 import { NavLink } from "react-router-dom";
 import BarChart from "./BarChart";
+import {useData} from '../contexts/DataProvider'
+import { useEffect } from "react";
+
 
 export default function Doelstelling(d) {
   const {naam, id, subdoelstellingen} = d;
