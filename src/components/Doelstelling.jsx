@@ -1,21 +1,9 @@
 import { NavLink } from "react-router-dom";
 import BarChart from "./BarChart";
-import {useData} from '../contexts/DataProvider'
-import { useEffect } from "react";
-
 
 export default function Doelstelling(d) {
   const {naam, id} = d;
-  const { doelstellingenData, getAllDataByDoelstellingId, setDoelstellingId} = useData();
-
-  useEffect(() =>
-  {
-    setDoelstellingId(id);
-    getAllDataByDoelstellingId();
-  }, [setDoelstellingId,getAllDataByDoelstellingId, id]);
-
-  console.log("de array", doelstellingenData);
-
+  
   return (
     <>
       <NavLink
@@ -24,16 +12,12 @@ export default function Doelstelling(d) {
           <div className="grid grid-cols-2">
             <div>{naam}</div>
             <div className="justify-self-end mt-7">
-              <BarChart></BarChart>
+              <BarChart id={id} naam={naam}></BarChart>
             </div>
           </div>
         </div>     
                 
-      </NavLink>
-
-
-        
-        
+      </NavLink>   
     </>
   );
 }

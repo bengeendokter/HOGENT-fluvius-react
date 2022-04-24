@@ -36,7 +36,7 @@ const Accordion = (props) => {
         </NavLink>
         <br />
           <span>doelwaarde: {doelwaarde}</span>
-          <BarChart></BarChart>  
+          <BarChart naam={naam} id={id}></BarChart>  
 
           
           
