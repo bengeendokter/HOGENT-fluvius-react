@@ -16,7 +16,7 @@ export default function Categorie(c)
 {
 
     const {sdgsCat, getSdgsByCategorieId, setCatId1} = useContext(SdgContext);
-    const {doelstellingenCat, getDoelstellingByCategorieID, setCatId} = useContext(DoelstellingContext);
+    const {doelstellingen, doelstellingenCat, getDoelstellingByCategorieID, setCatId} = useContext(DoelstellingContext);
     // TOEGEVOEGD
     const {currentCategorie, setCurrent} = useCategories();
     const handleClick = () => {
@@ -34,7 +34,6 @@ export default function Categorie(c)
 
 
 
-  console.log("sdgscat", sdgsCat);
 
   let arrayIcons = [];
  sdgsCat.forEach(s => {
@@ -69,7 +68,7 @@ export default function Categorie(c)
                 <button className={styles.hide_button}>^</button>
             </div>
             <div className={styles.doelstellingen_container}>
-                {doelstellingenCat.map(d => <Doelstelling key={d.id} { ...d }  ></Doelstelling>)}
+                {doelstellingenCat.map(d => <Doelstelling key={d.id} { ...d } ></Doelstelling>)}
             </div>
         </div>);
 };

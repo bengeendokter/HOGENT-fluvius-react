@@ -10,8 +10,8 @@ import {
   useEffect, useContext
 } from 'react';
 
-export default function CategorieDashboard() {
-  const {doelstellingenCat, getDoelstellingByCategorieID, setCatId} = useContext(DoelstellingContext);
+export default function CategorieDashboard(c) {
+  const {doelstellingenCat, getDoelstellingByCategorieID, setCatId, doelstellingen} = useContext(DoelstellingContext);
   const {sdgsCat, getSdgsByCategorieId, setCatId1} = useContext(SdgContext);
   const {currentCategorie, setCurrent, categories} = useCategories();
   const { id } = useParams();
@@ -24,6 +24,7 @@ export default function CategorieDashboard() {
     setCatId1(id);
     getSdgsByCategorieId();
   }, [setCatId,setCatId1, getDoelstellingByCategorieID,getSdgsByCategorieId, id]);
+
 
   let arrayIcons = [];
  sdgsCat.forEach(s => {
@@ -47,6 +48,7 @@ export default function CategorieDashboard() {
 			>
 			Dashboard 
 		</NavLink>
+
     &nbsp;- {currentCategorie.NAAM}
     </div>
           <div className="justify-self-end mr-2">
@@ -55,6 +57,7 @@ export default function CategorieDashboard() {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+
         {doelstellingenCat.map(d => <Doelstelling key={d.id} { ...d }  ></Doelstelling>)}
           </div>
 
