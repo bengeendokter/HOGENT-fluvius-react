@@ -7,16 +7,19 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { DoelstellingProvider } from "./contexts/DoelstellingProvider";
 import { CategorieProvider } from "./contexts/CategorieProvider";
+import { DataProvider } from "./contexts/DataProvider";
 import "tw-elements";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-    <CategorieProvider>
-      <DoelstellingProvider>
-        <App />
-      </DoelstellingProvider>
-      </CategorieProvider>
+      <DataProvider>
+        <CategorieProvider>
+          <DoelstellingProvider>
+            <App />
+          </DoelstellingProvider>
+          </CategorieProvider>
+        </DataProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
