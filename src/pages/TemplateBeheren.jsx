@@ -29,7 +29,6 @@ const MenuProps = {
 };
 
 
-
 function getStyles(name, personName, theme) {
   return {
     fontWeight:
@@ -41,17 +40,37 @@ function getStyles(name, personName, theme) {
 
 export default function TemplateBeheren() {
   const theme = useTheme();
-  const [selectedRol, setSelectedRol] = React.useState([]);
+  const [selectedRol, setSelectedRol] = React.useState('');
   const {rollen} = useContext(RolContext);
+
+  useEffect(() =>
+  {
+    setSelectedRol('MVO Coördinator');
+    // categorieën opvragen voor de MVO Coördinator --> visibility ook weergeven
+  }, [setSelectedRol]);
+
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
     setSelectedRol(
-      // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
+
+    // aan de hand van de geselecteerde rol --> categorieën opvragen --> ook visibility weergeven
+  };
+
+  const onClick = () => {
+    console.log("onclick verander visibility");
+  };
+
+  const reset = () => {
+    console.log("reset template voor geselecteerde rol");
+  };
+
+  const save = () => {
+    console.log("save template voor geselecteerde rol");
   };
 
 
@@ -59,35 +78,26 @@ export default function TemplateBeheren() {
     <>
     <div className="flex justify-center mt-5">
       <div>
-        {/* <div className="inline-block mt-8">Selecteer rol:</div> */}
-        <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-chip-label">Rol</InputLabel>
-        <Select
-          labelId="demo-multiple-chip-label"
-          id="demo-multiple-chip"
-          value={selectedRol}
-          onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-          renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
-              ))}
-            </Box>
-          )}
-          MenuProps={MenuProps}
-        >
-          {rollen.map((rol) => (
+
+      <FormControl sx={{ m: 1, width: 300 }}>
+  <InputLabel id="demo-simple-select-label">rol</InputLabel>
+  <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    value={selectedRol}
+    label="Age"
+    onChange={handleChange}
+  >
+    {rollen.map((rol) => (
             <MenuItem
               key={rol.NAAM}
               value={rol.NAAM}
               style={getStyles(rol.NAAM, selectedRol, theme)}
             >
               {rol.NAAM}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+            </MenuItem>))}
+  </Select>
+</FormControl>
       </div>
       
     </div>
@@ -98,16 +108,15 @@ export default function TemplateBeheren() {
         <div className="text-white">
           Hier komt de categorienaam
         </div>
-        <div className="justify-self-end">
-        <VisibilityIcon sx={{ color: grey[50] }}/>
-        {/* <img   src={eye} alt={"eye"} className="w-12 inline-block p-1"/> */}
+        <div className="justify-self-end" >
+        <VisibilityIcon sx={{ color: grey[50] }} onClick={onClick} />
         </div>
       </div>
       <div className="flex justify-end mr-8">
-        <div className="xl:inline-block mt-2  block  m-3 text-teal-200 hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
+        <div onClick={reset} className="xl:inline-block mt-2  block  m-3 text-teal-200 hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
           Reset template
         </div>
-        <div className="xl:inline-block mt-2  block  m-3 text-teal-200 hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
+        <div onClick={save} className="xl:inline-block mt-2  block  m-3 text-teal-200 hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
           Opslaan
         </div>
       </div>
