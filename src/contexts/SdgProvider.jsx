@@ -75,7 +75,7 @@ import {
         setError('');
         setLoading(true);
         let newCategoriesMetSdgs = [];
-
+ 
         for(const categorie of categories)
         {
           const newSdgs = await sdgApi.getSdgsByCategorieId(categorie.CATEGORIEID);
