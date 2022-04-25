@@ -2,12 +2,17 @@ import { NavLink } from "react-router-dom";
 import BarChart from "./BarChart";
 
 export default function Doelstelling(d) {
-  const {naam, id} = d;
+  const {naam, id, subdoelstellingen} = d;
+
+
+  
+
   return (
     <>
-      <NavLink
+    {subdoelstellingen && subdoelstellingen.length > 0 ? <><NavLink
 			  to={`/doelstellingDashboard/${id}`}>
            <div className="border-2 border-[#004C69] text-left p-1 m-2">
+
           <div className="grid grid-cols-2">
             <div>{naam}</div>
             <div className="justify-self-end mt-7">
@@ -16,7 +21,20 @@ export default function Doelstelling(d) {
           </div>
         </div>     
                 
-      </NavLink>   
+      </NavLink></> : <>
+      <div className="border-2 border-[#004C69] text-left p-1 m-2">
+          <div className="grid grid-cols-2">
+            <div>{naam}</div>
+            <div className="justify-self-end mt-7">
+              <BarChart></BarChart>
+            </div>
+          </div>
+        </div>    </>}
+      
+
+
+        
+        
     </>
   );
 }

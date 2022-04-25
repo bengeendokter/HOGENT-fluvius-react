@@ -16,6 +16,7 @@ import OverzichtWijzigen from "./pages/OverzichtWijzigen";
 import TemplateBeheren from "./pages/TemplateBeheren";
 import CategorieDashboard from "./pages/CategorieDashboard";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import Itsme from "./pages/Itsme";
 // Imports nodig voor de grid layout
 import { Grid } from "@mui/material";
@@ -57,7 +58,7 @@ function App() {
 
       <Routes>
         {/* <Route path="/" element={<PageLayout />}> */}
-          <Route index element={<Niks />} />
+          <Route exact path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/categorieDashboard/:id" element={<CategorieDashboard />} />
           <Route path="/templateBeheren" element={<TemplateBeheren />} />
@@ -69,6 +70,7 @@ function App() {
           />
         {/* </Route> */}
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/itsme" element={<Itsme />} />
       </Routes>
     </div>

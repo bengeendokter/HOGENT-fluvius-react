@@ -17,7 +17,7 @@ export const CategorieProvider = ({
   children
 }) => {
   const [initialLoad, setInitialLoad] = useState(false);
-  //const [currentGame, setCurrentGame] = useState({});
+  const [currentCategorie, setCurrentCategorie] = useState({test:0});
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -30,6 +30,7 @@ export const CategorieProvider = ({
       setLoading(true);
       const data = await categoriesApi.getAllCategories();
       setCategories(data.data);
+      console.log(categories);
       return true;
     } catch (error) {
       setError(error);
@@ -48,17 +49,39 @@ export const CategorieProvider = ({
   }, [/*authReady, */initialLoad, refreshCategories]);
 
   
+  const setCategorieToUpdate = useCallback(
+    (id) => {
+      console.log("api id", id);
+      console.log("cats", categories);
+      setCurrentCategorie(
+        id === null ? {} : categories.find((t) => t.CATEGORIEID === parseInt(id))
+      );
+    },
+    [categories]
+  );
+
+  const setCurrent = useCallback(
+    (categorie) => {
+
+      setCurrentCategorie(
+        categorie === null ? {} : categorie
+      );
+    },
+    [categories]
+  );
+
 
   const value = useMemo(() => ({
     refreshCategories,
-    //currentGame,
-    //setCurrentGame,
+    currentCategorie,
+    setCategorieToUpdate,
+    setCurrent,
     categories,
     error,
     setError,
     loading,
     setLoading,
-  }), [refreshCategories, categories, error, setError, loading, setLoading])
+  }), [refreshCategories, categories, setCurrent, currentCategorie, setCategorieToUpdate, error, setError, loading, setLoading])
 
   return (
     <CategorieContext.Provider value={value}>

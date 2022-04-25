@@ -6,6 +6,8 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { DoelstellingProvider } from "./contexts/DoelstellingProvider";
+import { RolProvider } from "./contexts/RolProvider";
+import { SdgProvider } from "./contexts/SdgProvider";
 import { CategorieProvider } from "./contexts/CategorieProvider";
 import { DataProvider } from "./contexts/DataProvider";
 import "tw-elements";
@@ -13,13 +15,15 @@ import "tw-elements";
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <DataProvider>
-        <CategorieProvider>
-          <DoelstellingProvider>
-            <App />
-          </DoelstellingProvider>
-          </CategorieProvider>
-        </DataProvider>
+    <CategorieProvider>
+    <SdgProvider>
+    <RolProvider>
+      <DoelstellingProvider>
+        <App />
+      </DoelstellingProvider>
+      </RolProvider>
+      </SdgProvider>
+      </CategorieProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

@@ -50,11 +50,7 @@ export default function Login() {
         {/* <form className="grid grid-cols-1 gap-y-4" onSubmit={handleSubmit(handleLogin)}> */}
         <form className="grid grid-cols-1 gap-y-4 text-left" >
         
-      <img
-                  src={logo}
-                  alt="Logo"
-                  className="w-1/4 block lg:block lg:mt-0 justify-self-center "
-                />
+
                
         <h1 className="text-[#004C69] text-xl font-bold justify-self-center">Meld aan</h1>
           {/* {
