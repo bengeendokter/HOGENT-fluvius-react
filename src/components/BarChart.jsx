@@ -7,51 +7,30 @@ import { useData } from "../contexts/DataProvider";
 Chart.register(zoomPlugin);
 Chart.register(annotationPlugin);
 
-//max y meer dan hoogste waarde
-//even of oneven verschillende kleuren geven
-//datasets mappen voor alle jaren
-
 const BarChart = ({naam, id}) => {
-  console.log("doelstelling met id", id);
-  console.log("doelstelling met naam", naam);
   const {data: x} = useData();
 
-
-  /*useEffect(() =>
-  {
-    veranderID(id);
-    getAllDataByDoelstellingId();
-  }, [veranderID,getAllDataByDoelstellingId, id]);*/
-
-  //const {doelstellingenData, doelstellingId } = useData();
-  //console.log("--doelstelling met id", doelstellingId);
-
-
-
+  //initeel lege array
+  if (x === undefined) {
+    return <></>;
+  }
+    
 
   const labels = [""];
-  //TODO veranderen naar doelwaarde
-  const doelwaarde = id;
+  const dataD = x.filter(d => d.naam === naam);
+  const doelwaardes = dataD[0]['doelwaarde'];
 
-  //neem alle data van een doelstelling
-  const dataD = x.filter(d => d.name === naam);
-
-  console.log("met id", id)
-  console.log("data is", dataD);
-
-  const datas = dataD.map(d =>  {
-    
-    let teller = 1;
+  const datas = dataD[0]['data'].map(d =>  {
     const kleur = `${ '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0').toUpperCase()}`;
+
     return {
-      label: `${d.name}${teller++}`,
-      data: labels.map(() => d.value),
+      label: `${Object.entries(d)[0][0]}`,
+      data: labels.map(() => Object.entries(d)[0][1][0]),
       backgroundColor: kleur,
       hoverBackgroundColor: kleur,
       borderColor: kleur,
       borderWidth: 2,
     }
-    
   }
   );
 
@@ -72,13 +51,13 @@ const BarChart = ({naam, id}) => {
             type: "line",
             mode: "horizontal",
             scaleID: "y-axis-0",
-            yMin: doelwaarde,
-            yMax: doelwaarde,
+            yMin: doelwaardes,
+            yMax: doelwaardes,
             borderColor: "black",
             borderWidth: 1,
             label: {
               enabled: true,
-              content: `${doelwaarde}`,
+              content: `${doelwaardes}`,
             },
           },
         ],
@@ -101,6 +80,7 @@ const BarChart = ({naam, id}) => {
   };
   
   return (
+    x &&
     <div className="verBar">
       <Bar data={data} options={options}/>
     </div>
