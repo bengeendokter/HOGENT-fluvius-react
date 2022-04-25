@@ -79,7 +79,7 @@ import {
         for(const categorie of categories)
         {
           const newSdgs = await sdgApi.getSdgsByCategorieId(categorie.CATEGORIEID);
-          newCategoriesMetSdgs.push({id: categorie.CATEGORIEID, naam: categorie.NAAM, sdgs: newSdgs});
+          newCategoriesMetSdgs.push({id: categorie.CATEGORIEID, naam: categorie.NAAM, sdgs: newSdgs, doelstellingen: categorie.doelstellingen});
         }
 
         setCategoriesMetSdgs(newCategoriesMetSdgs);
