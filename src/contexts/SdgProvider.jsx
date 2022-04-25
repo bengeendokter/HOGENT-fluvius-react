@@ -25,6 +25,8 @@ import {
     const [sdgs, setSdgs] = useState([]);
     const [sdgsCat, setSdgsCat] = useState([]);
     
+    const [categories, setCategories] = useState([]);
+    const [categoriesMetSdgs, setCategoriesMetSdgs] = useState([]);
 
     //const { ready : authReady } = useSession();
 
@@ -68,6 +70,29 @@ import {
 
     }, [catId1]);
 
+    const getSdgsVoorCategories = useCallback(async () => {
+      try {
+        setError('');
+        setLoading(true);
+        let newCategoriesMetSdgs = [];
+
+        for(const categorie of categories)
+        {
+          const newSdgs = await sdgApi.getSdgsByCategorieId(categorie.CATEGORIEID);
+          newCategoriesMetSdgs.push({id: categorie.CATEGORIEID, naam: categorie.NAAM, sdgs: newSdgs});
+        }
+
+        setCategoriesMetSdgs(newCategoriesMetSdgs);
+        return newCategoriesMetSdgs;
+      } catch (error) {
+        setError(error);
+        return null;
+      } finally {
+        setLoading(false)
+      }
+
+    }, [categories]);
+
     // const value = useMemo(() => ({
     //   refreshDoelstellingen,
     //   getDoelstellingPerRolByID,
@@ -84,7 +109,7 @@ import {
     // }), [setCatId, refreshDoelstellingen, getDoelstellingPerRolByID,getDoelstellingByCategorieID, doelstellingen, error, setError, loading, setLoading])
 
     return (
-      <SdgContext.Provider value={{sdgsCat, setCatId1, refreshSdgs, getSdgsByCategorieId, sdgs, error, setError, loading, setLoading}}>
+      <SdgContext.Provider value={{getSdgsVoorCategories, categoriesMetSdgs, setCategories, sdgsCat, setCatId1, refreshSdgs, getSdgsByCategorieId, sdgs, error, setError, loading, setLoading}}>
         {children}
       </SdgContext.Provider>
     );

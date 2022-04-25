@@ -29,6 +29,7 @@ export const CategorieProvider = ({
       setError('');
       setLoading(true);
       const data = await categoriesApi.getAllCategories();
+      // const categorieMetProps = {...data.data, }
       setCategories(data.data);
       console.log(categories);
       return true;

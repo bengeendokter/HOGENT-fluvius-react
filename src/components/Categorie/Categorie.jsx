@@ -15,37 +15,25 @@ import {
 export default function Categorie(c)
 {
 
-    const {sdgsCat, getSdgsByCategorieId, setCatId1} = useContext(SdgContext);
-    const {doelstellingen, doelstellingenCat, getDoelstellingByCategorieID, setCatId} = useContext(DoelstellingContext);
-    // TOEGEVOEGD
-    const {currentCategorie, setCurrent} = useCategories();
-    const handleClick = () => {
-        setCurrent(c);
-        console.log(currentCategorie);
-    };
-
-    useEffect(() =>
-  {
-    setCatId(c.CATEGORIEID);
-    getDoelstellingByCategorieID();
-    setCatId1(c.CATEGORIEID);
-    getSdgsByCategorieId();
-  }, [setCatId,setCatId1, getDoelstellingByCategorieID,getSdgsByCategorieId, c.CATEGORIEID]);
+  // TOEGEVOEGD
+//   const {currentCategorie, setCurrent} = useCategories();
+//   const handleClick = () => {
+//       setCurrent(c);
+//       console.log(currentCategorie);
+//   };
 
 
+//   let arrayIcons = [];
+//  sdgsCat.forEach(s => {
 
+//    let iconString = s.ICON;
+//    iconString = iconString.substring(8);
+//    if(!arrayIcons.includes(iconString)){
+//      arrayIcons.push(iconString);
+//    }
+//  });
 
-  let arrayIcons = [];
- sdgsCat.forEach(s => {
-
-   let iconString = s.ICON;
-   iconString = iconString.substring(8);
-   if(!arrayIcons.includes(iconString)){
-     arrayIcons.push(iconString);
-   }
- });
-
- console.log("c", c.CATEGORIEID, "icon", arrayIcons);
+//  console.log("c", c.CATEGORIEID, "icon", arrayIcons);
 
     return (
 
@@ -57,18 +45,18 @@ export default function Categorie(c)
                 </h2> */}
 
                 <NavLink key={c.CATEGORIEID}to={`/categorieDashboard/${c.CATEGORIEID}`}>
-                <button className={styles.title_categorie} onClick={handleClick}>{c.NAAM}</button>
+                {/* <button className={styles.title_categorie} onClick={handleClick}>{c.NAAM}</button> */}
                 </NavLink>
 
 
                 <div className={styles.sdg_container}>
-                {arrayIcons.map(s => <img   src={`/assets${s}`} alt={`${s}`} className="w-12 inline-block p-1"/>)}
+                {/* {arrayIcons.map(s => <img   src={`/assets${s}`} alt={`${s}`} className="w-12 inline-block p-1"/>)} */}
                     {/* {sdgs.data.filter(s => [1, 2].includes(s.idSDG)).map(s => <img key={s.idSDG} className={styles.sdg} src={`/assets/images/sdg${s.idSDG}.jpg`} alt={`sdg${s.idSDG}`}/>)} */}
                 </div>
                 <button className={styles.hide_button}>^</button>
             </div>
             <div className={styles.doelstellingen_container}>
-                {doelstellingenCat.map(d => <Doelstelling key={d.id} { ...d } ></Doelstelling>)}
+                {/* {doelstellingenCat.map(d => <Doelstelling key={d.id} { ...d } ></Doelstelling>)} */}
             </div>
         </div>);
 };

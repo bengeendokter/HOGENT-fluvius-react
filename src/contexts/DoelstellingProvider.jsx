@@ -74,7 +74,7 @@ import {
         console.log(catId);
         const data = await doelstellingApi.getDoelstellingByCategorieID(catId);
         setDoelstellingenCat(data);
-        console.log("doelst cat", data);
+        // console.log("doelst cat", data);
         return data;
       } catch (error) {
         setError(error);
