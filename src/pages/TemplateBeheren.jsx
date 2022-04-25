@@ -10,6 +10,9 @@ import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 import {RolContext} from '../contexts/RolProvider';
 import eye from "../images/eye.jpg";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { grey } from '@mui/material/colors';
 import {
   useEffect, useContext
 } from 'react';
@@ -96,7 +99,8 @@ export default function TemplateBeheren() {
           Hier komt de categorienaam
         </div>
         <div className="justify-self-end">
-        <img   src={eye} alt={"eye"} className="w-12 inline-block p-1"/>
+        <VisibilityIcon sx={{ color: grey[50] }}/>
+        {/* <img   src={eye} alt={"eye"} className="w-12 inline-block p-1"/> */}
         </div>
       </div>
       <div className="flex justify-end mr-8">

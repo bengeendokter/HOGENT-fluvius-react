@@ -26,7 +26,7 @@ export default function Doelstelling(d) {
           <div className="grid grid-cols-2">
             <div>{naam}</div>
             <div className="justify-self-end mt-7">
-              <BarChart></BarChart>
+              <BarChart id={id} naam={naam}></BarChart>
             </div>
           </div>
         </div>    </>}
