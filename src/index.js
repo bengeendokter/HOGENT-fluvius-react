@@ -15,6 +15,7 @@ import "tw-elements";
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
+    <DataProvider>
     <CategorieProvider>
     <SdgProvider>
     <RolProvider>
@@ -24,6 +25,7 @@ ReactDOM.render(
       </RolProvider>
       </SdgProvider>
       </CategorieProvider>
+      </DataProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
