@@ -31,7 +31,7 @@ export const CategorieProvider = ({
       const data = await categoriesApi.getAllCategories();
       // const categorieMetProps = {...data.data, }
       setCategories(data.data);
-      console.log(categories);
+      // console.log(categories);
       return true;
     } catch (error) {
       setError(error);

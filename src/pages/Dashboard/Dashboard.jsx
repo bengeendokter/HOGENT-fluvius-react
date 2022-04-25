@@ -12,14 +12,20 @@ import {DoelstellingContext} from '../../contexts/DoelstellingProvider';
 export default function Dashboard()
 {
   const {categories} = useCategories();
-  const {getSdgsVoorCategories, categoriesMetSdgs, setCategories} = useContext(SdgContext);
-  const {} = useContext(DoelstellingContext);
+  const {getSdgsVoorCategories, categoriesMetSdgs, setCategories: setCategoriesSdgs} = useContext(SdgContext);
+  const {getDoelstellingenVoorCategories, setCategories: setCategoriesDoelstellingen, categoriesMetDoelstellingen} = useContext(DoelstellingContext);
   
   useEffect(() =>
   {
-    setCategories(categories);
+    setCategoriesSdgs(categories);
     getSdgsVoorCategories();
-  }, [categories, setCategories, getSdgsVoorCategories]);
+  }, [categories, setCategoriesSdgs, getSdgsVoorCategories]);
+
+  useEffect(() =>
+  {
+    setCategoriesDoelstellingen(categoriesMetSdgs);
+    getDoelstellingenVoorCategories();
+  }, [categoriesMetSdgs, setCategoriesDoelstellingen, getDoelstellingenVoorCategories]);
 
 
 
@@ -27,7 +33,7 @@ export default function Dashboard()
     <>
       <h1 className={styles.title}>Dashboard</h1>
       <div className={styles.categorie_container}>
-        {categoriesMetSdgs.map((c) =>
+        {categoriesMetDoelstellingen.map((c) =>
         <Categorie key={c.id} {...c}></Categorie>)}
       </div>
     </>

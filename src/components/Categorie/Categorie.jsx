@@ -5,6 +5,7 @@ import {NavLink} from 'react-router-dom';
 
 export default function Categorie({id, naam, sdgs, doelstellingen})
 {
+    console.log(doelstellingen);
     return (
         <div className={styles.categorie}>
             <div className={styles.categorie_heading}>
@@ -21,7 +22,7 @@ export default function Categorie({id, naam, sdgs, doelstellingen})
                 <button className={styles.hide_button}>^</button>
             </div>
             <div className={styles.doelstellingen_container}>
-                {/* {doelstellingen.map(d => <Doelstelling key={d.id} { ...d } ></Doelstelling>)} */}
+                {doelstellingen.map(d => <Doelstelling key={d.id} { ...d } ></Doelstelling>)}
             </div>
         </div>);
 };

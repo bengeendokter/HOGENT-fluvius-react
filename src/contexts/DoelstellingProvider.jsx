@@ -22,7 +22,9 @@ import {
     const [doelstellingen, setDoelstellingen] = useState([]);
     const [doelstellingenCat, setDoelstellingenCat] = useState([]);
     
-
+    
+    const [categories, setCategories] = useState([]);
+    const [categoriesMetDoelstellingen, setCategoriesMetDoelstellingen] = useState([]);
     //const { ready : authReady } = useSession();
 
     const refreshDoelstellingen = useCallback(async () => {
@@ -82,6 +84,29 @@ import {
 
     }, [catId]);
 
+    const getDoelstellingenVoorCategories = useCallback(async () => {
+      try {
+        setError('');
+        setLoading(true);
+        let newCategoriesMetDoelstellingen = [];
+ 
+        for(const categorie of categories)
+        {
+          const newDoelstellingen = await doelstellingApi.getDoelstellingByCategorieID(categorie.id);
+          newCategoriesMetDoelstellingen.push({id: categorie.id, naam: categorie.naam, sdgs: categorie.sdgs, doelstellingen: newDoelstellingen});
+        }
+
+        setCategoriesMetDoelstellingen(newCategoriesMetDoelstellingen);
+        return newCategoriesMetDoelstellingen;
+      } catch (error) {
+        setError(error);
+        return null;
+      } finally {
+        setLoading(false)
+      }
+
+    }, [categories]);
+
     // const value = useMemo(() => ({
     //   refreshDoelstellingen,
     //   getDoelstellingPerRolByID,
@@ -98,7 +123,7 @@ import {
     // }), [setCatId, refreshDoelstellingen, getDoelstellingPerRolByID,getDoelstellingByCategorieID, doelstellingen, error, setError, loading, setLoading])
 
     return (
-      <DoelstellingContext.Provider value={{doelstellingenCat, setCatId, refreshDoelstellingen, getDoelstellingPerRolByID,getDoelstellingByCategorieID, doelstellingen, error, setError, loading, setLoading}}>
+      <DoelstellingContext.Provider value={{getDoelstellingenVoorCategories, setCategories, categoriesMetDoelstellingen, doelstellingenCat, setCatId, refreshDoelstellingen, getDoelstellingPerRolByID,getDoelstellingByCategorieID, doelstellingen, error, setError, loading, setLoading}}>
         {children}
       </DoelstellingContext.Provider>
     );
