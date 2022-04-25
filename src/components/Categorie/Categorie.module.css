@@ -22,6 +22,11 @@
   font-size: 1.2rem;
 }
 
+.title_categorie:hover
+{
+  text-decoration: underline;
+}
+
 .sdg_container
 {
   display: grid;
