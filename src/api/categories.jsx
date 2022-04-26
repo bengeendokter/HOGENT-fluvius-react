@@ -5,9 +5,9 @@ export const getAllCategories = async () => {
     return data;
 };
 
-export const getCategorieByID = async ({      
+export const getCategorieByID = async (     
     id,
-}) => {
+) => {
     const { data } = await axios({
         method : "get",
         url : `categories/${id}`

@@ -13,6 +13,8 @@ import eye from "../images/eye.jpg";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { grey } from '@mui/material/colors';
+import {TemplateContext} from '../contexts/TemplatesProvider';
+import TemplateCategorieRol from '../components/TemplateCategorieRol';
 import {
   useEffect, useContext
 } from 'react';
@@ -42,12 +44,16 @@ export default function TemplateBeheren() {
   const theme = useTheme();
   const [selectedRol, setSelectedRol] = React.useState('');
   const {rollen} = useContext(RolContext);
+  const {templatesRol, getAllTemplatesByRol, setRolNaam, templates} = useContext(TemplateContext);
 
   useEffect(() =>
   {
-    setSelectedRol('MVO Coördinator');
+    //setSelectedRol('MVO Coördinator');
+    // setRolNaam(selectedRol);
+    // getAllTemplatesByRol();
+    // console.log("test", templatesRol);
     // categorieën opvragen voor de MVO Coördinator --> visibility ook weergeven
-  }, [setSelectedRol]);
+  }, [setSelectedRol, setRolNaam, getAllTemplatesByRol]);
 
 
   const handleChange = (event) => {
@@ -57,7 +63,10 @@ export default function TemplateBeheren() {
     setSelectedRol(
       typeof value === 'string' ? value.split(',') : value,
     );
-
+    console.log("sel", selectedRol);
+    setRolNaam(selectedRol);
+    getAllTemplatesByRol();
+    console.log("test", templatesRol);
     // aan de hand van de geselecteerde rol --> categorieën opvragen --> ook visibility weergeven
   };
 
@@ -103,15 +112,7 @@ export default function TemplateBeheren() {
     </div>
     <div>
       <p className="font-bold text-xl ml-10 mb-10 text-[#004C69]">Template {selectedRol}</p>
-
-      <div className="ml-10 grid grid-cols-2 bg-[#004C69] p-3 mr-10">
-        <div className="text-white">
-          Hier komt de categorienaam
-        </div>
-        <div className="justify-self-end" >
-        <VisibilityIcon sx={{ color: grey[50] }} onClick={onClick} />
-        </div>
-      </div>
+      {templatesRol.map(r => <TemplateCategorieRol key={r.id} { ...r }  ></TemplateCategorieRol>)}
       <div className="flex justify-end mr-8">
         <div onClick={reset} className="xl:inline-block mt-2  block  m-3 text-teal-200 hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
           Reset template

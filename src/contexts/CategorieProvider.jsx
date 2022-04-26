@@ -21,6 +21,7 @@ export const CategorieProvider = ({
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [catId, setCatId] = useState(0);
 
   //const { ready : authReady } = useSession();
 
@@ -71,6 +72,26 @@ export const CategorieProvider = ({
     [categories]
   );
 
+  const getCategorieByID = useCallback(async () => {
+    try {
+      setError('');
+      setLoading(true);
+      
+      console.log(catId);
+      const data = await categoriesApi.getCategorieByID(catId);
+      console.log("datacategorybyid", data);
+      setCurrentCategorie(data);
+      // console.log("doelst cat", data);
+      return data;
+    } catch (error) {
+      setError(error);
+      return null;
+    } finally {
+      setLoading(false)
+    }
+
+  }, [catId]);
+
 
   const value = useMemo(() => ({
     refreshCategories,
@@ -82,7 +103,9 @@ export const CategorieProvider = ({
     setError,
     loading,
     setLoading,
-  }), [refreshCategories, categories, setCurrent, currentCategorie, setCategorieToUpdate, error, setError, loading, setLoading])
+    getCategorieByID,
+    setCatId
+  }), [refreshCategories, categories, setCurrent, currentCategorie, setCategorieToUpdate, error, setError, loading, setLoading, getCategorieByID, setCatId])
 
   return (
     <CategorieContext.Provider value={value}>

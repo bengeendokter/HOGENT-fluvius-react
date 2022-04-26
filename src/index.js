@@ -10,6 +10,7 @@ import { RolProvider } from "./contexts/RolProvider";
 import { SdgProvider } from "./contexts/SdgProvider";
 import { CategorieProvider } from "./contexts/CategorieProvider";
 import { DataProvider } from "./contexts/DataProvider";
+import { TemplatesProvider } from "./contexts/TemplatesProvider";
 import "tw-elements";
 
 createRoot(document.getElementById("root")).render(
@@ -18,9 +19,11 @@ createRoot(document.getElementById("root")).render(
   <CategorieProvider>
   <SdgProvider>
   <RolProvider>
+  <TemplatesProvider>
     <DoelstellingProvider>
       <App />
     </DoelstellingProvider>
+   </TemplatesProvider>
     </RolProvider>
     </SdgProvider>
     </CategorieProvider>
