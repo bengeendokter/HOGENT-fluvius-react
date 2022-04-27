@@ -50,7 +50,7 @@
 {
   display: grid;
   padding: .4em;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   justify-items: center;
   grid-gap: .6em;
 }

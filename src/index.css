@@ -60,6 +60,32 @@ nav a {
 
 }
 
+.header
+{
+  display: grid;
+  grid-auto-flow: column;
+}
+
+@media screen and (max-width: 890px)
+{
+  .header
+  {
+    grid-auto-flow: row;
+  }
+
+  .logofluvius, .acountknoppen
+  {
+    justify-self: center;
+  }
+}
+
+.navigation
+{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 /* HAMBURGER MENU */
 
 /* muisaanwijzer instellen */
