@@ -19,6 +19,7 @@ const BarChart = ({naam, id}) => {
   const labels = [""];
   const dataD = x.filter(d => d.naam === naam);
   const doelwaardes = dataD[0]['doelwaarde'];
+  const eenheid = dataD[0]['eenheid'];
 
   const datas = dataD[0]['data'].map(d =>  {
     const kleur = `${ '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0').toUpperCase()}`;
@@ -42,7 +43,9 @@ const BarChart = ({naam, id}) => {
     scales: {
       y: {
         //max: 800,
+        title: { display: true, text: `${eenheid}` }
       },
+      
     },
     plugins: {
       annotation: {
