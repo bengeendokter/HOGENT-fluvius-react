@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -15,6 +14,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { grey } from '@mui/material/colors';
 import {TemplateContext} from '../contexts/TemplatesProvider';
 import TemplateCategorieRol from '../components/TemplateCategorieRol';
+import { Link, useParams, useNavigate } from "react-router-dom";
 import {
   useEffect, useContext
 } from 'react';
@@ -44,16 +44,42 @@ export default function TemplateBeheren() {
   const theme = useTheme();
   const [selectedRol, setSelectedRol] = React.useState('');
   const {rollen} = useContext(RolContext);
-  const {templatesRol, getAllTemplatesByRol, setRolNaam, templates} = useContext(TemplateContext);
+  const {getTemplatesMetCategorie, templatesMetCategorie, setTemplatesRol, templatesRol, getAllTemplatesByRol, setRolNaam, templates, setTemplateToUpdate, currentTemplate} = useContext(TemplateContext);
+  const { id } = useParams();
+
+  // useEffect(() => {
+  //   if(selectedRol){
+  //     setTemplateToUpdate(selectedRol[0]);
+  //   }
+  // }, [selectedRol, setTemplateToUpdate]);
+
+  // useEffect(() => {
+  //   if(selectedRol){
+  //     console.log("current", currentTemplate);
+  //   }
+  // }, [selectedRol, currentTemplate]);
 
   useEffect(() =>
   {
-    //setSelectedRol('MVO Coördinator');
-    // setRolNaam(selectedRol);
-    // getAllTemplatesByRol();
-    // console.log("test", templatesRol);
-    // categorieën opvragen voor de MVO Coördinator --> visibility ook weergeven
-  }, [setSelectedRol, setRolNaam, getAllTemplatesByRol]);
+    if(selectedRol){
+      setRolNaam(selectedRol[0]);
+      getAllTemplatesByRol();
+    }
+  }, [selectedRol, getAllTemplatesByRol, setRolNaam]); 
+
+
+  useEffect(() =>
+  {
+    if(templatesRol.length !== 0){
+      console.log("templ rol", templatesRol);
+      getTemplatesMetCategorie(templatesRol);
+    }
+  }, [templatesRol, getTemplatesMetCategorie]); 
+
+  useEffect(() =>
+  {
+      console.log("templ met cat rol", templatesMetCategorie);
+  }, [templatesMetCategorie]); 
 
 
   const handleChange = (event) => {
@@ -63,10 +89,10 @@ export default function TemplateBeheren() {
     setSelectedRol(
       typeof value === 'string' ? value.split(',') : value,
     );
-    console.log("sel", selectedRol);
-    setRolNaam(selectedRol);
-    getAllTemplatesByRol();
-    console.log("test", templatesRol);
+    // console.log("sel", selectedRol);
+    // setRolNaam(selectedRol);
+    // getAllTemplatesByRol();
+    // console.log("test", templatesRol);
     // aan de hand van de geselecteerde rol --> categorieën opvragen --> ook visibility weergeven
   };
 
@@ -111,13 +137,14 @@ export default function TemplateBeheren() {
       
     </div>
     <div>
+      
       <p className="font-bold text-xl ml-10 mb-10 text-[#004C69]">Template {selectedRol}</p>
-      {templatesRol.map(r => <TemplateCategorieRol key={r.id} { ...r }  ></TemplateCategorieRol>)}
+      {templatesMetCategorie.map(r => <TemplateCategorieRol key={r.id} { ...r }  ></TemplateCategorieRol>)}
       <div className="flex justify-end mr-8">
-        <div onClick={reset} className="xl:inline-block mt-2  block  m-3 text-teal-200 hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
+        <div onClick={reset} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
           Reset template
         </div>
-        <div onClick={save} className="xl:inline-block mt-2  block  m-3 text-teal-200 hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
+        <div onClick={save} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
           Opslaan
         </div>
       </div>

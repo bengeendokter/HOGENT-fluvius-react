@@ -15,3 +15,29 @@ export const getAllTemplatesByRol = async (
       return data;
 };
 
+export const save = async ({
+        id,
+        category_id,
+        rol,
+        is_visible
+    
+  }) => {
+    console.log("isvis", is_visible);
+    const {
+      data
+    } = await axios({
+      method: id ? 'put' : 'post',
+      url: `templates/${id ?? ''}`,
+      data: {
+        category_id,
+        rol,
+        is_visible
+      },
+    });
+    
+    return data;
+  };
+
+  export const deleteTemplate = async (id) => {
+    await axios.delete(`templates/${id}`);
+  };

@@ -49,7 +49,7 @@ export default function CategorieDashboard(c) {
 			>
 			Dashboard 
 		</NavLink>
-<p data-cy="naamCurrentCategorie">&nbsp;- {currentCategorie.NAAM}</p>
+<p data-cy="naamCurrentCategorie" className="inline-block">&nbsp;- {currentCategorie.NAAM}</p>
     
     </div>
           <div className="justify-self-end mr-2">
