@@ -10,7 +10,7 @@ const NavItem = ({
 	<span>
 		<NavLink
 			to={to}
-			className="xl:inline-block mt-2  block  m-3 text-teal-200 hover:text-[#004C69] hover:bg-white bg-[#004C69]  p-2 rounded-xl text-white font-bold"
+			className="xl:inline-block mt-2  block  m-3 text-white-200 hover:text-[#004C69] hover:bg-white bg-[#004C69]  p-2 rounded-xl text-white font-bold"
 			
 			>
 			
