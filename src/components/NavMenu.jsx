@@ -40,7 +40,7 @@ export default function NavMenu() {
 		<>
 		<div className="grid grid-cols-1 md:grid-cols-3 ">
 			<div className="md:justify-self-start justify-self-center mt-5 md:ml-5">
-			<Link to="/dashboard"><img src={logo} alt="Logo" href="#responsive-header" className ="w-28 block  min-h-0 md:min-h-full lg:inline-block lg:mt-0 "/></Link>
+			<Link to="/dashboard"><img src={logo} alt="Logo" href="#responsive-header" className ="w-28 block  min-h-0 lg:inline-block lg:mt-0 "/></Link>
 			</div>
 			<div className="justify-self-center mt-5">
 			<nav className="flex items-center justify-between flex-wrap text-center bg-white">
