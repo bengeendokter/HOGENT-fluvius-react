@@ -1,5 +1,5 @@
 import styles from './Dashboard.module.css';
-
+import AccordionCategory from '../../components/AccordionCategory';
 import Categorie from '../../components/Categorie';
 import {useCategories} from "../../contexts/CategorieProvider";
 import
@@ -34,7 +34,8 @@ export default function Dashboard()
       <h1 className={styles.title}>Dashboard</h1>
       <div className={styles.categorie_container}>
         {categoriesMetDoelstellingen.map((c) =>
-        <Categorie key={c.id} {...c}></Categorie>)}
+        <AccordionCategory {...c}></AccordionCategory>)}
+        {/* <Categorie key={c.id} {...c}></Categorie>)} */}
       </div>
     </>
   );
