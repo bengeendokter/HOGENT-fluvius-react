@@ -15,7 +15,7 @@ export default function Categorie({id, naam, sdgs, doelstellingen})
         <div className={styles.categorie}>
             <div className={styles.categorie_heading}>
                 <NavLink key={id} to={`/categorieDashboard/${id}`}>
-                <h2 className={styles.title_categorie} onClick={handleClick}>{naam}</h2>
+                <h2 className={styles.title_categorie} onClick={handleClick} data-cy="categorieClick">{naam}</h2>
                 </NavLink>
                 <div className={styles.sdg_container}>
                 {sdgs.map(sdg => sdg.AFBEELDINGNAAM).filter((sdgNaam, index, array) => array.indexOf(sdgNaam) === index).map(sdgNaam => <img key={sdgNaam} src={`/assets/images/${sdgNaam}.jpg`} alt={`sdg ${sdgNaam}`} className="w-12 inline-block p-1"/>)}

@@ -1,0 +1,17 @@
+[
+  {
+    "CATEGORIEID":1,
+    "ICON":"file:src/images/people.png",
+    "NAAM":"Economie"
+  },
+  {
+    "CATEGORIEID":2,
+    "ICON":"file:src/images/peace.png",
+    "NAAM":"Sociaal"
+  },
+  {
+    "CATEGORIEID":3,
+    "ICON":"file:src/images/planet.jpg",
+    "NAAM":"Omgeving"
+  }
+]

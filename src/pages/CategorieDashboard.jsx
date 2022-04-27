@@ -45,11 +45,12 @@ export default function CategorieDashboard(c) {
           <NavLink
 			to="/dashboard"
       className="underline"
+      
 			>
 			Dashboard 
 		</NavLink>
-
-    &nbsp;- {currentCategorie.NAAM}
+<p data-cy="naamCurrentCategorie">&nbsp;- {currentCategorie.NAAM}</p>
+    
     </div>
           <div className="justify-self-end mr-2">
             {arrayIcons.map(s => <img   src={`/assets${s}`} alt={`${s}`} className="w-12 inline-block p-1"/>)}

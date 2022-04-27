@@ -1,0 +1,3 @@
+[
+  {"id":7,"soort":"LEAF","doelwaarde":20,"icon":"file:src/images/prosperity.jpg","jaar":2022,"naam":"doel sociaal","parent_doelstelling":{"id":null},"sdg_goal":{"id":4},"formule":{"id":7,"naam":"AVG"},"datasource":{"id":4}}
+]

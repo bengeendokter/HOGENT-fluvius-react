@@ -1,0 +1,3 @@
+[
+  {"id":1,"soort":"COMP","doelwaarde":0,"icon":"file:src/images/planet.jpg","jaar":2020,"naam":"CO2NeutraalVervoer","parent_doelstelling":{"id":null},"sdg_goal":{"id":17},"formule":{"id":5,"naam":"AVG"},"subdoelstellingen":[]}
+]
