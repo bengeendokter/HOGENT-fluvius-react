@@ -5,6 +5,7 @@ export default function Doelstelling(d) {
   const {naam, id, subdoelstellingen} = d;
 
 
+
   
 
   return (

@@ -17,7 +17,7 @@ export default function TemplateCategorieRol(r) {
   let {id, category_id, rol, is_visible } = r;
   const {currentCategorie, setCatId, getCategorieByID} = useCategories();
   const {setTemplateToUpdate, createOrUpdateTemplate, currentTemplate} = useContext(TemplateContext);
-
+  let test = 0;
   // useEffect(() =>
   // {
   //   setCatId(category_id);
@@ -29,13 +29,13 @@ export default function TemplateCategorieRol(r) {
   useEffect(() => {
     console.log("id,", id);
     setTemplateToUpdate(id);
-  }, [id, setTemplateToUpdate]);
+  }, [setTemplateToUpdate, id]);
 
-  // useEffect(() => {
-  //   if(currentTemplate){
-  //     console.log("onclick verander visibility", currentTemplate);
-  //   }
-  // }, [currentTemplate]);
+  useEffect(() => {
+    if(currentTemplate){
+      console.log("onclick verander visibility", currentTemplate);
+    }
+  }, [currentTemplate]);
 
   const onClick = () => {
     if(is_visible == 1){
@@ -45,6 +45,7 @@ export default function TemplateCategorieRol(r) {
               }else{
                 is_visible = 1;
               }
+              test = 1;
   };
 
   // useEffect(() => {

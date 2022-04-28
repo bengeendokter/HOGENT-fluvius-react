@@ -3,6 +3,7 @@ import BarChart from "./BarChart";
 import Doelstelling from './Doelstelling';
 import {useCategories} from '../contexts/CategorieProvider';
 
+
 const AccordionCategory = (props) => {
   const {naam, id, doelstellingen, sdgs} = props;
   const {setCurrent} = useCategories();
@@ -60,7 +61,7 @@ const AccordionCategory = (props) => {
           <div className="accordion-body py-4 px-5 rounded-none ">
           <br />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {doelstellingen.map(d => <Doelstelling key={d.id} { ...d } ></Doelstelling>)}
+        {doelstellingen.map(d => <Doelstelling key={d.id} { ...d }></Doelstelling>)}
         </div>
            
 
