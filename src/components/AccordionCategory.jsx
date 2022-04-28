@@ -15,13 +15,13 @@ const AccordionCategory = (props) => {
       <div className="accordion-item bg-white border border-gray-200 m-4"
       >
         <h2 className="accordion-header mb-0
-         bg-[#004C69] text-white text-left p-1 
+         bg-[#004C69] text-white text-left 
         
         " id={`headingOne${id}`}>
           <div className="border-2 border-[#004C69] bg-[#004C69] text-white text-left p-1 grid grid-cols-2">
           <div>
           <NavLink key={id} to={`/categorieDashboard/${id}`}>
-                <h2  onClick={handleClick} data-cy="categorieClick" className="text-xl">{naam}</h2>
+                <h2  onClick={handleClick} data-cy="categorieClick" className="text-xl hover:underline">{naam}</h2>
                 </NavLink>
     
     </div>
@@ -46,19 +46,18 @@ const AccordionCategory = (props) => {
             transition
             focus:outline-none
           
-            border-2 border-[#004C69] bg-[#004C69] text-white text-left p-1 grid grid-cols-2
+            border-2 border-[#004C69] rounded-none bg-white text-white text-left p-1 grid grid-cols-2 rounded-none
             w-full
           
             " type="button" data-bs-toggle="collapse" data-bs-target={`#collapseOne${id}`} aria-expanded="true"
-            aria-controls={`collapseOne${id}`}>
+            aria-controls={`collapseOne${id}`} >
               
-            
           </button>
           
         </h2>
         
-        <div id={`collapseOne${id}`} className="accordion-collapse collapse show" aria-labelledby={`headingOne${id}`}>
-          <div className="accordion-body py-4 px-5 ">
+        <div id={`collapseOne${id}`} className="accordion-collapse collapse show rounded-none" aria-labelledby={`headingOne${id}`}>
+          <div className="accordion-body py-4 px-5 rounded-none ">
           <br />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {doelstellingen.map(d => <Doelstelling key={d.id} { ...d } ></Doelstelling>)}

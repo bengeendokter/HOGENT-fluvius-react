@@ -6,33 +6,41 @@ const Accordion = (props) => {
 
   return (
     <>
-      <div className="accordion-item bg-white border border-gray-200"
+      <div className="accordion-item bg-white border border-gray-200 m-4"
       >
         <h2 className="accordion-header mb-0
-        border-2 border-[#004C69] bg-[#004C69] text-white text-left p-1 
+        bg-[#004C69] text-white text-left 
         
         " id={`headingOne${id}`}>
+<div className="border-2 border-[#004C69] bg-[#004C69] text-white text-left p-1 grid grid-cols-2">
+          <div>
+    
+                <h2>{naam}</h2>
+
+    
+    </div>
+          </div>
+
           <button className="
             accordion-button
             relative
             flex
             items-center
             w-full
-            py-4
             px-5
-            text-base text-white-800 text-left
+            text-base text-gray-800 text-left
             bg-white
             border-0
             rounded-none
             transition
             focus:outline-none
           
-            border-2 border-[#004C69] bg-[#004C69] text-white text-left p-1 grid grid-cols-2
+            border-2 border-[#004C69] bg-white text-white text-left p-1 grid grid-cols-2
             w-full
           
             " type="button" data-bs-toggle="collapse" data-bs-target={`#collapseOne${id}`} aria-expanded="true"
             aria-controls={`collapseOne${id}`}>
-            <span>{naam}</span>
+            {/* <span>{naam}</span> */}
           </button>
         </h2>
         <div id={`collapseOne${id}`} className="accordion-collapse collapse show" aria-labelledby={`headingOne${id}`}>
