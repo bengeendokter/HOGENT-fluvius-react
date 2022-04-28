@@ -17,6 +17,7 @@ export default function TemplateCategorieRol(r) {
   let {id, category_id, rol, is_visible } = r;
   const {currentCategorie, setCatId, getCategorieByID} = useCategories();
   const {setTemplateToUpdate, createOrUpdateTemplate, currentTemplate} = useContext(TemplateContext);
+  // met state werken! is_visible en setIs_visible! dan zo aanpassen en dan createOrUpdate doen, geen current!
   let test = 0;
   // useEffect(() =>
   // {
@@ -37,53 +38,53 @@ export default function TemplateCategorieRol(r) {
     }
   }, [currentTemplate]);
 
-  const onClick = () => {
-    if(is_visible == 1){
-                console.log(is_visible);
-                is_visible = 0;
-                console.log(is_visible);
-              }else{
-                is_visible = 1;
-              }
-              test = 1;
-  };
+  // const onClick = () => {
+  //   if(is_visible == 1){
+  //               console.log(is_visible);
+  //               is_visible = 0;
+  //               console.log(is_visible);
+  //             }else{
+  //               is_visible = 1;
+  //             }
+  //             test = 1;
+  // };
 
   // useEffect(() => {
   //   setTemplateToUpdate(id);
   // },[onClick]);
 
-  // const onClick = useCallback(
-  //   async (data) => {
-  //     try {
-  //       //await setTemplateToUpdate(id);
-  //       if(currentTemplate){
-  //         if(is_visible == 1){
-  //           console.log(is_visible);
-  //           is_visible = 0;
-  //           console.log(is_visible);
-  //         }else{
-  //           is_visible = 1;
-  //         }
-  //         console.log("current", currentTemplate);
-  //       await createOrUpdateTemplate({
-  //         id: currentTemplate.id,
-  //         category_id: currentTemplate.category_id,
-  //         rol: currentTemplate.rol,
-  //         is_visible: is_visible,
-  //       });
-  //       //setTemplateToUpdate(null);
-  //       console.log("call");
-  //     }
-  //     } catch (error) {
-  //       throw error;
-  //     }
-  //   },
-  //   [
-  //     currentTemplate,
-  //     createOrUpdateTemplate,
-  //     setTemplateToUpdate
-  //   ]
-  // );
+  const onClick = useCallback(
+    async (data) => {
+      try {
+        //await setTemplateToUpdate(id);
+        if(currentTemplate){
+          if(is_visible == 1){
+            console.log(is_visible);
+            is_visible = 0;
+            console.log(is_visible);
+          }else{
+            is_visible = 1;
+          }
+          console.log("current", currentTemplate);
+        await createOrUpdateTemplate({
+          id: currentTemplate.id,
+          category_id: currentTemplate.category_id,
+          rol: currentTemplate.rol,
+          is_visible: is_visible,
+        });
+        //setTemplateToUpdate(null);
+        console.log("call");
+      }
+      } catch (error) {
+        throw error;
+      }
+    },
+    [
+      currentTemplate,
+      createOrUpdateTemplate,
+      setTemplateToUpdate
+    ]
+  );
 
   return (
     <>
