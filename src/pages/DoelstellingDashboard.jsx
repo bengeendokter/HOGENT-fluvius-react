@@ -61,9 +61,11 @@ export default function DoelstellingDashboard() {
   }
 
   let leeg = Object.values(breadCrumb)[0];
-  console.log("doelstelling", doelstelling);
+  //console.log("doelstelling", doelstelling);
   leeg.push(doelstelling.naam);
   leeg = [...new Set(leeg)];
+  const ind = leeg.lastIndexOf(doelstelling.naam);
+  leeg = leeg.slice(0,ind + 1);
 
 
   return (
@@ -87,17 +89,69 @@ export default function DoelstellingDashboard() {
 			>
 			 {!currentCategorie ? currentCategorie.NAAM: `Ecologie`}
 		</NavLink>
-   {leeg.map(p => <> &nbsp; -  &nbsp;
+   {leeg && leeg.map((p, index) =>  {
+     let doel = doelstellingen.filter(e => e.naam === (p))[0];
+    console.log("real", p, index, doel);
+    console.log("be real", leeg);
+     if (doel === undefined) {
+       
+       for (var m = 0; m < doelstellingen.length; m++) {
+         //top niveau doelstellingen overlopen
+         if (doelstellingen[m].soort === 'COMP') {
+           //kijken of ze subdoelstellingen hebben
+           if (doelstellingen[m].subdoelstellingen && doelstellingen[m].subdoelstellingen.length >= 1) {
+               //iteratie over eerste subs
+               for (var y = 0; y < doelstellingen[m].subdoelstellingen.length; y++) {
+                 //kijk naar de id
+                 const lijst = doelstellingen[m].subdoelstellingen;
+                 if (lijst[y].naam === (p)) {
+                   //gelijkstellen en break;
+                   doel = lijst[y];
+                   break;
+                 }
+   
+                 //niet gelijk maar check naar subs
+   
+                 if (lijst[y].soort === 'COMP') {
+                   if (lijst[y].subdoelstellingen && lijst[y].subdoelstellingen.length >= 1) {
+                     for (var z = 0; z < lijst[y].subdoelstellingen.length; z++)  {
+                       const lijst1 = lijst[y].subdoelstellingen;
+                       
+                       if (lijst1[z].naam === (p)) {
+                         //gelijkstellen en break;
+                         doel = lijst1[z];
+                         break;
+                       }
+   
+                     }
+                   }
+                 }
+                 
+   
+               }
+           }
+         }
+         //next doelstelling
+       }
+     }
+
+     /*console.log("real2", doel);*
+     console.log("doelstel",doelstellingen);
+     console.log(p);
+     let doel = doelstellingen.filter(e => e.naam === p)[0];
+     console.log(doel);*/
+
+     return <> &nbsp; -  &nbsp;
    { (p !== doelstelling.naam) ?
     <NavLink
-			to={`/doelstellingDashboard/${doelstelling.id}`}
+			to={`/doelstellingDashboard/${doel.id}`}
       state={{ breadCrumb: leeg }}
       className="underline"
 			>
 			 {p}
 		</NavLink>
-   : p}
-   </>)}
+   : <span>{p}</span>}
+   </>})}
     </div>
           <div className="justify-self-end mr-2">Sdgs</div>
         </div>
