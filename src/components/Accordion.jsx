@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import BarChart from "./BarChart";
 
 const Accordion = (props) => {
-  const {naam, id, doelwaarde, soort, subdoelstellingen} = props;
+  const {naam, id, doelwaarde, soort, subdoelstellingen, bread} = props;
 
   return (
     <>
@@ -48,7 +48,7 @@ const Accordion = (props) => {
           <br />
         {(soort === 'COMP' && subdoelstellingen && subdoelstellingen.length > 0) ?
           <NavLink
-			  to={`/doelstellingDashboard/${id}`}>  
+			  to={`/doelstellingDashboard/${id}` } state={{ breadCrumb: bread }}>  
          <span>doelwaarde: {doelwaarde}</span>
           <BarChart naam={naam} id={id}></BarChart>
         </NavLink>

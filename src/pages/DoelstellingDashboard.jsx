@@ -1,7 +1,7 @@
 
 import Accordion from '../components/Accordion';
 import { DoelstellingContext} from '../contexts/DoelstellingProvider';
-import {useParams } from "react-router-dom";
+import {useParams, useLocation } from "react-router-dom";
 import {
   useContext
 } from 'react';
@@ -12,13 +12,12 @@ import { useCategories } from "../contexts/CategorieProvider";
 export default function DoelstellingDashboard() {
   const {doelstellingen} = useContext(DoelstellingContext);
   const { id } = useParams();
+  const location = useLocation();
+  const breadCrumb = location.state;
   const {currentCategorie, setCurrent, categories} = useCategories();
-  
-  console.log("de id van de doelstelling", id);
-  console.log("de array van doels", doelstellingen);
 
   let doelstelling = doelstellingen.filter(e => e.id === Number(id))[0];
-  
+
   if (doelstelling === undefined) {
     
     for (var m = 0; m < doelstellingen.length; m++) {
@@ -60,8 +59,12 @@ export default function DoelstellingDashboard() {
       //next doelstelling
     }
   }
-  
-  console.log("testtest", doelstelling)
+
+  let leeg = Object.values(breadCrumb)[0];
+  console.log("doelstelling", doelstelling);
+  leeg.push(doelstelling.naam);
+  leeg = [...new Set(leeg)];
+
 
   return (
 
@@ -78,20 +81,31 @@ export default function DoelstellingDashboard() {
 		</NavLink>
     &nbsp;  -  &nbsp;
     <NavLink
-			to={`/categorieDashboard/${currentCategorie.CATEGORIEID}`}
+			to={`/categorieDashboard/${!currentCategorie ? currentCategorie.CATEGORIEID : 2}`}
+      state={{ breadCrumb: leeg}}
       className="underline"
 			>
-			 {currentCategorie.NAAM}
+			 {!currentCategorie ? currentCategorie.NAAM: `Ecologie`}
 		</NavLink>
-   
-    &nbsp;   -  &nbsp; {doelstelling.naam}</div>
+   {leeg.map(p => <> &nbsp; -  &nbsp;
+   { (p !== doelstelling.naam) ?
+    <NavLink
+			to={`/doelstellingDashboard/${doelstelling.id}`}
+      state={{ breadCrumb: leeg }}
+      className="underline"
+			>
+			 {p}
+		</NavLink>
+   : p}
+   </>)}
+    </div>
           <div className="justify-self-end mr-2">Sdgs</div>
         </div>
 
       
 
         <div className="accordion min-w-full px-4">
-          {doelstelling.subdoelstellingen && doelstelling.subdoelstellingen.map(d => <Accordion {...d}></Accordion>)}
+          {doelstelling.subdoelstellingen && doelstelling.subdoelstellingen.map(d => <Accordion bread={leeg} {...d}></Accordion>)}
         </div>
 
       </div>
