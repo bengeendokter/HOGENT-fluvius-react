@@ -26,7 +26,7 @@ const NavItemInloggenRegistreren = ({
 	<span>
 		<NavLink
 			to={to}
-			className=" text-[#004C69] underline block  lg:block mt-2  m-3 "
+			className=" text-white underline block  lg:block mt-2  m-3 "
 		>
 			{label}
 		</NavLink>
@@ -38,7 +38,7 @@ export default function NavMenu() {
 
 	return (
 		<>
-		<div className="header">
+		<div className="header bg-[#004C69]">
 			<div className="logofluvius mt-5 md:ml-5">
 			<Link to="/dashboard"><img src={logo} alt="Logo" href="#responsive-header" className ="min-w-8 w-28 block  min-h-0 lg:inline-block lg:mt-0 "/></Link>
 			</div>
@@ -56,7 +56,6 @@ export default function NavMenu() {
 			<div className="mt-5 acountknoppen flex flex-row-reverse underline">
 	
 	<NavItemInloggenRegistreren to="/login" label="Inloggen" href="#responsive-header" >Inloggen</NavItemInloggenRegistreren>
-	<NavItemInloggenRegistreren to="/register" label="Registreren" href="#responsive-header" className=" text-black underline block mt-2 lg:block lg:mt-0 m-3">Registreren</NavItemInloggenRegistreren>
 
 
 			</div>

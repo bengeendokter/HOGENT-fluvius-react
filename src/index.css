@@ -153,4 +153,8 @@ nav #menu-checkbox {
   background-color: #39b9d2;
 }
 
-/**/
+
+.accordion-button {
+  background-color: #F0F9FF !important;
+}
+

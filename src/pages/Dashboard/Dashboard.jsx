@@ -33,9 +33,11 @@ export default function Dashboard()
     <>
       <h1 className={styles.title}>Dashboard</h1>
       <div className={styles.categorie_container}>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {categoriesMetDoelstellingen.map((c) =>
         <AccordionCategory {...c}></AccordionCategory>)}
         {/* <Categorie key={c.id} {...c}></Categorie>)} */}
+        </div>
       </div>
     </>
   );

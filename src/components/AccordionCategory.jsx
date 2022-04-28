@@ -13,7 +13,7 @@ const AccordionCategory = (props) => {
 
   return (
     <>
-      <div className="accordion-item bg-white border border-gray-200 m-4"
+      <div className="accordion-item bg-white  m-4"
       >
         <h2 className="accordion-header mb-0
          bg-[#004C69] text-white text-left 
@@ -41,8 +41,12 @@ const AccordionCategory = (props) => {
             w-full
             px-5
             text-base text-gray-800 text-left
-            bg-white
-            border-0
+            bg-[#F0F9FF]
+            border-l-2
+            border-r-2
+            border-t-2
+            border-b-0
+            border-[#004C69]
             rounded-none
             transition
             focus:outline-none
@@ -58,7 +62,7 @@ const AccordionCategory = (props) => {
         </h2>
         
         <div id={`collapseOne${id}`} className="accordion-collapse collapse show rounded-none" aria-labelledby={`headingOne${id}`}>
-          <div className="accordion-body py-4 px-5 rounded-none ">
+          <div className="accordion-body py-4 px-5 border-b-2 border-l-2 border-r-2 border-[#004C69]  rounded-none bg-[#F0F9FF]">
           <br />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {doelstellingen.map(d => <Doelstelling key={d.id} { ...d }></Doelstelling>)}
