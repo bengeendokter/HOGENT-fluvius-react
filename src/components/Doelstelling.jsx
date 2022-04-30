@@ -8,8 +8,7 @@ export default function Doelstelling(d) {
   return (
     <>
     {subdoelstellingen && subdoelstellingen.length > 0 ? <><NavLink
-			  to={`/doelstellingDashboard/${id}`} 
-        state={{ breadCrumb: [] }}>
+			  to={`/doelstellingDashboard/${id}`} >
            <div className="border-2 border-[#004C69] text-left p-1 m-2">
 
           <div className="grid grid-cols-2">
@@ -29,11 +28,6 @@ export default function Doelstelling(d) {
             </div>
           </div>
         </div>    </>}
-      
-
-
-        
-        
     </>
   );
 }
