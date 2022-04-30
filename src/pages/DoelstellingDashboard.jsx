@@ -187,8 +187,7 @@ export default function DoelstellingDashboard() {
 			>
 			 {!currentCategorie ? currentCategorie.NAAM: `Ecologie`}
 		</NavLink>
-    {pad.push(doelstelling.naam)}
-   {pad && pad.map((p, index) =>  {
+   {pad && pad.push(doelstelling.naam) && pad.map((p, index) =>  {
      let doel = doelstellingen.filter(e => e.naam === (p))[0];
      if (doel === undefined) {
        
