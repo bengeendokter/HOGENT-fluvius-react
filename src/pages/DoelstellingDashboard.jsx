@@ -163,7 +163,7 @@ export default function DoelstellingDashboard() {
 
   //als laatste naam van huidige doelstelling plaatsen
   //pad.push(doelstelling.naam);
-  //console.log(doelstelling);
+  console.log(doelstelling);
 
   //console.log("juiste pad", pad);
 
@@ -182,11 +182,12 @@ export default function DoelstellingDashboard() {
 		</NavLink>
     &nbsp;  -  &nbsp;
     <NavLink
-			to={`/categorieDashboard/${!currentCategorie ? currentCategorie.CATEGORIEID : 2}`}
+			to={`/categorieDashboard/${doelstelling.categorie.id}`}
       className="underline"
 			>
-			 {!currentCategorie ? currentCategorie.NAAM: `Ecologie`}
+			 {doelstelling.categorie.naam}
 		</NavLink>
+    
    {pad && pad.push(doelstelling.naam) && pad.map((p, index) =>  {
      let doel = doelstellingen.filter(e => e.naam === (p))[0];
      if (doel === undefined) {
