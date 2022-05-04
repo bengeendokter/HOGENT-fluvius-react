@@ -11,23 +11,26 @@ import { SdgProvider } from "./contexts/SdgProvider";
 import { CategorieProvider } from "./contexts/CategorieProvider";
 import { DataProvider } from "./contexts/DataProvider";
 import { TemplatesProvider } from "./contexts/TemplatesProvider";
+import { AuthProvider } from "./contexts/AuthProvider";
 import "tw-elements";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-  <DataProvider>
-  <CategorieProvider>
-  <SdgProvider>
-  <RolProvider>
-  <TemplatesProvider>
-    <DoelstellingProvider>
-      <App />
-    </DoelstellingProvider>
-   </TemplatesProvider>
-    </RolProvider>
-    </SdgProvider>
-    </CategorieProvider>
-    </DataProvider>
+    <AuthProvider>
+      <DataProvider>
+        <CategorieProvider>
+          <SdgProvider>
+            <RolProvider>
+              <TemplatesProvider>
+                <DoelstellingProvider>
+                  <App />
+                </DoelstellingProvider>
+              </TemplatesProvider>
+            </RolProvider>
+          </SdgProvider>
+        </CategorieProvider>
+      </DataProvider>
+    </AuthProvider>
   </BrowserRouter>
 );
 

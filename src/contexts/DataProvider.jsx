@@ -8,7 +8,7 @@ import {
 } from 'react';
 
 import * as dataApi from "../api/data";
-//import { useSession } from './AuthProvider';
+import { useSession } from './AuthProvider';
 
 export const DataContext = createContext();
 export const useData = () => useContext(DataContext);
@@ -23,7 +23,7 @@ export const DataProvider = ({
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
 
-  //const { ready : authReady } = useSession();
+  const { ready : authReady } = useSession();
 
   const refreshData = useCallback(async () => {
     try {
@@ -85,7 +85,7 @@ export const DataProvider = ({
     }, []);
 
     useEffect(() => {
-      if (/*authReady && */!initialLoad) {
+      if (authReady && !initialLoad) {
         refreshData();
 
         /* 
@@ -101,7 +101,7 @@ export const DataProvider = ({
         */
         setInitialLoad(true);
       }
-    }, [/*authReady, */initialLoad, refreshData/*, getDataByDoelstellingId,getDataByDoelstellingIdAndYear,getAllDataByDoelstellingId*/]);
+    }, [authReady, initialLoad, refreshData/*, getDataByDoelstellingId,getDataByDoelstellingIdAndYear,getAllDataByDoelstellingId*/]);
 
 
    const value = useMemo(() => ({

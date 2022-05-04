@@ -8,7 +8,7 @@ import {
   } from 'react';
 
   import * as sdgApi from "../api/sdgs";
-//import { useSession } from './AuthProvider';
+  import { useSession } from './AuthProvider';
 
   export const SdgContext = createContext();
 
@@ -28,7 +28,7 @@ import {
     const [categories, setCategories] = useState([]);
     const [categoriesMetSdgs, setCategoriesMetSdgs] = useState([]);
 
-    //const { ready : authReady } = useSession();
+    const { ready : authReady } = useSession();
 
     const refreshSdgs = useCallback(async () => {
       try {
@@ -47,11 +47,11 @@ import {
     }, []);
 
     useEffect(() => {
-      if (/*authReady && */!initialLoad) {
+      if (authReady && !initialLoad) {
         refreshSdgs();
         setInitialLoad(true);
       }
-    }, [/*authReady, */initialLoad, refreshSdgs]);
+    }, [authReady, initialLoad, refreshSdgs]);
 
 
     const getSdgsByCategorieId = useCallback(async () => {

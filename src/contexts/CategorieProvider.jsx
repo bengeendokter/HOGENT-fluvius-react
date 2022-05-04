@@ -8,7 +8,7 @@ import {
 } from 'react';
 
 import * as categoriesApi from "../api/categories";
-//import { useSession } from './AuthProvider';
+import { useSession } from './AuthProvider';
 
 export const CategorieContext = createContext();
 export const useCategories = () => useContext(CategorieContext);
@@ -23,7 +23,7 @@ export const CategorieProvider = ({
   const [categories, setCategories] = useState([]);
   const [catId, setCatId] = useState(0);
 
-  //const { ready : authReady } = useSession();
+  const { ready : authReady } = useSession();
 
   const refreshCategories = useCallback(async () => {
     try {
@@ -44,11 +44,11 @@ export const CategorieProvider = ({
   }, []);
 
   useEffect(() => {
-    if (/*authReady && */!initialLoad) {
+    if (authReady && !initialLoad) {
       refreshCategories();
       setInitialLoad(true);
     }
-  }, [/*authReady, */initialLoad, refreshCategories]);
+  }, [authReady, initialLoad, refreshCategories]);
 
   
   const setCategorieToUpdate = useCallback(

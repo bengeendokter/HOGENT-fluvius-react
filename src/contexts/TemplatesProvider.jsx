@@ -8,7 +8,7 @@ import
 
 import * as templatesApi from "../api/template";
 import * as categoriesApi from "../api/categories";
-//import { useSession } from './AuthProvider';
+import { useSession } from './AuthProvider';
 
 export const TemplateContext = createContext();
 
@@ -27,7 +27,7 @@ export const TemplatesProvider = ({
   const [templatesRol, setTemplatesRol] = useState([]);
   const [templatesMetCategorie, setTemplatesMetCategorie] = useState([]);
 
-  //const { ready : authReady } = useSession();
+  const { ready : authReady } = useSession();
 
   const refreshTemplates = useCallback(async () =>
   {
@@ -51,12 +51,12 @@ export const TemplatesProvider = ({
 
   useEffect(() =>
   {
-    if(/*authReady && */!initialLoad)
+    if(authReady && !initialLoad)
     {
       refreshTemplates();
       setInitialLoad(true);
     }
-  }, [/*authReady, */initialLoad, refreshTemplates]);
+  }, [authReady, initialLoad, refreshTemplates]);
 
 
 

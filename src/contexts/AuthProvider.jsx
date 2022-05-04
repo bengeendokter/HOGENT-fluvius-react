@@ -3,6 +3,8 @@ import * as klantenApi from '../api/klanten';
 import * as api from '../api';
 import config from '../config.json';
 
+import {Buffer} from 'buffer';
+
 const JWT_TOKEN_KEY = config.token_key;
 const AuthContext = createContext();
 
@@ -26,7 +28,7 @@ function parseExp(exp) {
 const useAuth = () => useContext(AuthContext);
 
 export const useSession = () => {
-  const { token, klant, ready, loading, error, setError, hasRole } = useAuth();
+  const { token, klant, ready, loading, error, setError, hasRole, setSession } = useAuth();
   return {
     token,
     klant,
@@ -36,6 +38,7 @@ export const useSession = () => {
     loading,
     isAuthed: Boolean(token),
     hasRole,
+    setSession
   };
 };
 
@@ -74,14 +77,12 @@ export const AuthProvider = ({
       } else {
         localStorage.removeItem(JWT_TOKEN_KEY);
         token = null;
-        setError("session expired")
+        setError("Session expired, please sign in again")
       }
     } else {
       localStorage.removeItem(JWT_TOKEN_KEY);
     }
-
     
-
     api.setAuthToken(token);
     setToken(token);
     setReady(token && stillValid);

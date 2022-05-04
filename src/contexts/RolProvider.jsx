@@ -8,7 +8,7 @@ import {
 } from 'react';
 
 import * as rolApi from "../api/rollen";
-//import { useSession } from './AuthProvider';
+import { useSession } from './AuthProvider';
 
 export const RolContext = createContext();
 
@@ -25,7 +25,7 @@ export const RolProvider = ({
 
   
 
-  //const { ready : authReady } = useSession();
+  const { ready : authReady } = useSession();
 
   const refreshRollen = useCallback(async () => {
     try {
@@ -44,11 +44,11 @@ export const RolProvider = ({
   }, []);
 
   useEffect(() => {
-    if (/*authReady && */!initialLoad) {
+    if (authReady && !initialLoad) {
       refreshRollen();
       setInitialLoad(true);
     }
-  }, [/*authReady, */initialLoad, refreshRollen]);
+  }, [authReady, initialLoad, refreshRollen]);
 
 
 

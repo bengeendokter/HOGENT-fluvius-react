@@ -6,7 +6,7 @@ import {
   } from 'react';
 
   import * as doelstellingApi from "../api/doelstellingen";
-//import { useSession } from './AuthProvider';
+  import { useSession } from './AuthProvider';
 
   export const DoelstellingContext = createContext();
   // export const useDoelstellingen = () => useContext(DoelstellingContext);
@@ -25,7 +25,7 @@ import {
     
     const [categories, setCategories] = useState([]);
     const [categoriesMetDoelstellingen, setCategoriesMetDoelstellingen] = useState([]);
-    //const { ready : authReady } = useSession();
+    const { ready : authReady } = useSession();
 
     const refreshDoelstellingen = useCallback(async () => {
       try {
@@ -44,11 +44,11 @@ import {
     }, []);
 
     useEffect(() => {
-      if (/*authReady && */!initialLoad) {
+      if (authReady && !initialLoad) {
         refreshDoelstellingen();
         setInitialLoad(true);
       }
-    }, [/*authReady, */initialLoad, refreshDoelstellingen]);
+    }, [authReady, initialLoad, refreshDoelstellingen]);
 
     const getDoelstellingPerRolByID = useCallback(async () => {
       try {
