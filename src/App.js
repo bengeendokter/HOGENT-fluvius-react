@@ -21,6 +21,7 @@ import Itsme from "./pages/Itsme";
 import { Grid } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import DoelstellingDashboard from "./pages/DoelstellingDashboard";
+import PrivateRoute from "./components/PrivateRoute";
 
 // Dit is nodig om de grid layout op te bouwen
 // extra library toevoegen: yarn add @mui/material @emotion/react @emotion/styled
@@ -56,20 +57,15 @@ function App() {
       </Routes>
 
       <Routes>
-        {/* <Route path="/" element={<PageLayout />}> */}
-          <Route exact path="/" element={<Dashboard />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/categorieDashboard/:id" element={<CategorieDashboard />} />
-          <Route path="/templateBeheren" element={<TemplateBeheren />} />
-          <Route path="/overzichtWijzigen" element={<OverzichtWijzigen />} />
-          <Route
-            exact
-            path="/doelstellingDashboard/:id"
-            element={<DoelstellingDashboard />}
-          />
-        {/* </Route> */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/itsme" element={<Itsme />} />
+        <Route exact path="/" element={<Navigate to={"/dashboard"} replace/>}/>
+        <Route exact path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}/>
+        <Route exact path="/categorieDashboard/:id" element={<PrivateRoute><CategorieDashboard /></PrivateRoute>}/>
+        <Route exact path="/templateBeheren" element={<PrivateRoute><TemplateBeheren /></PrivateRoute>}/>
+        <Route exact path="/overzichtWijzigen" element={<PrivateRoute><OverzichtWijzigen /></PrivateRoute>}/>
+        <Route exact path="/doelstellingDashboard/:id" element={<PrivateRoute><DoelstellingDashboard /></PrivateRoute>}/>
+          
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/itsme" element={<Itsme />} />
       </Routes>
     </div>
   );

@@ -6,6 +6,7 @@ import LabelInput from '../components/LabelInput';
 import logo from "../images/logo.png";
 import itsme from "../images/itsme.avif";
 import {Link } from "react-router-dom";
+import { useLogin, useSession } from '../contexts/AuthProvider';
 
 const validationRules = {
   email: {
@@ -17,9 +18,9 @@ const validationRules = {
 };
 
 export default function Login() {
-  // const navigate = useNavigate ();
-  // const { loading, error, isAuthed } = useSession();
-  // const login = useLogin();
+  const navigate = useNavigate ();
+  const { loading, error, isAuthed } = useSession();
+  const login = useLogin();
   const methods = useForm();
 
   const {
@@ -27,47 +28,48 @@ export default function Login() {
     reset,
   } = methods;
 
-  // const handleLogin = useCallback(async ({ Email, Wachtwoord }) => {
-  //   const success = await login(Email, Wachtwoord);
-   
-  //   if (success) {
-  //     navigate("/", { replace: true });
-  //   }
-  // }, [navigate, login]);
+  const handleLogin = useCallback(async ({gebruikersnaam, wachtwoord}) => {
+    const success = await login(gebruikersnaam, wachtwoord);
+    
+    if (success) {
+        navigate("/", { replace: true });
+      }
 
-  // const handleCancel = useCallback(() => {
-  //   reset();
-  // }, [reset]);
+  }, [navigate, login]);
 
-  // if (isAuthed) {
-  //   return <Navigate from="/login" to="/" />
-  // }
+  const handleCancel = useCallback(() => {
+    reset();
+  }, [reset]);
+
+  if (isAuthed) {
+    return <Navigate from="/login" to="/" />
+  }
 
   return (
     <FormProvider {...methods}>
       <div className="mx-auto w-2/3 xl:w-4/5 pt-10">
         
-        {/* <form className="grid grid-cols-1 gap-y-4" onSubmit={handleSubmit(handleLogin)}> */}
-        <form className="grid grid-cols-1 gap-y-4 text-left" >
+        <form className="grid grid-cols-1 gap-y-4" onSubmit={handleSubmit(handleLogin)}>
+        {/*<form className="grid grid-cols-1 gap-y-4 text-left" >*/}
         
 
                
         <h1 className="text-[#004C69] text-xl font-bold justify-self-center">Meld aan</h1>
-          {/* {
+           {
             error ? (
               <p className="text-red-500">
                 {error}
               </p>
             ) : null
-          } */}
+          } 
           <LabelInput
-          name="Gebruikersnaam"
+          name="gebruikersnaam"
             label="Gebruikersnaam"
             type="text"
             defaultValue=""
             data-cy="gebruikersnaam_input"/>
           <LabelInput
-          name="Wachtwoord"
+          name="wachtwoord"
             label="Wachtwoord"
             type="password"
             defaultValue=""

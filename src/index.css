@@ -158,3 +158,10 @@ nav #menu-checkbox {
   background-color: #F0F9FF !important;
 }
 
+.logout {
+  color: white;
+  width: 50px;
+  height: 50px;
+  z-index: 5;
+}
+

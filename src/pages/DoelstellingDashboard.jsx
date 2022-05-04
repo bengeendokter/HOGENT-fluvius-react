@@ -182,10 +182,10 @@ export default function DoelstellingDashboard() {
 		</NavLink>
     &nbsp;  -  &nbsp;
     <NavLink
-			to={`/categorieDashboard/${doelstelling.categorie.id}`}
+			to={`/categorieDashboard/${doelstelling.categorie?.id}`}
       className="underline"
 			>
-			 {doelstelling.categorie.naam}
+			 {doelstelling.categorie?.naam}
 		</NavLink>
     
    {pad && pad.push(doelstelling.naam) && pad.map((p, index) =>  {

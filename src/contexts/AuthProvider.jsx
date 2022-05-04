@@ -99,11 +99,11 @@ export const AuthProvider = ({
 
   
 
-  const login = useCallback(async (email, password) => {
+  const login = useCallback(async (gebruikersnaam, wachtwoord) => {
     try {
       setLoading(true);
       setError(null);
-      const { token, klant } = await klantenApi.login(email, password);
+      const { token, klant } = await klantenApi.login(gebruikersnaam, wachtwoord);
       await setSession(token, klant);
       return true;
     } catch (error) {

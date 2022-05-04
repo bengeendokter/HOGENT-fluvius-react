@@ -2,6 +2,8 @@ import { NavLink, Link } from 'react-router-dom';
 import { useCallback } from 'react';
 import logo from "../images/logo.png";
 import hamburger from "../images/hamburger.png";
+import { useLogout, useSession } from '../contexts/AuthProvider';
+
 const NavItem = ({
 	to,
 	label
@@ -36,6 +38,12 @@ const NavItemInloggenRegistreren = ({
 
 export default function NavMenu() {
 
+	const {isAuthed} = useSession();
+	const logout = useLogout();
+
+	const handleClick = useCallback( async () => {
+		logout();
+	}, [logout]);
 	return (
 		<>
 		<div className="header bg-[#004C69]">
@@ -49,13 +57,14 @@ export default function NavMenu() {
 			<NavItem to="/dashboard" label="DASHBOARD"  />
 			<NavItem to="/templateBeheren" label="TEMPLATE BEHEREN" />
 			<NavItem to="/overzichtWijzigen" label="OVERZICHT WIJZIGEN"  />
+			{isAuthed? <button className='logout' onClick={handleClick}>Logout</button> : <NavItem to="/login" label="LOGIN"  />}
 	
 </nav>
 			</div>
 
 			<div className="mt-5 acountknoppen flex flex-row-reverse underline">
 	
-	<NavItemInloggenRegistreren to="/login" label="Inloggen" href="#responsive-header" >Inloggen</NavItemInloggenRegistreren>
+	{/*<NavItemInloggenRegistreren to="/login" label="Inloggen" href="#responsive-header" >Inloggen</NavItemInloggenRegistreren>*/}
 
 
 			</div>
