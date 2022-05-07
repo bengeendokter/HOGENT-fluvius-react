@@ -161,56 +161,6 @@ import {
 
     }, [doelstellingen]);
 
-    const getSubWithNaam = useCallback(async (ID) => {
-      try {
-        setError('');
-        setLoading(true);
-        for (var m = 0; m < doelstellingen.length; m++) {
-          //top niveau doelstellingen overlopen
-          if (doelstellingen[m].soort === 'COMP') {
-            //kijken of ze subdoelstellingen hebben
-            if (doelstellingen[m].subdoelstellingen && doelstellingen[m].subdoelstellingen.length >= 1) {
-                //iteratie over eerste subs
-                for (var y = 0; y < doelstellingen[m].subdoelstellingen.length; y++) {
-                  //kijk naar de id
-                  const lijst = doelstellingen[m].subdoelstellingen;
-                  if (lijst[y].naam === (ID)) {
-                    //gelijkstellen en break;
-                    return lijst[y];
-                  }
-    
-                  //niet gelijk maar check naar subs
-    
-                  if (lijst[y].soort === 'COMP') {
-                    if (lijst[y].subdoelstellingen && lijst[y].subdoelstellingen.length >= 1) {
-                      for (var z = 0; z < lijst[y].subdoelstellingen.length; z++)  {
-                        const lijst1 = lijst[y].subdoelstellingen;
-                        
-                        if (lijst1[z].naam === (ID)) {
-                          //gelijkstellen en break;
-                          return lijst1[z];
-                        }
-    
-                      }
-                    }
-                  }
-                  
-    
-                }
-            }
-          }
-          //next doelstelling
-        }
- return null;
-      } catch (error) {
-        setError(error);
-        return null;
-      } finally {
-        setLoading(false)
-      }
-
-    }, [doelstellingen]);
-
     const setCurrentDoelstelling = useCallback(async (id) => {
       try {
         setError('');
@@ -281,7 +231,7 @@ import {
     // }), [setCatId, refreshDoelstellingen, getDoelstellingPerRolByID,getDoelstellingByCategorieID, doelstellingen, error, setError, loading, setLoading])
 
     return (
-      <DoelstellingContext.Provider value={{setPad, pad, currentDoel, setCurrentDoelstelling, getSubWithID, getSubWithNaam,  getDoelstellingenVoorCategories, setCategories, categoriesMetDoelstellingen, doelstellingenCat, setCatId, refreshDoelstellingen, getDoelstellingPerRolByID,getDoelstellingByCategorieID, doelstellingen, error, setError, loading, setLoading}}>
+      <DoelstellingContext.Provider value={{setPad, pad, currentDoel, setCurrentDoelstelling, getSubWithID,  getDoelstellingenVoorCategories, setCategories, categoriesMetDoelstellingen, doelstellingenCat, setCatId, refreshDoelstellingen, getDoelstellingPerRolByID,getDoelstellingByCategorieID, doelstellingen, error, setError, loading, setLoading}}>
         {children}
       </DoelstellingContext.Provider>
     );
