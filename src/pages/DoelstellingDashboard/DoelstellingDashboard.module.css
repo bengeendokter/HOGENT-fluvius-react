@@ -1,5 +1,5 @@
 .detail-container {
-    max-width: 1450px;
+    max-width: 1600px;
     width: 95%;
     height: 100vh;
     margin: 15px auto;
@@ -22,4 +22,62 @@
 .breadcrumb-link:hover {
     border-bottom: 2px solid #B8CE44;
     background-color: rgba(0,0,0,0.05);
+}
+
+.detail-top {
+    display: grid;
+    margin: 10px 0;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    gap: 20px;
+}
+
+.detail-right-panel {
+    margin-right: 20px;
+    max-width: 800px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.detail-info-icons {
+    border-radius: 50%;
+    width: 75px;
+    position: absolute;
+}
+
+.detail-right-panel-iconInfo {
+    min-width: max-content;
+    width: 250px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.detail-right-panel-iconInfo-text {
+    display: flex;
+    gap: 50px;
+    height: 60px;
+    min-width: 400px;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    margin-left: 5px;
+    padding: 10px;
+    padding-left: 80px;
+    border-radius: 100px 15px 15px 100px;
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    background-color: #004C69;
+}
+
+.percentage-onder {
+    color: #FF4512;
+}
+
+.percentage-boven {
+    color: #B8CE44;
 }

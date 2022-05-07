@@ -1,14 +1,16 @@
 import styles from './DoelstellingDashboard.module.css';
 import Accordion from '../../components/Accordion';
 import { DoelstellingContext} from '../../contexts/DoelstellingProvider';
+import { useData } from '../../contexts/DataProvider';
 import {useParams } from "react-router-dom";
 import {
-  useContext, useEffect
+  useContext, useEffect, useMemo
 } from 'react';
 import { NavLink } from "react-router-dom";
 import BarChart from '../../components/BarChart';
 export default function DoelstellingDashboard() {
   const {doelstellingen, setCurrentDoelstelling, currentDoel,pad} = useContext(DoelstellingContext);
+  const {data} = useData();
   const { id } = useParams();
   useEffect(() => {
     //laden
@@ -17,6 +19,37 @@ export default function DoelstellingDashboard() {
     }
     
   }, [doelstellingen, id, setCurrentDoelstelling]);
+
+  const vindDataDoelstelling = useMemo(() => {
+    if (currentDoel) {
+      const wow = data.filter(d => d.naam === currentDoel.naam)[0];
+      return wow
+    }
+    return null;
+  }, [currentDoel, data])
+
+  const vindActueleWaardeData = useMemo(() => {
+    if (vindDataDoelstelling) {
+      return Object.values(vindDataDoelstelling?.data.sort((a,b) => Object.keys(a)[0] < Object.keys(b)[0])[0])[0];
+    }
+    return null
+  }, [vindDataDoelstelling])
+
+  const berekenPercentage = useMemo(() => {
+    const huidigeWaarde = vindActueleWaardeData;
+    const doelwaarde = currentDoel["doelwaarde"];
+    let percentage;
+    if (currentDoel.doelwaarde !== 0) {
+      percentage = 1 - (huidigeWaarde / doelwaarde);
+    } else {
+      percentage = huidigeWaarde * 10000;
+    }
+
+    return {
+      isOnder: huidigeWaarde < doelwaarde,
+      percentage
+    }
+  }, [currentDoel, vindActueleWaardeData])
   
   return (
 
@@ -51,7 +84,34 @@ export default function DoelstellingDashboard() {
           })
         }
       </div>
-      {currentDoel && <BarChart naam={currentDoel.naam} id={currentDoel.id}/>}
+      <div className={styles["detail-top"]}>
+        {currentDoel.naam && currentDoel.id && <BarChart naam={currentDoel.naam} id={currentDoel.id}/>}
+        <div className={styles["detail-right-panel"]}>
+          <div className={styles["detail-right-panel-iconInfo"]}>
+            <img className={styles["detail-info-icons"]} src="/assets/images/graph_icon.PNG" alt="graph icon"/>
+            <div className={styles["detail-right-panel-iconInfo-text"]}>
+              <div>Huidige waarde:</div>
+              <div>{vindActueleWaardeData} {vindDataDoelstelling?.eenheid}</div>
+            </div>
+          </div>
+
+          <div className={styles["detail-right-panel-iconInfo"]}>
+            <img className={styles["detail-info-icons"]} src="/assets/images/target_icon.PNG" alt="graph icon"/>
+            <div className={styles["detail-right-panel-iconInfo-text"]}>
+              <div>{currentDoel.isMax? "Doelwaarde:":"Drempelwaarde:"}</div>
+              <div>{currentDoel.doelwaarde} {vindDataDoelstelling?.eenheid}</div>
+            </div>
+          </div>
+
+          <div className={styles["detail-right-panel-iconInfo"]}>
+            <img className={styles["detail-info-icons"]} src="/assets/images/question_icon.PNG" alt="graph icon"/>
+            <div className={styles["detail-right-panel-iconInfo-text"]}>
+              <div>Doel {berekenPercentage.isOnder? "niet":""} behaald:</div>
+              <div className={berekenPercentage.isOnder? styles["percentage-onder"]:styles["percentage-boven"]}>{berekenPercentage.isOnder? "-": "+"}{berekenPercentage.percentage}%</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     {currentDoel && pad &&
       <>
