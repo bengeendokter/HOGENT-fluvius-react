@@ -134,6 +134,7 @@ export default function DoelstellingDashboard() {
         </div>
       </div>
     </div>
+    {/*
     {currentDoel && pad &&
       <>
        <div className="m-2 border-2 border-[#004C69]">
@@ -148,7 +149,7 @@ export default function DoelstellingDashboard() {
         </div>}
     </div>
     </>
-  }
+  }*/}
     </>
   );
 }
