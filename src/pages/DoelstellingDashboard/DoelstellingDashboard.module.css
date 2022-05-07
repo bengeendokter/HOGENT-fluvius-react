@@ -8,15 +8,25 @@
     padding: 10px;
 }
 
-.detail-breadcrumb {
+.detail-header {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
     padding: 15px;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1500px;
+    width: 95%;
+    border-bottom: 2px solid #004C69;
+}
+
+.detail-breadcrumb {
+
     font-weight: bold;
     font-size: large;
     line-height: 50px;
-    max-width: 1480px;
+    max-width: max-content;
     width: 95%;
-    margin: 0 auto;
-    border-bottom: 2px solid #004C69;
 }
 
 .breadcrumb-link {
@@ -29,6 +39,16 @@
 .breadcrumb-link:hover {
     border-bottom: 2px solid #B8CE44;
     background-color: rgba(0,0,0,0.05);
+}
+
+.sdg {
+    width: 75px;
+    border-radius: 5px;
+}
+
+.sdgs {
+    display: flex;
+    gap: 5px;
 }
 
 .detail-top {

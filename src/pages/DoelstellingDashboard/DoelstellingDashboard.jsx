@@ -2,14 +2,15 @@ import styles from './DoelstellingDashboard.module.css';
 import Accordion from '../../components/Accordion';
 import { DoelstellingContext} from '../../contexts/DoelstellingProvider';
 import { useData } from '../../contexts/DataProvider';
-import {useParams } from "react-router-dom";
-import {
-  useContext, useEffect, useMemo
-} from 'react';
+import { useParams } from "react-router-dom";
+import { useContext, useEffect, useMemo } from 'react';
 import { NavLink } from "react-router-dom";
 import BarChart from '../../components/BarChart';
+import { SdgContext } from '../../contexts/SdgProvider';
+
 export default function DoelstellingDashboard() {
   const {doelstellingen, setCurrentDoelstelling, currentDoel,pad} = useContext(DoelstellingContext);
+  const {sdgs} = useContext(SdgContext);
   const {data} = useData();
   const { id } = useParams();
   useEffect(() => {
@@ -48,10 +49,27 @@ export default function DoelstellingDashboard() {
     }
   }, [currentDoel, vindActueleWaardeData])
   
+  const vindSdgs = useMemo(() => {
+    let validSDGs = [];
+    
+    if (currentDoel && currentDoel.categorie) {
+      const allSDGs = sdgs.filter(s => s.CATID === currentDoel.categorie.id);
+
+      allSDGs.forEach((sdg, index) => {
+        const subArray = allSDGs.slice(0, index);
+        if (!subArray.some(s => s.AFBEELDINGNAAM === sdg.AFBEELDINGNAAM)) {
+          validSDGs.push(sdg);
+        }
+      });
+    }
+    return validSDGs.sort((a, b) => a.AFBEELDINGNAAM > b.AFBEELDINGNAAM);
+  }, [sdgs, currentDoel])
+
   return (
 
     <>
       <div className={styles["detail-container"]}>
+        <div className={styles["detail-header"]}>
       <div className={styles["detail-breadcrumb"]}>
         <NavLink to="/dashboard" className={styles["breadcrumb-link"]}>
 			    Dashboard 
@@ -80,6 +98,12 @@ export default function DoelstellingDashboard() {
           </>
           })
         }
+      </div>
+      <div className={styles["sdgs"]}>
+      {vindSdgs?.map(s => {
+        return <img className={styles["sdg"]} src={`/assets/images/${s.AFBEELDINGNAAM}.jpg`} alt={s.NAAM} />
+        })}
+      </div>
       </div>
       <div className={styles["detail-top"]}>
         {currentDoel.naam && currentDoel.id && <BarChart naam={currentDoel.naam} id={currentDoel.id}/>}
