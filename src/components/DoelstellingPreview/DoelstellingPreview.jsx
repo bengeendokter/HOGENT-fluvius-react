@@ -1,4 +1,5 @@
 import styles from './DoelstellingPreview.module.css';
+import { NavLink } from "react-router-dom";
 import {useData} from "../../contexts/DataProvider";
 import {useState, useEffect} from 'react';
 
@@ -25,12 +26,12 @@ export default function DoelstellingPreview({id, doelwaarde: doelwaardeProp, isM
         setPercentage((huidigFetch - doelwaarde) / (doelwaarde !== 0 ? doelwaarde : 0.01) * 100);
     }, [doelId, isMax, doelwaarde, data, setEenheid, setHuidieWaarde, setDoelBehaald]);
     return (
-        <div className={[styles.doelstelling, isDoelBehaald && styles.doelbehaald].join(" ")}>
+        <NavLink to={`/doelstellingDashboard/${doelId}`} className={[styles.doelstelling, isDoelBehaald && styles.doelbehaald].join(" ")}>
             <h3 className={styles.naam}>{naam}</h3>
             <p className={styles.label}>Huidige waarde:</p>
             <p className={styles.huidieWaarde}>{huidieWaarde} {eenheid}</p>
             <p className={styles.label}>{isMax ? "Drempelwaarde:" : "Doelwaarde:"}</p>
             <p className={styles.doelWaarde}>{doelwaarde} {eenheid}</p>
             <p className={styles.percentage}><strong>{huidieWaarde >= doelwaarde ? "+" : ""}{percentage}%</strong> t.o.v. doel</p>
-        </div>);
+        </NavLink>);
 };
