@@ -39,11 +39,8 @@ export default function DoelstellingDashboard() {
     const huidigeWaarde = vindActueleWaardeData;
     const doelwaarde = currentDoel["doelwaarde"];
     let percentage;
-    if (currentDoel.doelwaarde !== 0) {
-      percentage = 1 - (huidigeWaarde / doelwaarde);
-    } else {
-      percentage = huidigeWaarde * 10000;
-    }
+
+    percentage = (huidigeWaarde - doelwaarde) / (doelwaarde !== 0 ? doelwaarde : 0.01) * 100;
 
     return {
       isOnder: huidigeWaarde < doelwaarde,
@@ -107,7 +104,7 @@ export default function DoelstellingDashboard() {
             <img className={styles["detail-info-icons"]} src="/assets/images/question_icon.PNG" alt="graph icon"/>
             <div className={styles["detail-right-panel-iconInfo-text"]}>
               <div>Doel {berekenPercentage.isOnder? "niet":""} behaald:</div>
-              <div className={berekenPercentage.isOnder? styles["percentage-onder"]:styles["percentage-boven"]}>{berekenPercentage.isOnder? "-": "+"}{berekenPercentage.percentage}%</div>
+              <div className={berekenPercentage.isOnder? styles["percentage-onder"]:styles["percentage-boven"]}>{!berekenPercentage.isOnder && "+"}{berekenPercentage.percentage}%</div>
             </div>
           </div>
         </div>
