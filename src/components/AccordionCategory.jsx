@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import BarChart from "./BarChart";
-import Doelstelling from './Doelstelling';
+import DoelstellingPreview from './DoelstellingPreview';
 import {useCategories} from '../contexts/CategorieProvider';
 
 
@@ -65,7 +65,7 @@ const AccordionCategory = (props) => {
           <div className="accordion-body py-4 px-5 border-b-2 border-l-2 border-r-2 border-[#004C69]  rounded-none bg-[#F0F9FF]">
           <br />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {doelstellingen.map(d => <Doelstelling key={d.id} { ...d }></Doelstelling>)}
+        {doelstellingen.map(d => <DoelstellingPreview key={d.id} { ...d }></DoelstellingPreview>)}
         </div>
            
 

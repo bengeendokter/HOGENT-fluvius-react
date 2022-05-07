@@ -47,7 +47,7 @@ export const DataProvider = ({
         setError('');
         setLoading(true);
         const data = await dataApi.getDataByDoelstellingId(id);
-        return data.data;
+        return data.data[0];
       } catch (error) {
         setError(error);
         return null;
