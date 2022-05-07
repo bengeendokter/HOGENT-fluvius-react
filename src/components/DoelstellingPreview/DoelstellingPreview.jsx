@@ -25,7 +25,7 @@ export default function DoelstellingPreview({id, doelwaarde: doelwaardeProp, isM
         setPercentage((huidigFetch - doelwaarde) / (doelwaarde !== 0 ? doelwaarde : 0.01) * 100);
     }, [doelId, isMax, doelwaarde, data, setEenheid, setHuidieWaarde, setDoelBehaald]);
     return (
-        <div className={[styles.doelstelling, isDoelBehaald && styles.doelnietbehaald].join(" ")}>
+        <div className={[styles.doelstelling, isDoelBehaald && styles.doelbehaald].join(" ")}>
             <h3 className={styles.naam}>{naam}</h3>
             <p className={styles.label}>Huidige waarde:</p>
             <p className={styles.huidieWaarde}>{huidieWaarde} {eenheid}</p>
