@@ -8,10 +8,12 @@
   --hsl-groen-fluvius: 70, 58%, 54%;
   --hsl-black: 240, 100%, 0%;
   --hsl-white: 240, 100%, 100%;
+  --hls-oranje-itsme: 13, 100%, 54%;
 
   --clr-primary: hsla(var(--hsl-blauw-fluvius));
   --clr-secondary: hsla(var(--hsl-groen-fluvius));
   --clr-accent: hsla(var(--hsl-white));
+  --clr-negative: hsla(var(--hls-oranje-itsme));
   --clr-background: hsla(var(--hsl-white));
   --clr-foreground: hsla(var(--hsl-black));
 }

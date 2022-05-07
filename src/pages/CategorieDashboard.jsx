@@ -1,20 +1,22 @@
 import Doelstelling from '../components/Doelstelling';
 import {DoelstellingContext} from '../contexts/DoelstellingProvider';
 import {SdgContext} from '../contexts/SdgProvider';
-import {useParams } from "react-router-dom";
-import { NavLink, Link } from 'react-router-dom';
-import { useCategories } from "../contexts/CategorieProvider";
-import  { useMemo} from "react";
+import {useParams} from "react-router-dom";
+import {NavLink, Link} from 'react-router-dom';
+import {useCategories} from "../contexts/CategorieProvider";
+import {useMemo} from "react";
 
-import {
-  useEffect, useContext
-} from 'react';
+import
+  {
+    useEffect, useContext
+  } from 'react';
 
-export default function CategorieDashboard(c) {
+export default function CategorieDashboard(c)
+{
   const {doelstellingenCat, getDoelstellingByCategorieID, setCatId, doelstellingen} = useContext(DoelstellingContext);
   const {sdgsCat, getSdgsByCategorieId, setCatId1} = useContext(SdgContext);
   const {currentCategorie, setCurrent, categories} = useCategories();
-  const { id } = useParams();
+  const {id} = useParams();
 
 
   useEffect(() =>
@@ -23,46 +25,48 @@ export default function CategorieDashboard(c) {
     getDoelstellingByCategorieID();
     setCatId1(id);
     getSdgsByCategorieId();
-  }, [setCatId,setCatId1, getDoelstellingByCategorieID,getSdgsByCategorieId, id]);
+  }, [setCatId, setCatId1, getDoelstellingByCategorieID, getSdgsByCategorieId, id]);
 
 
   let arrayIcons = [];
- sdgsCat.forEach(s => {
+  sdgsCat.forEach(s =>
+  {
 
-   let iconString = s.ICON;
-   iconString = iconString.substring(8);
-   if(!arrayIcons.includes(iconString)){
-     arrayIcons.push(iconString);
-   }
- });
-  
+    let iconString = s.ICON;
+    iconString = iconString.substring(8);
+    if(!arrayIcons.includes(iconString))
+    {
+      arrayIcons.push(iconString);
+    }
+  });
+
   return (
-    
+
     <>
       <div className="m-2 border-2 border-[#004C69]">
         <div className="border-2 border-[#004C69] bg-[#004C69] text-white text-left p-1 grid grid-cols-2">
           <div>
-          <NavLink
-			to="/dashboard"
-      className="underline"
-      
-			>
-			Dashboard 
-		</NavLink>
-<p data-cy="naamCurrentCategorie" className="inline-block">&nbsp;- {currentCategorie.NAAM}</p>
-    
-    </div>
+            <NavLink
+              to="/dashboard"
+              className="underline"
+
+            >
+              Dashboard
+            </NavLink>
+            <p data-cy="naamCurrentCategorie" className="inline-block">&nbsp;- {currentCategorie.NAAM}</p>
+
+          </div>
           <div className="justify-self-end mr-2">
-            {arrayIcons.map(s => <img   src={`/assets${s}`} alt={`${s}`} className="w-12 inline-block p-1"/>)}
-            
+            {arrayIcons.map(s => <img src={`/assets${s}`} alt={`${s}`} className="w-12 inline-block p-1" />)}
+
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-        {doelstellingenCat.map(d => <Doelstelling key={d.id} { ...d }  ></Doelstelling>)}
-          </div>
+          {doelstellingenCat.map(d => <Doelstelling key={d.id} {...d}  ></Doelstelling>)}
+        </div>
 
-      
+
 
       </div>
     </>

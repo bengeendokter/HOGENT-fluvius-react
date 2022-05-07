@@ -11,7 +11,7 @@ import {DoelstellingContext} from '../../contexts/DoelstellingProvider';
 
 export default function Dashboard()
 {
-  const {categories} = useCategories();
+  const {error, categories} = useCategories();
   const {getSdgsVoorCategories, categoriesMetSdgs, setCategories: setCategoriesSdgs} = useContext(SdgContext);
   const {getDoelstellingenVoorCategories, setCategories: setCategoriesDoelstellingen, categoriesMetDoelstellingen} = useContext(DoelstellingContext);
   
@@ -32,10 +32,11 @@ export default function Dashboard()
   return (
     <>
       <h1 className={styles.title}>Dashboard</h1>
+      <h2>{error && <pre className="text-red-600">{error.message}</pre>}</h2>
       <div className={styles.categorie_container}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {categoriesMetDoelstellingen.map((c) =>
-        <AccordionCategory {...c}></AccordionCategory>)}
+        <AccordionCategory key={c.id} {...c}></AccordionCategory>)}
         {/* <Categorie key={c.id} {...c}></Categorie>)} */}
         </div>
       </div>
