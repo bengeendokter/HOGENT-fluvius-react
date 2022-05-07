@@ -1,4 +1,38 @@
-.categorie
+.doelstelling
 {
-
+  --doel-color: var(--clr-secondary);
+  border-radius: 15px;
+  background-color: var(--clr-background);
+  padding: 0.3em;
+  box-shadow: 7px 7px 0 0 var(--doel-color);
+  transition: box-shadow .2s ease;
 }
+
+.doelstelling:hover
+{
+  box-shadow: 0px 0px 0 0 var(--clr-secondary);
+  transition: box-shadow .2s ease;
+}
+
+.doelnietbehaald
+{
+  --doel-color: var(--clr-negative);
+}
+
+.naam
+{
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 33px;
+}
+
+/* .label */
+
+/* .huidieWaarde */
+
+/* .doelWaarde */
+
+/* .percentage */
+
+/* .percentage strong */

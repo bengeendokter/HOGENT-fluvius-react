@@ -1,34 +1,36 @@
-
 import styles from './DoelstellingPreview.module.css';
 import {useData} from "../../contexts/DataProvider";
-import
-    {
-        useState,
-        useEffect
-    } from 'react';
+import {useState, useEffect} from 'react';
 
-export default function DoelstellingPreview({id, doelwaarde, isMax, naam})
+export default function DoelstellingPreview({id, doelwaarde: doelwaardeProp, isMax: isMaxProp, naam})
 {
-    const [doelId, setdoelId] = useState(id);
-    const [huidieWaarde, setHuidieWaarde] = useState("...");
+    const [doelId] = useState(id);
+    const [doelwaarde] = useState(doelwaardeProp);
+    const [isMax] = useState(isMaxProp);
+    const [huidieWaarde, setHuidieWaarde] = useState(0);
     const [eenheid, setEenheid] = useState("...");
     const {data, error} = useData();
+    // TODO hoe geef ik error boodschap door aan parent (Dashboard.jsx) ?
+    const [isDoelBehaald, setDoelBehaald] = useState(false);
+    const [percentage, setPercentage] = useState(0);
 
-    // haal huidegeWaarde en eenheid op via API
+    // haal huidigeWaarde en eenheid op via API
     useEffect(() =>
     {
-        const huidigDoel = data.find(doel => doel.id === id);
+        const huidigDoel = data.find(doel => doel.id === doelId);
         setEenheid(huidigDoel.eenheid);
-        setHuidieWaarde(huidigDoel.data[0][2020][0]);
-        
-    }, [id, data, setEenheid]);
-
+        const huidigFetch = huidigDoel.data[0][2020][0]
+        setHuidieWaarde(huidigFetch);
+        setDoelBehaald(isMax ? huidigFetch <= doelwaarde : huidigFetch >= doelwaarde);
+        setPercentage((huidigFetch - doelwaarde) / (doelwaarde !== 0 ? doelwaarde : 0.01) * 100);
+    }, [doelId, isMax, doelwaarde, data, setEenheid, setHuidieWaarde, setDoelBehaald]);
     return (
-        <div className={styles.doelstelling}>
-            <p>{naam}</p>
-            <p>{doelwaarde}</p>
-            <p>{huidieWaarde}</p>
-            <p>{eenheid}</p>
-            <p>{isMax ? "Max" : "Min"}</p>
+        <div className={[styles.doelstelling, isDoelBehaald && styles.doelnietbehaald].join(" ")}>
+            <h3 className={styles.naam}>{naam}</h3>
+            <p className={styles.label}>Huidige waarde:</p>
+            <p className={styles.huidieWaarde}>{huidieWaarde} {eenheid}</p>
+            <p className={styles.label}>{isMax ? "Drempelwaarde:" : "Doelwaarde:"}</p>
+            <p className={styles.doelWaarde}>{doelwaarde} {eenheid}</p>
+            <p className={styles.percentage}><strong>{huidieWaarde >= doelwaarde ? "+" : ""}{percentage}%</strong> t.o.v. doel</p>
         </div>);
 };
