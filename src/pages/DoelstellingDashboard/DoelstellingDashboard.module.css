@@ -1,0 +1,25 @@
+.detail-container {
+    max-width: 1450px;
+    width: 95%;
+    height: 100vh;
+    margin: 15px auto;
+    border: 1px solid black;
+}
+
+.detail-breadcrumb {
+    padding: 15px;
+    font-weight: bold;
+    font-size: large;
+}
+
+.breadcrumb-link {
+    padding: 10px;
+    box-sizing: border-box;
+    border-bottom: 0px solid #B8CE44;
+    border-radius: 5px;
+    color: #004C69;
+}
+.breadcrumb-link:hover {
+    border-bottom: 2px solid #B8CE44;
+    background-color: rgba(0,0,0,0.05);
+}
