@@ -1,6 +1,7 @@
 import {NavLink} from "react-router-dom";
-import DoelstellingPreview from './DoelstellingPreview';
-import {useCategories} from '../contexts/CategorieProvider';
+import styles from './AccordionCategory.module.css';
+import DoelstellingPreview from '../DoelstellingPreview';
+import {useCategories} from '../../contexts/CategorieProvider';
 
 
 export default function AccordionCategory({naam, id, doelstellingen, sdgs})
@@ -30,7 +31,7 @@ export default function AccordionCategory({naam, id, doelstellingen, sdgs})
                 <h2
                 onClick={handleClick}
                 data-cy="categorieClick"
-                className="text-xl hover:underline">{naam}</h2>
+                >{naam}</h2>
               </NavLink>
         </div>
 

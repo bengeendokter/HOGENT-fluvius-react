@@ -1,0 +1,6 @@
+.categorie
+{
+  display: grid;
+  border: var(--clr-primary) 2px solid;
+  margin-inline: .5em;
+}
