@@ -141,6 +141,39 @@
     background-color: #004C69;
 }
 
+.detail-fout-melden-div {
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    max-width: 500px;
+    width: 100%;
+}
+
+.detail-fout-melden {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    width: max-content;
+    width: max-content;
+}
+
+.detail-fout-melden p {
+    font-weight: bold;
+    color: #FF4512;
+    font-size: larger;
+}
+
+.detail-fout-melden img {
+    width: 50px;
+    transition: 0.25s ease all;
+}
+.detail-fout-melden img:hover {
+    transform: scale(1.125);
+    cursor: pointer;
+}
+
 .percentage-onder {
     color: #FF4512;
 }

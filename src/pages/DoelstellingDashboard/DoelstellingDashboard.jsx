@@ -3,7 +3,7 @@ import Accordion from '../../components/Accordion';
 import { DoelstellingContext} from '../../contexts/DoelstellingProvider';
 import { useData } from '../../contexts/DataProvider';
 import { useParams } from "react-router-dom";
-import { useContext, useEffect, useMemo } from 'react';
+import { useCallback, useContext, useEffect, useMemo } from 'react';
 import { NavLink } from "react-router-dom";
 import BarChart from '../../components/BarChart';
 import { SdgContext } from '../../contexts/SdgProvider';
@@ -72,6 +72,10 @@ export default function DoelstellingDashboard() {
     return validSDGs.sort((a, b) => Number(a.AFBEELDINGNAAM) > Number(b.AFBEELDINGNAAM));
   }, [sdgs, currentDoel, doelstellingen])
 
+  const handleReport = useCallback(() => {
+    console.log("Reported doelstelling: '", currentDoel.naam, "'")
+  }, [currentDoel])
+
   return (
 
     <>
@@ -136,6 +140,12 @@ export default function DoelstellingDashboard() {
             <div className={styles["detail-right-panel-iconInfo-text"]}>
               <div>Doel {berekenPercentage.isOnder? "niet":""} behaald:</div>
               <div className={berekenPercentage.isOnder? styles["percentage-onder"]:styles["percentage-boven"]}>{!berekenPercentage.isOnder && "+"}{berekenPercentage.percentage}%</div>
+            </div>
+          </div>
+          <div className={styles["detail-fout-melden-div"]}>
+            <div className={styles["detail-fout-melden"]}>
+              <p>Fout melden</p>
+              <img onClick={handleReport} src="/assets/images/exlamation_icon.png" alt="meld icon" />
             </div>
           </div>
         </div>
