@@ -16,7 +16,8 @@
     align-items: center;
     justify-content: space-between;
     max-width: 1500px;
-    width: 95%;
+    width: 100%;
+    margin: 0 auto;
     border-bottom: 2px solid #004C69;
 }
 
@@ -48,12 +49,40 @@
 
 .sdgs {
     display: flex;
+    flex-wrap: wrap;
     gap: 5px;
+}
+
+.detail-bottom {
+    background-color: rgba(0, 76, 105, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    max-width: 1600px;
+    width: 90.6%;
+    margin: 15px auto;
+}
+
+.subdoelstellingen-titel {
+    width: 100%;
+    text-align: left;
+    font-size: x-large;
+    font-weight: bold;
+    color: #004C69;
+}
+
+.subdoelstellingen {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
 }
 
 .detail-top {
     display: grid;
-    margin: 10px 0;
+    margin: 25px auto;
     grid-template-columns: 60% 40%;
     width: 100%;
     gap: 10px;
@@ -118,6 +147,12 @@
 
 .percentage-boven {
     color: #B8CE44;
+}
+
+@media screen and (min-width: 1280px) {
+    .subdoelstellingen {
+        justify-content:left;
+    }
 }
 
 @media screen and (max-width: 1280px) {

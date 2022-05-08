@@ -19,19 +19,25 @@ export default function DoelstellingPreview({id, doelwaarde: doelwaardeProp, isM
     useEffect(() =>
     {
         const huidigDoel = data.find(doel => doel.id === doelId);
-        setEenheid(huidigDoel.eenheid);
-        const huidigFetch = huidigDoel.data[0][2020][0]
+        setEenheid(huidigDoel?.eenheid);
+        const huidigFetch = huidigDoel?.data[0][2020][0]
         setHuidieWaarde(huidigFetch);
         setDoelBehaald(isMax ? huidigFetch <= doelwaarde : huidigFetch >= doelwaarde);
         setPercentage((huidigFetch - doelwaarde) / (doelwaarde !== 0 ? doelwaarde : 0.01) * 100);
     }, [doelId, isMax, doelwaarde, data, setEenheid, setHuidieWaarde, setDoelBehaald]);
     return (
+        <>
+        { 
         <NavLink to={`/doelstellingDashboard/${doelId}`} className={[styles.doelstelling, isDoelBehaald && styles.doelbehaald].join(" ")}>
             <h3 className={styles.naam}>{naam}</h3>
-            <p className={styles.label}>Huidige waarde:</p>
-            <p className={styles.huidieWaarde}>{huidieWaarde} {eenheid}</p>
-            <p className={styles.label}>{isMax ? "Drempelwaarde:" : "Doelwaarde:"}</p>
-            <p className={styles.doelWaarde}>{doelwaarde} {eenheid}</p>
+            <div className={styles["huidigeWaarde-div"]}>
+                <p className={styles.label}>Huidige waarde:</p>
+                <p className={styles.huidieWaarde}>{huidieWaarde} {eenheid}</p>
+            </div>
+            <div className={styles["doelwaarde-div"]}>
+                <p className={styles.label}>{isMax ? "Drempelwaarde:" : "Doelwaarde:"}</p>
+                <p className={styles.doelWaarde}>{doelwaarde} {eenheid}</p>
+            </div>
             <p className={styles.percentage}><strong>{huidieWaarde >= doelwaarde ? "+" : ""}{percentage}%</strong> t.o.v. doel</p>
-        </NavLink>);
+        </NavLink>}</>)
 };

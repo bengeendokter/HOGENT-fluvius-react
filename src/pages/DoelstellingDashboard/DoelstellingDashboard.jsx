@@ -7,6 +7,7 @@ import { useContext, useEffect, useMemo } from 'react';
 import { NavLink } from "react-router-dom";
 import BarChart from '../../components/BarChart';
 import { SdgContext } from '../../contexts/SdgProvider';
+import DoelstellingPreview from "../../components/DoelstellingPreview/DoelstellingPreview";
 
 export default function DoelstellingDashboard() {
   const {doelstellingen, setCurrentDoelstelling, currentDoel,pad} = useContext(DoelstellingContext);
@@ -51,9 +52,15 @@ export default function DoelstellingDashboard() {
   
   const vindSdgs = useMemo(() => {
     let validSDGs = [];
+    let categorie;
     
     if (currentDoel && currentDoel.categorie) {
-      const allSDGs = sdgs.filter(s => s.CATID === currentDoel.categorie.id);
+      if (currentDoel.parent_doelstelling && currentDoel.categorie.id === null) {
+        categorie = doelstellingen.find(d => d.id === currentDoel.parent_doelstelling.id).categorie;
+      } else {
+        categorie = currentDoel.categorie;
+      }
+      const allSDGs = sdgs.filter(s => s.CATID === categorie.id);
 
       allSDGs.forEach((sdg, index) => {
         const subArray = allSDGs.slice(0, index);
@@ -62,14 +69,14 @@ export default function DoelstellingDashboard() {
         }
       });
     }
-    return validSDGs.sort((a, b) => a.AFBEELDINGNAAM > b.AFBEELDINGNAAM);
-  }, [sdgs, currentDoel])
+    return validSDGs.sort((a, b) => Number(a.AFBEELDINGNAAM) > Number(b.AFBEELDINGNAAM));
+  }, [sdgs, currentDoel, doelstellingen])
 
   return (
 
     <>
       <div className={styles["detail-container"]}>
-        <div className={styles["detail-header"]}>
+      <div className={styles["detail-header"]}>
       <div className={styles["detail-breadcrumb"]}>
         <NavLink to="/dashboard" className={styles["breadcrumb-link"]}>
 			    Dashboard 
@@ -132,6 +139,22 @@ export default function DoelstellingDashboard() {
             </div>
           </div>
         </div>
+      </div>
+      <div className={styles["detail-bottom"]}>
+        <div className={styles["subdoelstellingen-titel"]}>
+          {(currentDoel.subdoelstellingen && currentDoel.subdoelstellingen.length > 0)?
+            "Subdoelstellingen":"Geen subdoelstellingen"
+          }
+        </div>
+        {currentDoel.subdoelstellingen &&
+          <div className={styles["subdoelstellingen"]}> 
+            {
+            currentDoel.subdoelstellingen.map(sub => {
+              return <DoelstellingPreview {...sub} key={`${sub.id}${sub.naam}`}></DoelstellingPreview>
+            })
+            }
+          </div>
+        }
       </div>
     </div>
     {/*
