@@ -1,15 +1,17 @@
-import Doelstelling from '../components/Doelstelling';
-import {DoelstellingContext} from '../contexts/DoelstellingProvider';
-import {SdgContext} from '../contexts/SdgProvider';
+import Doelstelling from '../../components/Doelstelling';
+import {DoelstellingContext} from '../../contexts/DoelstellingProvider';
+import {SdgContext} from '../../contexts/SdgProvider';
 import {useParams} from "react-router-dom";
 import {NavLink, Link} from 'react-router-dom';
-import {useCategories} from "../contexts/CategorieProvider";
+import {useCategories} from "../../contexts/CategorieProvider";
 import {useMemo} from "react";
+import styles from './CategorieDashboard.module.css';
 
 import
   {
     useEffect, useContext
   } from 'react';
+import DoelstellingPreview from '../../components/DoelstellingPreview';
 
 export default function CategorieDashboard(c)
 {
@@ -61,9 +63,8 @@ export default function CategorieDashboard(c)
 
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-          {doelstellingenCat.map(d => <Doelstelling key={d.id} {...d}  ></Doelstelling>)}
+        <div className={styles["doelstellingen"]}>
+          {doelstellingenCat.map(d => <DoelstellingPreview key={d.id} {...d}/>)}
         </div>
 
 
