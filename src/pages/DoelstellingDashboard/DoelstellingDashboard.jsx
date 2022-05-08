@@ -1,5 +1,4 @@
 import styles from './DoelstellingDashboard.module.css';
-import Accordion from '../../components/Accordion';
 import { DoelstellingContext} from '../../contexts/DoelstellingProvider';
 import { useData } from '../../contexts/DataProvider';
 import { useParams } from "react-router-dom";
@@ -80,109 +79,93 @@ export default function DoelstellingDashboard() {
 
     <>
       <div className={styles["detail-container"]}>
-      <div className={styles["detail-header"]}>
-      <div className={styles["detail-breadcrumb"]}>
-        <NavLink to="/dashboard" className={styles["breadcrumb-link"]}>
-			    Dashboard 
-		    </NavLink>
-        &nbsp;  /  &nbsp;
-        <NavLink to={`/categorieDashboard/${(currentDoel.categorie === undefined || currentDoel.categorie.id === null) ? 2: currentDoel.categorie.id}`} className={styles["breadcrumb-link"]}>
-			    {
-          (currentDoel.categorie === undefined || currentDoel.categorie.naam === null)? 
-            "Ecologie"
-            : 
-            currentDoel.categorie.naam
-          }
-		    </NavLink>
+        <div className={styles["detail-header"]}>
+          <div className={styles["detail-breadcrumb"]}>
+            <NavLink to="/dashboard" className={styles["breadcrumb-link"]}>
+              Dashboard 
+            </NavLink>
+            &nbsp;  /  &nbsp;
+            <NavLink to={`/categorieDashboard/${(currentDoel.categorie === undefined || currentDoel.categorie.id === null) ? 2: currentDoel.categorie.id}`} className={styles["breadcrumb-link"]}>
+              {
+              (currentDoel.categorie === undefined || currentDoel.categorie.naam === null)? 
+                "Ecologie"
+                : 
+                currentDoel.categorie.naam
+              }
+            </NavLink>
 
-        {
-          pad.map(p=>  { 
-            return <> 
-            &nbsp; /  &nbsp;
-            { (p.naam !== currentDoel.naam)?
-              <NavLink to={`/doelstellingDashboard/${p.id}`} className={styles["breadcrumb-link"]}>
-                {p.naam}
-              </NavLink>
-              :
-              p.naam
-            }
-          </>
-          })
-        }
-      </div>
-      <div className={styles["sdgs"]}>
-      {vindSdgs?.map(s => {
-        return <img className={styles["sdg"]} src={`/assets/images/${s.AFBEELDINGNAAM}.jpg`} alt={s.NAAM} />
-        })}
-      </div>
-      </div>
-      <div className={styles["detail-top"]}>
-        {currentDoel.naam && currentDoel.id && <BarChart naam={currentDoel.naam} id={currentDoel.id}/>}
-        <div className={styles["detail-right-panel"]}>
-          <div className={styles["detail-right-panel-iconInfo"]}>
-            <img className={styles["detail-info-icons"]} src="/assets/images/graph_icon.PNG" alt="graph icon"/>
-            <div className={styles["detail-right-panel-iconInfo-text"]}>
-              <div>Huidige waarde:</div>
-              <div>{vindActueleWaardeData} {vindDataDoelstelling?.eenheid}</div>
-            </div>
-          </div>
-
-          <div className={styles["detail-right-panel-iconInfo"]}>
-            <img className={styles["detail-info-icons"]} src="/assets/images/target_icon.PNG" alt="graph icon"/>
-            <div className={styles["detail-right-panel-iconInfo-text"]}>
-              <div>{currentDoel.isMax? "Doelwaarde:":"Drempelwaarde:"}</div>
-              <div>{currentDoel.doelwaarde} {vindDataDoelstelling?.eenheid}</div>
-            </div>
-          </div>
-
-          <div className={styles["detail-right-panel-iconInfo"]}>
-            <img className={styles["detail-info-icons"]} src="/assets/images/question_icon.PNG" alt="graph icon"/>
-            <div className={styles["detail-right-panel-iconInfo-text"]}>
-              <div>Doel {berekenPercentage.isOnder? "niet":""} behaald:</div>
-              <div className={berekenPercentage.isOnder? styles["percentage-onder"]:styles["percentage-boven"]}>{!berekenPercentage.isOnder && "+"}{berekenPercentage.percentage}%</div>
-            </div>
-          </div>
-          <div className={styles["detail-fout-melden-div"]}>
-            <div className={styles["detail-fout-melden"]}>
-              <p>Fout melden</p>
-              <img onClick={handleReport} src="/assets/images/exlamation_icon.png" alt="meld icon" />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className={styles["detail-bottom"]}>
-        <div className={styles["subdoelstellingen-titel"]}>
-          {(currentDoel.subdoelstellingen && currentDoel.subdoelstellingen.length > 0)?
-            "Subdoelstellingen":"Geen subdoelstellingen"
-          }
-        </div>
-        {currentDoel.subdoelstellingen &&
-          <div className={styles["subdoelstellingen"]}> 
             {
-            currentDoel.subdoelstellingen.map(sub => {
-              return <DoelstellingPreview {...sub} key={`${sub.id}${sub.naam}`}></DoelstellingPreview>
-            })
+              pad.map(p=>  { 
+                return <p key={`${p.naam}${currentDoel.naam}`}> 
+                &nbsp; /  &nbsp;
+                { (p.naam !== currentDoel.naam)?
+                  <NavLink to={`/doelstellingDashboard/${p.id}`} className={styles["breadcrumb-link"]}>
+                    {p.naam}
+                  </NavLink>
+                  :
+                  p.naam
+                }
+              </p>
+              })
             }
           </div>
-        }
+          <div className={styles["sdgs"]}>
+          {vindSdgs?.map(s => {
+            return <img className={styles["sdg"]} src={`/assets/images/${s.AFBEELDINGNAAM}.jpg`} key={`${s.idSDG}${s.AFBEELDINGNAAM}${s.CATID}`} alt={s.NAAM} />
+            })}
+          </div>
+        </div>
+        <div className={styles["detail-top"]}>
+          {currentDoel.naam && currentDoel.id && <BarChart naam={currentDoel.naam} id={currentDoel.id}/>}
+          <div className={styles["detail-right-panel"]}>
+            <div className={styles["detail-right-panel-iconInfo"]}>
+              <img className={styles["detail-info-icons"]} src="/assets/images/graph_icon.PNG" alt="graph icon"/>
+              <div className={styles["detail-right-panel-iconInfo-text"]}>
+                <div>Huidige waarde:</div>
+                <div>{vindActueleWaardeData} {vindDataDoelstelling?.eenheid}</div>
+              </div>
+            </div>
+
+            <div className={styles["detail-right-panel-iconInfo"]}>
+              <img className={styles["detail-info-icons"]} src="/assets/images/target_icon.PNG" alt="graph icon"/>
+              <div className={styles["detail-right-panel-iconInfo-text"]}>
+                <div>{currentDoel.isMax? "Doelwaarde:":"Drempelwaarde:"}</div>
+                <div>{currentDoel.doelwaarde} {vindDataDoelstelling?.eenheid}</div>
+              </div>
+            </div>
+
+            <div className={styles["detail-right-panel-iconInfo"]}>
+              <img className={styles["detail-info-icons"]} src="/assets/images/question_icon.PNG" alt="graph icon"/>
+              <div className={styles["detail-right-panel-iconInfo-text"]}>
+                <div>Doel {berekenPercentage.isOnder? "niet":""} behaald:</div>
+                <div className={berekenPercentage.isOnder? styles["percentage-onder"]:styles["percentage-boven"]}>{!berekenPercentage.isOnder && "+"}{berekenPercentage.percentage}%</div>
+              </div>
+            </div>
+            <div className={styles["detail-fout-melden-div"]}>
+              <div className={styles["detail-fout-melden"]}>
+                <p>Fout melden</p>
+                <img onClick={handleReport} src="/assets/images/exlamation_icon.png" alt="meld icon" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={styles["detail-bottom"]}>
+          <div className={styles["subdoelstellingen-titel"]}>
+            {(currentDoel.subdoelstellingen && currentDoel.subdoelstellingen.length > 0)?
+              "Subdoelstellingen":"Geen subdoelstellingen"
+            }
+          </div>
+          {currentDoel.subdoelstellingen &&
+            <div className={styles["subdoelstellingen"]}> 
+              {
+              currentDoel.subdoelstellingen.map(sub => {
+                return <DoelstellingPreview {...sub} key={`${sub.id}${sub.naam}`}></DoelstellingPreview>
+              })
+              }
+            </div>
+          }
+        </div>
       </div>
-    </div>
-    {/*
-    {currentDoel && pad &&
-      <>
-       <div className="m-2 border-2 border-[#004C69]">
-        <div className="border-2 border-[#004C69] bg-[#004C69] text-white text-left p-1 grid grid-cols-2">
-          
-
-    <div className="justify-self-end mr-2">Sdgs</div>
-    </div>
-
- {<div className="accordion min-w-full px-4">
-          {currentDoel.subdoelstellingen && currentDoel.subdoelstellingen.map(d => <Accordion {...d}></Accordion>)}
-        </div>}
-    </div>
-    </>
-  }*/}
     </>
   );
 }

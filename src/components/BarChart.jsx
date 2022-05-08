@@ -11,16 +11,12 @@ Chart.register(annotationPlugin);
 const BarChart = ({naam, id}) => {
   const {data: x} = useData();
 
-  console.log(x)
-
   if (x.length === 0) {
     return <></>
   }
-  console.log("naam is: ", naam)
 
     const labels = [""];
     const dataD = x.filter(d => d.naam === naam);
-    console.log("wow is: ", dataD)
     const doelwaardes = dataD[0]['doelwaarde'];
     const eenheid = dataD[0]['eenheid'];
   

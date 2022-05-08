@@ -28,6 +28,9 @@
     line-height: 50px;
     max-width: max-content;
     width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .breadcrumb-link {
