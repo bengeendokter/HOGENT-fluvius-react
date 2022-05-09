@@ -13,5 +13,10 @@
     "CATEGORIEID":3,
     "ICON":"file:src/images/planet.jpg",
     "NAAM":"Omgeving"
-  }
+  },
+  {
+    "CATEGORIEID": 4,
+    "ICON": "file:src/images/planet.jpg",
+    "NAAM": "Ecologie"
+}
 ]

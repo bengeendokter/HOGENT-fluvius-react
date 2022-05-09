@@ -1,2 +1,13 @@
-[{"id":3,"soort":"LEAF","doelwaarde":16,"icon":"file:src/images/peace.png","jaar":2020,"naam":"Aantal kinderen","parent_doelstelling":{"id":null},"sdg_goal":{"id":30},"formule":{"id":6,"naam":"SOM"},"datasource":{"id":4}}
+[
+  {
+    "id":3
+    ,"soort":"LEAF"
+    ,"doelwaarde":16
+    ,"icon":"file:src/images/peace.png"
+    ,"jaar":2020
+    ,"naam":"Steun aan goede doelen"
+    ,"parent_doelstelling":{"id":null},
+    "sdg_goal":{"id":30}
+    ,"formule":{"id":6,"naam":"SOM"}
+    ,"datasource":{"id":4}}
 ]

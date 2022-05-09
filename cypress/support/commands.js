@@ -23,3 +23,18 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add("login", (naam, password) => {
+  //cy.intercept("/api/users/login").as("login");
+  cy.visit("http://localhost:3000/login");
+  cy.get("[data-cy=gebruikersnaam_input]").type(naam);
+  cy.get("[data-cy=password_input]").type(password, { force: true });
+  cy.get("[data-cy=submit_btn]").click();
+  //cy.wait("@login");
+});
+
+Cypress.Commands.add("logout", () => {
+  //cy.intercept("/api/users/login").as("login");
+  //cy.visit("http://localhost:3000/");
+  cy.get("[data-cy=logout_btn]").click();
+  //cy.wait("@login");
+});

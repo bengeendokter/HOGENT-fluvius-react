@@ -29,7 +29,7 @@ export default function DoelstellingPreview({id, doelwaarde: doelwaardeProp, isM
         <>
         { 
         <NavLink to={`/doelstellingDashboard/${doelId}`} className={[styles.doelstelling, isDoelBehaald && styles.doelbehaald].join(" ")}>
-            <h3 className={styles.naam}>{naam}</h3>
+            <h3 data-cy="doelstellingNaam" className={styles.naam}>{naam}</h3>
             <div className={styles["huidigeWaarde-div"]}>
                 <p className={styles.label}>Huidige waarde:</p>
                 <p className={styles.huidieWaarde}>{huidieWaarde} {eenheid}</p>
