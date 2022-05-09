@@ -57,7 +57,7 @@ export default function Login() {
         <h1 className="text-[#004C69] text-xl font-bold justify-self-center">Meld aan</h1>
            {
             error ? (
-              <p className="text-red-500">
+              <p data-cy="login-error" className="text-red-500">
                 {error}
               </p>
             ) : null
