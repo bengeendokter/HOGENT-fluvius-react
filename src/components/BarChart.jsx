@@ -4,6 +4,7 @@ import zoomPlugin from "chartjs-plugin-zoom";
 import annotationPlugin from "chartjs-plugin-annotation";
 import { useData } from "../contexts/DataProvider";
 import styles from "./BarChart/BarChart.module.css"
+import { BloodtypeOutlined } from "@mui/icons-material";
 
 Chart.register(zoomPlugin);
 Chart.register(annotationPlugin);
@@ -21,7 +22,8 @@ const BarChart = ({naam, id}) => {
     const eenheid = dataD[0]['eenheid'];
   
     const datas = dataD[0]['data'].map(d =>  {
-      const kleur = `${ '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0').toUpperCase()}`;
+      //const kleur = `${ '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0').toUpperCase()}`;
+      const kleur = "#004C69";
   
       return {
         label: `${Object.entries(d)[0][0]}`,
@@ -42,7 +44,15 @@ const BarChart = ({naam, id}) => {
       scales: {
         y: {
           //max: 800,
-          title: { display: true, text: `${eenheid}` }
+          title: { display: true, text: `${eenheid}`, font: {size: 25, weight: 600,}},
+          ticks: {
+            font: {
+                size: 25,
+                family:'vazir',
+                weight: 600,
+            }
+        }
+          
         },
         
       },
@@ -55,14 +65,26 @@ const BarChart = ({naam, id}) => {
               scaleID: "y-axis-0",
               yMin: doelwaardes,
               yMax: doelwaardes,
-              borderColor: "black",
-              borderWidth: 1,
+              borderColor: "orange",
+              borderWidth: 5,
               label: {
                 enabled: true,
                 content: `${doelwaardes}`,
+                font: {
+                  size: 25,
+                }
               },
             },
           ],
+        },
+        legend: {
+          display: true,
+          labels: {
+              font: {
+                size: 25,
+                weight: 600,
+              },
+          }
         },
         zoom: {
           zoom: {
