@@ -1,20 +1,22 @@
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { grey } from '@mui/material/colors';
-import { useCategories } from "../contexts/CategorieProvider";
-import {
-  useEffect, useContext, useCallback
-} from 'react';
+import {grey} from '@mui/material/colors';
+import {useCategories} from "../contexts/CategorieProvider";
+import
+  {
+    useEffect, useContext, useCallback
+  } from 'react';
 import {TemplateContext} from '../contexts/TemplatesProvider';
 
 
 
 
 
-export default function TemplateCategorieRol(r) {
+export default function TemplateCategorieRol(r)
+{
   console.log("r", r);
-  let {id, category_id, rol, is_visible } = r;
+  let {id, category_id, rol, is_visible} = r;
   const {currentCategorie, setCatId, getCategorieByID} = useCategories();
   const {setTemplateToUpdate, createOrUpdateTemplate, currentTemplate} = useContext(TemplateContext);
   // met state werken! is_visible en setIs_visible! dan zo aanpassen en dan createOrUpdate doen, geen current!
@@ -27,13 +29,16 @@ export default function TemplateCategorieRol(r) {
 
   // console.log("current cat", currentCategorie);
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     console.log("id,", id);
     setTemplateToUpdate(id);
   }, [setTemplateToUpdate, id]);
 
-  useEffect(() => {
-    if(currentTemplate){
+  useEffect(() =>
+  {
+    if(currentTemplate)
+    {
       console.log("onclick verander visibility", currentTemplate);
     }
   }, [currentTemplate]);
@@ -54,28 +59,34 @@ export default function TemplateCategorieRol(r) {
   // },[onClick]);
 
   const onClick = useCallback(
-    async (data) => {
-      try {
+    async (data) =>
+    {
+      try
+      {
         //await setTemplateToUpdate(id);
-        if(currentTemplate){
-          if(is_visible == 1){
+        if(currentTemplate)
+        {
+          if(is_visible == 1)
+          {
             console.log(is_visible);
             is_visible = 0;
             console.log(is_visible);
-          }else{
+          } else
+          {
             is_visible = 1;
           }
           console.log("current", currentTemplate);
-        await createOrUpdateTemplate({
-          id: currentTemplate.id,
-          category_id: currentTemplate.category_id,
-          rol: currentTemplate.rol,
-          is_visible: is_visible,
-        });
-        //setTemplateToUpdate(null);
-        console.log("call");
-      }
-      } catch (error) {
+          await createOrUpdateTemplate({
+            id: currentTemplate.id,
+            category_id: currentTemplate.category_id,
+            rol: currentTemplate.rol,
+            is_visible: is_visible,
+          });
+          //setTemplateToUpdate(null);
+          console.log("call");
+        }
+      } catch(error)
+      {
         throw error;
       }
     },
@@ -88,19 +99,19 @@ export default function TemplateCategorieRol(r) {
 
   return (
     <>
-    {r &&
-    <div className="ml-10 grid grid-cols-2 bg-[#004C69] p-3 mr-10 mb-4">
-        <div className="text-white">
-          {category_id}
-          {/* test */}
+      {r &&
+        <div className="ml-10 grid grid-cols-2 bg-[#055063] p-3 mr-10 mb-4">
+          <div className="text-white">
+            {category_id}
+            {/* test */}
+          </div>
+          <div className="justify-self-end" >
+            {is_visible == 1 ? <><VisibilityIcon sx={{color: grey[50]}} onClick={onClick} /></> : <><VisibilityOffIcon sx={{color: grey[50]}} onClick={onClick} /> </>}
+
+          </div>
         </div>
-        <div className="justify-self-end" >
-          {is_visible == 1 ? <><VisibilityIcon sx={{ color: grey[50] }} onClick={onClick} /></>: <><VisibilityOffIcon sx={{ color: grey[50] }} onClick={onClick} /> </>}
-        
-        </div>
-      </div>
-}
-        
+      }
+
     </>
   );
 }

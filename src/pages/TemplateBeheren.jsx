@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
+import {useTheme} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -11,13 +11,14 @@ import {RolContext} from '../contexts/RolProvider';
 import eye from "../images/eye.jpg";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { grey } from '@mui/material/colors';
+import {grey} from '@mui/material/colors';
 import {TemplateContext} from '../contexts/TemplatesProvider';
 import TemplateCategorieRol from '../components/TemplateCategorieRol';
-import { Link, useParams, useNavigate } from "react-router-dom";
-import {
-  useEffect, useContext
-} from 'react';
+import {Link, useParams, useNavigate} from "react-router-dom";
+import
+  {
+    useEffect, useContext
+  } from 'react';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -31,7 +32,8 @@ const MenuProps = {
 };
 
 
-function getStyles(name, personName, theme) {
+function getStyles(name, personName, theme)
+{
   return {
     fontWeight:
       personName.indexOf(name) === -1
@@ -40,12 +42,13 @@ function getStyles(name, personName, theme) {
   };
 }
 
-export default function TemplateBeheren() {
+export default function TemplateBeheren()
+{
   const theme = useTheme();
   const [selectedRol, setSelectedRol] = React.useState('');
   const {rollen} = useContext(RolContext);
   const {getTemplatesMetCategorie, templatesMetCategorie, setTemplatesRol, templatesRol, getAllTemplatesByRol, setRolNaam, templates, setTemplateToUpdate, currentTemplate} = useContext(TemplateContext);
-  const { id } = useParams();
+  const {id} = useParams();
 
   // useEffect(() => {
   //   if(selectedRol){
@@ -61,30 +64,33 @@ export default function TemplateBeheren() {
 
   useEffect(() =>
   {
-    if(selectedRol){
+    if(selectedRol)
+    {
       setRolNaam(selectedRol[0]);
       getAllTemplatesByRol();
     }
-  }, [selectedRol, getAllTemplatesByRol, setRolNaam]); 
+  }, [selectedRol, getAllTemplatesByRol, setRolNaam]);
 
 
   useEffect(() =>
   {
-    if(templatesRol.length !== 0){
+    if(templatesRol.length !== 0)
+    {
       console.log("templ rol", templatesRol);
       getTemplatesMetCategorie(templatesRol);
     }
-  }, [templatesRol, getTemplatesMetCategorie]); 
+  }, [templatesRol, getTemplatesMetCategorie]);
 
   useEffect(() =>
   {
-      console.log("templ met cat rol", templatesMetCategorie);
-  }, [templatesMetCategorie]); 
+    console.log("templ met cat rol", templatesMetCategorie);
+  }, [templatesMetCategorie]);
 
 
-  const handleChange = (event) => {
+  const handleChange = (event) =>
+  {
     const {
-      target: { value },
+      target: {value},
     } = event;
     setSelectedRol(
       typeof value === 'string' ? value.split(',') : value,
@@ -96,59 +102,62 @@ export default function TemplateBeheren() {
     // aan de hand van de geselecteerde rol --> categorieën opvragen --> ook visibility weergeven
   };
 
-  const onClick = () => {
+  const onClick = () =>
+  {
     console.log("onclick verander visibility");
   };
 
-  const reset = () => {
+  const reset = () =>
+  {
     console.log("reset template voor geselecteerde rol");
   };
 
-  const save = () => {
+  const save = () =>
+  {
     console.log("save template voor geselecteerde rol");
   };
 
 
   return (
     <>
-    <div className="flex justify-center mt-5">
+      <div className="flex justify-center mt-5">
+        <div>
+
+          <FormControl sx={{m: 1, width: 300}}>
+            <InputLabel id="demo-simple-select-label">rol</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={selectedRol}
+              label="Age"
+              onChange={handleChange}
+            >
+              {rollen.map((rol) => (
+                <MenuItem
+                  key={rol.NAAM}
+                  value={rol.NAAM}
+                  style={getStyles(rol.NAAM, selectedRol, theme)}
+                >
+                  {rol.NAAM}
+                </MenuItem>))}
+            </Select>
+          </FormControl>
+        </div>
+
+      </div>
       <div>
 
-      <FormControl sx={{ m: 1, width: 300 }}>
-  <InputLabel id="demo-simple-select-label">rol</InputLabel>
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    value={selectedRol}
-    label="Age"
-    onChange={handleChange}
-  >
-    {rollen.map((rol) => (
-            <MenuItem
-              key={rol.NAAM}
-              value={rol.NAAM}
-              style={getStyles(rol.NAAM, selectedRol, theme)}
-            >
-              {rol.NAAM}
-            </MenuItem>))}
-  </Select>
-</FormControl>
-      </div>
-      
-    </div>
-    <div>
-      
-      <p className="font-bold text-xl ml-10 mb-10 text-[#004C69]">Template {selectedRol}</p>
-      {templatesMetCategorie.map(r => <TemplateCategorieRol key={r.id} { ...r }  ></TemplateCategorieRol>)}
-      <div className="flex justify-end mr-8">
-        <div onClick={reset} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
-          Reset template
-        </div>
-        <div onClick={save} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
-          Opslaan
+        <p className="font-bold text-xl ml-10 mb-10 text-[#055063]">Template {selectedRol}</p>
+        {templatesMetCategorie.map(r => <TemplateCategorieRol key={r.id} {...r}  ></TemplateCategorieRol>)}
+        <div className="flex justify-end mr-8">
+          <div onClick={reset} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
+            Reset template
+          </div>
+          <div onClick={save} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
+            Opslaan
+          </div>
         </div>
       </div>
-    </div>
 
     </>
   );

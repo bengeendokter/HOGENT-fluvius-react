@@ -18,7 +18,7 @@
     max-width: 1500px;
     width: 100%;
     margin: 0 auto;
-    border-bottom: 2px solid #004C69;
+    border-bottom: 2px solid #055063;
 }
 
 .detail-breadcrumb {
@@ -38,11 +38,12 @@
     box-sizing: border-box;
     border-bottom: 0px solid #B8CE44;
     border-radius: 5px;
-    color: #004C69;
+    color: #055063;
 }
+
 .breadcrumb-link:hover {
     border-bottom: 2px solid #B8CE44;
-    background-color: rgba(0,0,0,0.05);
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .sdg {
@@ -70,7 +71,7 @@
     text-align: left;
     font-size: x-large;
     font-weight: bold;
-    color: #004C69;
+    color: #055063;
 }
 
 .subdoelstellingen {
@@ -141,7 +142,7 @@
     font-family: sans-serif;
     font-weight: bold;
     font-size: larger;
-    background-color: #004C69;
+    background-color: #055063;
 }
 
 .detail-fout-melden-div {
@@ -172,6 +173,7 @@
     width: 50px;
     transition: 0.25s ease all;
 }
+
 .detail-fout-melden img:hover {
     transform: scale(1.125);
     cursor: pointer;
@@ -187,7 +189,7 @@
 
 @media screen and (min-width: 1280px) {
     .subdoelstellingen {
-        justify-content:left;
+        justify-content: left;
     }
 }
 
@@ -216,7 +218,7 @@
 @media screen and (max-width: 650px) {
 
     .detail-info-icons {
-        top:0;
+        top: 0;
         left: 50%;
         transform: translate(-50%);
     }

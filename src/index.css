@@ -2,173 +2,167 @@
 @tailwind components;
 @tailwind utilities;
 
-:root
-{
-  --hsl-blauw-fluvius: 197, 58%, 27%;
-  --hsl-groen-fluvius: 70, 58%, 54%;
-  --hsl-black: 240, 100%, 0%;
-  --hsl-white: 240, 100%, 100%;
-  --hsl-oranje-itsme: 13, 100%, 54%;
-  --hsl-gray: 180, 8%, 95%;
+:root {
+    --hsl-blauw-fluvius: 192, 90%, 20%;
+    --hsl-groen-fluvius: 70, 58%, 54%;
+    --hsl-black: 240, 100%, 0%;
+    --hsl-white: 240, 100%, 100%;
+    --hsl-oranje-itsme: 13, 100%, 54%;
+    --hsl-gray: 180, 8%, 95%;
 
-  --clr-primary: hsla(var(--hsl-blauw-fluvius));
-  --clr-secondary: hsla(var(--hsl-groen-fluvius));
-  --clr-accent: hsla(var(--hsl-white));
-  --clr-negative: hsla(var(--hsl-oranje-itsme));
-  --clr-background: hsla(var(--hsl-white));
-  --clr-foreground: hsla(var(--hsl-black));
-  --clr-gray: hsla(var(--hsl-gray));
+    --clr-primary: hsla(var(--hsl-blauw-fluvius));
+    --clr-secondary: hsla(var(--hsl-groen-fluvius));
+    --clr-accent: hsla(var(--hsl-white));
+    --clr-negative: hsla(var(--hsl-oranje-itsme));
+    --clr-background: hsla(var(--hsl-white));
+    --clr-foreground: hsla(var(--hsl-black));
+    --clr-gray: hsla(var(--hsl-gray));
 }
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
 }
 
 /* Navigation menu */
 nav ul {
-  color: white;
+    color: white;
 }
 
 nav a {
-  text-decoration: none;
-  /* color:white; */
+    text-decoration: none;
+    /* color:white; */
 }
 
 nav a.active {
-  background-color: white;
-  color: #004C69;
+    background-color: white;
+    color: #055063;
 }
 
 nav a.active:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 nav ul {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
 }
 
 nav a {
-  display: block;
+    display: block;
 
 }
 
-.header
-{
-  display: grid;
-  grid-auto-flow: column;
+.header {
+    display: grid;
+    grid-auto-flow: column;
 }
 
-@media screen and (max-width: 890px)
-{
-  .header
-  {
-    grid-auto-flow: row;
-  }
+@media screen and (max-width: 890px) {
+    .header {
+        grid-auto-flow: row;
+    }
 
-  .logofluvius, .acountknoppen
-  {
-    justify-self: center;
-  }
+    .logofluvius,
+    .acountknoppen {
+        justify-self: center;
+    }
 }
 
-.navigation
-{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.navigation {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 /* HAMBURGER MENU */
 
 /* muisaanwijzer instellen */
 nav img#hamburger-icon {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 /* default verbergen we het menu */
 nav ul {
-  display: none;
+    display: none;
 }
 
 /* als de checkbox checked is geven we het menu
 terug weer */
 nav #menu-checkbox:checked~ul {
-  display: block;
+    display: block;
 }
 
 /* checkbox moet niet zichtbaar zijn */
 nav #menu-checkbox {
-  display: none;
+    display: none;
 }
 
 /* we plaatsen een 'break point" bij 576px */
 @media screen and (min-width: 576px) {
 
-  /* in desktop view is het horizontaal menu altijd zichtbaar */
-  nav ul {
-    display: block;
-    text-align: left;
-  }
+    /* in desktop view is het horizontaal menu altijd zichtbaar */
+    nav ul {
+        display: block;
+        text-align: left;
+    }
 
 
 
-  /* in desktop view verbergen we het label dat het hamburger-icon bevat */
-  nav label[for='menu-checkbox'] {
-    display: none;
-  }
+    /* in desktop view verbergen we het label dat het hamburger-icon bevat */
+    nav label[for='menu-checkbox'] {
+        display: none;
+    }
 }
 
 /**/
 .accordion {
-  max-width: 600px;
-  margin: 2rem auto;
+    max-width: 600px;
+    margin: 2rem auto;
 }
 
 .accordion-title {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  cursor: pointer;
-  background-color: #21aeca;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    cursor: pointer;
+    background-color: #21aeca;
 }
 
 .accordion-title:hover {
-  background-color: #3ab4cc;
+    background-color: #3ab4cc;
 }
 
 .accordion-title,
 .accordion-content {
-  padding: 1rem;
+    padding: 1rem;
 }
 
 .accordion-content {
-  background-color: #39b9d2;
+    background-color: #39b9d2;
 }
 
 
 button.accordion-button:not(.collapsed) {
-  background-color: unset;
-  box-shadow: unset;
-  color: unset;
-  fill: unset;
+    background-color: unset;
+    box-shadow: unset;
+    color: unset;
+    fill: unset;
 }
 
 .logout {
-  color: white;
-  width: 50px;
-  height: 50px;
-  z-index: 5;
+    color: white;
+    width: 50px;
+    height: 50px;
+    z-index: 5;
 }
-

@@ -1,23 +1,24 @@
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import BarChart from "./BarChart";
 
-const Accordion = (props) => {
+const Accordion = (props) =>
+{
   const {naam, id, doelwaarde, soort, subdoelstellingen} = props;
   return (
     <>
       <div className="accordion-item bg-white border border-gray-200 m-4"
       >
         <h2 className="accordion-header mb-0
-        bg-[#004C69] text-white text-left 
+        bg-[#055063] text-white text-left 
         
         " id={`headingOne${id}`}>
-<div className="border-2 border-[#004C69] bg-[#004C69] text-white text-left p-1 grid grid-cols-2">
-          <div>
-    
-                <h2>{naam}</h2>
+          <div className="border-2 border-[#055063] bg-[#055063] text-white text-left p-1 grid grid-cols-2">
+            <div>
 
-    
-    </div>
+              <h2>{naam}</h2>
+
+
+            </div>
           </div>
 
           <button className="
@@ -34,7 +35,7 @@ const Accordion = (props) => {
             transition
             focus:outline-none
           
-            border-2 border-[#004C69] bg-white text-white text-left p-1 grid grid-cols-2
+            border-2 border-[#055063] bg-white text-white text-left p-1 grid grid-cols-2
             w-full
           
             " type="button" data-bs-toggle="collapse" data-bs-target={`#collapseOne${id}`} aria-expanded="true"
@@ -44,22 +45,22 @@ const Accordion = (props) => {
         </h2>
         <div id={`collapseOne${id}`} className="accordion-collapse collapse show" aria-labelledby={`headingOne${id}`}>
           <div className="accordion-body py-4 px-5">
-          <br />
-        {(soort === 'COMP' && subdoelstellingen && subdoelstellingen.length > 0) ?
-          <NavLink
-			  to={`/doelstellingDashboard/${id}` }>  
-         <span>doelwaarde: {doelwaarde}</span>
-          <BarChart naam={naam} id={id}></BarChart>
-        </NavLink>
-        :
-        <><span>doelwaarde: {doelwaarde}</span>
-        <BarChart naam={naam} id={id}></BarChart></>
-        }
-        
-           
+            <br />
+            {(soort === 'COMP' && subdoelstellingen && subdoelstellingen.length > 0) ?
+              <NavLink
+                to={`/doelstellingDashboard/${id}`}>
+                <span>doelwaarde: {doelwaarde}</span>
+                <BarChart naam={naam} id={id}></BarChart>
+              </NavLink>
+              :
+              <><span>doelwaarde: {doelwaarde}</span>
+                <BarChart naam={naam} id={id}></BarChart></>
+            }
 
-          
-          
+
+
+
+
           </div>
         </div>
       </div>

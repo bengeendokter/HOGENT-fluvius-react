@@ -8,9 +8,9 @@ import {useMemo} from "react";
 import styles from './CategorieDashboard.module.css';
 
 import
-  {
-    useEffect, useContext
-  } from 'react';
+{
+  useEffect, useContext
+} from 'react';
 import DoelstellingPreview from '../../components/DoelstellingPreview';
 
 export default function CategorieDashboard(c)
@@ -45,8 +45,8 @@ export default function CategorieDashboard(c)
   return (
 
     <>
-      <div className="m-2 border-2 border-[#004C69]">
-        <div className="border-2 border-[#004C69] bg-[#004C69] text-white text-left p-1 grid grid-cols-2">
+      <div className="m-2 border-2 border-[#055063]">
+        <div className="border-2 border-[#055063] bg-[#055063] text-white text-left p-1 grid grid-cols-2">
           <div>
             <NavLink
               to="/dashboard"
@@ -64,7 +64,7 @@ export default function CategorieDashboard(c)
           </div>
         </div>
         <div className={styles["doelstellingen"]}>
-          {doelstellingenCat.map(d => <DoelstellingPreview key={d.id} {...d}/>)}
+          {doelstellingenCat.map(d => <DoelstellingPreview key={d.id} {...d} />)}
         </div>
 
 
