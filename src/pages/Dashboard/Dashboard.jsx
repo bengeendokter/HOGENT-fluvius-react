@@ -19,12 +19,29 @@ export default function Dashboard()
   const {roles} = useSession();
   const {getAllTemplatesByRol} = useContext(TemplateContext);
   const [templates, setTemplates] = useState([]);
+  const [idToIsVisableMap, setidToIsVisableMap] = useState(new Map());
 
 
   useEffect(() =>
+  {async function fetchData()
   {
-    setTemplates(getAllTemplatesByRol(roles));
-  }, [setTemplates, roles, getAllTemplatesByRol]);
+    const newTemplate = await getAllTemplatesByRol(roles);
+    setTemplates(newTemplate);
+  }
+  fetchData();
+}, [setTemplates, roles, getAllTemplatesByRol]);
+
+  useEffect(() =>
+  {
+    const map = new Map();
+    if(templates && templates.length > 0)
+    {
+      templates.forEach(t => {
+        map.set(t.category_id, t.is_visible)
+      });
+      setidToIsVisableMap(map);
+    }
+  }, [templates, setidToIsVisableMap]);
 
   useEffect(() =>
   {
@@ -44,8 +61,10 @@ export default function Dashboard()
     <>
       <h2>{error && <pre className="text-red-600">{error.message}</pre>}</h2>
       <div className={styles.categorie_container}>
-        {categoriesMetDoelstellingen.sort(({naam: a}, {naam: b}) => a.localeCompare(b)).map((c) =>
-        <AccordionCategory key={c.id} {...c}></AccordionCategory>)}
+        {categoriesMetDoelstellingen
+        .sort(({naam: a}, {naam: b}) => a.localeCompare(b))
+        .filter(({id}) => idToIsVisableMap.get(id) === 1)
+        .map((c) => <AccordionCategory key={c.id} {...c}></AccordionCategory>)}
       </div>
     </>
   );

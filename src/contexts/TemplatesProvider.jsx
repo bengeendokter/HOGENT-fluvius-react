@@ -67,12 +67,12 @@ export const TemplatesProvider = ({
       setError('');
       setLoading(true);
       // TODO aanpassen naar rolNaam!!!
-      console.log(rolNaam);
+      // console.log(rolNaam);
       if(rolNaam)
       {
         const data = await templatesApi.getAllTemplatesByRol(rolNaam);
         setTemplatesRol(data);
-        console.log("date rol", data);
+        // console.log("date rol", data);
         return data;
       }
 
