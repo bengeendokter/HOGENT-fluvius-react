@@ -15,8 +15,8 @@
     --clr-accent: hsla(var(--hsl-white));
     --clr-negative: hsla(var(--hsl-oranje-itsme));
     --clr-background: hsla(var(--hsl-white));
+    --clr-background-muted: hsla(var(--hsl-blauw-fluvius), .1);
     --clr-foreground: hsla(var(--hsl-black));
-    --clr-gray: hsla(var(--hsl-gray));
 }
 
 body {

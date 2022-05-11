@@ -1,6 +1,6 @@
 .item
 {
-  background-color: var(--clr-gray);
+  background-color: var(--clr-background-muted);
   border-radius: 15px;
   box-shadow: -2px 2px 20px rgba(0, 0, 0, 0.18);
 }
@@ -16,6 +16,7 @@
 
 .title
 {
+  color: var(--clr-primary);
   font-size: 1.7rem;
   font-weight: 700;
 }
