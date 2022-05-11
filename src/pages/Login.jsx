@@ -2,8 +2,6 @@ import {useCallback} from 'react';
 import {FormProvider, useForm} from 'react-hook-form';
 import {useNavigate, Navigate} from 'react-router';
 import LabelInput from '../components/LabelInput';
-// import { useLogin, useSession } from '../contexts/AuthProvider';
-import logo from "../images/logo.png";
 import itsme from "../images/itsme.avif";
 import {Link} from "react-router-dom";
 import {useLogin, useSession} from '../contexts/AuthProvider';

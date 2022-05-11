@@ -1,7 +1,6 @@
 import {NavLink, Link} from 'react-router-dom';
 import {useCallback} from 'react';
 import logo from "../images/logo.png";
-import hamburger from "../images/hamburger.png";
 import {useLogout, useSession} from '../contexts/AuthProvider';
 
 const NavItem = ({
@@ -16,20 +15,6 @@ const NavItem = ({
 
 		>
 
-			{label}
-		</NavLink>
-	</span>
-);
-
-const NavItemInloggenRegistreren = ({
-	to,
-	label
-}) => (
-	<span>
-		<NavLink
-			to={to}
-			className=" text-white underline block  lg:block mt-2  m-3 "
-		>
 			{label}
 		</NavLink>
 	</span>
@@ -66,31 +51,10 @@ export default function NavMenu()
 
 				<div className="mt-5 acountknoppen flex flex-row-reverse underline">
 
-					{/*<NavItemInloggenRegistreren to="/login" label="Inloggen" href="#responsive-header" >Inloggen</NavItemInloggenRegistreren>*/}
-
-
 				</div>
 
 			</div>
-			{/* <div className="bg-white"  data-cy="inloggen_registreren">
-            <div className="flex flex-row-reverse underline">
-	
-							<NavItemInloggenRegistreren to="/login" label="Inloggen" href="#responsive-header" >Inloggen</NavItemInloggenRegistreren>
-              <NavItemInloggenRegistreren to="/register" label="Registreren" href="#responsive-header" className=" text-black underline block mt-2 lg:block lg:mt-0 m-3">Registreren</NavItemInloggenRegistreren>
-	
-            </div >
-            <Link to="/home"><div className="flex justify-center"><img src={logo} alt="Logo" href="#responsive-header" className ="w-1/12 block  h-1/2 min-h-0 md:min-h-full lg:inline-block lg:mt-0 "/></div></Link>
-          </div>
-		<nav className="flex items-center justify-between flex-wrap text-center bg-white">
-	
-      <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-        <div className="text-sm lg:flex-grow">
-				  <NavItem to="/dashboard" label="DASHBOARD"  />
-				  <NavItem to="/templateBeheren" label="TEMPLATE BEHEREN" />
-          <NavItem to="/overzichtWijzigen" label="OVERZICHT WIJZIGEN"  />
-        </div>
-      </div>
-    </nav> */}
+
 		</>
 	);
 }

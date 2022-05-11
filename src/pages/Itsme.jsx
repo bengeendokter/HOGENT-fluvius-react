@@ -1,18 +1,16 @@
-import {useCallback} from 'react';
 import {FormProvider, useForm} from 'react-hook-form';
-import {useNavigate, Navigate} from 'react-router';
 import LabelInput from '../components/LabelInput';
 // import { useLogin, useSession } from '../contexts/AuthProvider';
 import itsme from "../images/itsme.avif";
 
-const validationRules = {
-  email: {
-    required: true
-  },
-  password: {
-    required: true
-  }
-};
+// const validationRules = {
+//   email: {
+//     required: true
+//   },
+//   password: {
+//     required: true
+//   }
+// };
 
 export default function Itsme()
 {
@@ -21,10 +19,6 @@ export default function Itsme()
   // const login = useLogin();
   const methods = useForm();
 
-  const {
-    handleSubmit,
-    reset,
-  } = methods;
 
   // const handleLogin = useCallback(async ({ Email, Wachtwoord }) => {
   //   const success = await login(Email, Wachtwoord);

@@ -1,6 +1,5 @@
 import styles from './Dashboard.module.css';
 import AccordionCategory from '../../components/AccordionCategory';
-import Categorie from '../../components/Categorie';
 import {useCategories} from "../../contexts/CategorieProvider";
 import
   {
