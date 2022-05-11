@@ -67,7 +67,8 @@ export const AuthProvider = ({
   const [klant, setKlant] = useState(null);
 
   const setSession = useCallback(async (token, klant) => {
-    const { exp, klantID } = parseJwt(token);
+    setKlant(klant);
+    const {exp} = parseJwt(token);
     const expiry = parseExp(exp);
     const stillValid = expiry >= new Date();
 
@@ -86,16 +87,12 @@ export const AuthProvider = ({
     api.setAuthToken(token);
     setToken(token);
     setReady(token && stillValid);
-
-    if (!klant && stillValid) {
-      klant = await klantenApi.getKlantById(klantID);
-    }
-    setKlant(klant);
+    
   }, []);
 
   useEffect(() => {
-    setSession(token, null);
-  }, [token, setSession]);
+    setSession(token, klant);
+  });
 
   
 
@@ -103,8 +100,8 @@ export const AuthProvider = ({
     try {
       setLoading(true);
       setError(null);
-      const { token, klant } = await klantenApi.login(gebruikersnaam, wachtwoord);
-      await setSession(token, klant);
+      const { token, user } = await klantenApi.login(gebruikersnaam, wachtwoord);
+      await setSession(token, user);
       return true;
     } catch (error) {
       setError('Login failed, try again');

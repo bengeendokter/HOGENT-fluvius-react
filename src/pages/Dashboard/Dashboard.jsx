@@ -1,6 +1,7 @@
 import styles from './Dashboard.module.css';
 import AccordionCategory from '../../components/AccordionCategory';
 import {useCategories} from "../../contexts/CategorieProvider";
+import {useSession} from "../../contexts/AuthProvider";
 import
   {
   useContext, useEffect
@@ -14,6 +15,18 @@ export default function Dashboard()
   const {getSdgsVoorCategories, categoriesMetSdgs, setCategories: setCategoriesSdgs} = useContext(SdgContext);
   const {getDoelstellingenVoorCategories, setCategories: setCategoriesDoelstellingen, categoriesMetDoelstellingen} = useContext(DoelstellingContext);
   
+  const {klant, hasRole} = useSession();
+
+
+  useEffect(() =>
+  {
+    console.log(klant);
+    // console.log(hasRole("manager"));
+    // console.log(hasRole("Manager"));
+    // console.log(hasRole("MVO coördinator"));
+    // console.log(hasRole("MVO coordinator"));
+  }, [klant, hasRole]);
+
   useEffect(() =>
   {
     setCategoriesSdgs(categories);
