@@ -31,7 +31,6 @@ export default function Dashboard()
 
   return (
     <>
-      <h1 data-cy="dashboard-label" className={styles.title}>Dashboard</h1>
       <h2>{error && <pre className="text-red-600">{error.message}</pre>}</h2>
       <div className={styles.categorie_container}>
         {categoriesMetDoelstellingen.sort(({naam: a}, {naam: b}) => a.localeCompare(b)).map((c) =>

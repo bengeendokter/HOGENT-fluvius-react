@@ -7,6 +7,7 @@
 
 .categorie_container
 {
+  margin-block-start: 2em;
   display: grid;
   grid-gap: 1.6em;
   margin-inline: 1.2em;
