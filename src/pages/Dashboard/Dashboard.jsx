@@ -15,14 +15,14 @@ export default function Dashboard()
   const {getSdgsVoorCategories, categoriesMetSdgs, setCategories: setCategoriesSdgs} = useContext(SdgContext);
   const {getDoelstellingenVoorCategories, setCategories: setCategoriesDoelstellingen, categoriesMetDoelstellingen} = useContext(DoelstellingContext);
   
-  const {klant, hasRole} = useSession();
+  const {hasRole, roles} = useSession();
 
 
   useEffect(() =>
   {
-    console.log("ö: " +  hasRole("MVO coördinator"));
-    console.log("C6: " + hasRole("MVO coC6rdinator"));
-  }, [klant, hasRole]);
+    console.log(hasRole("MVO coördinator"));
+    console.log(roles);
+  }, [roles, hasRole]);
 
   useEffect(() =>
   {

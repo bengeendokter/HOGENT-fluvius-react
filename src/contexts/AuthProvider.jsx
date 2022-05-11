@@ -28,10 +28,11 @@ function parseExp(exp) {
 const useAuth = () => useContext(AuthContext);
 
 export const useSession = () => {
-  const { token, klant, ready, loading, error, setError, hasRole, setSession } = useAuth();
+  const { token, klant, roles, ready, loading, error, setError, hasRole, setSession } = useAuth();
   return {
     token,
     klant,
+    roles,
     ready,
     error,
     setError,
@@ -70,7 +71,6 @@ export const AuthProvider = ({
   const setSession = useCallback(async (token, klant) => {
     setKlant(klant);
     const {exp, roles} = parseJwt(token);
-    console.log(parseJwt(token));
     setRoles(roles);
     const expiry = parseExp(exp);
     const stillValid = expiry >= new Date();
@@ -140,6 +140,7 @@ export const AuthProvider = ({
   const value = useMemo(() => ({
     token,
     klant,
+    roles,
     ready,
     loading,
     error,
@@ -148,7 +149,7 @@ export const AuthProvider = ({
     logout,
     register,
     hasRole,
-  }), [token, klant, ready, loading, error, login, logout, register, setError, hasRole]);
+  }), [token, klant, roles, ready, loading, error, login, logout, register, setError, hasRole]);
 
   return (
     <AuthContext.Provider value={value}>
