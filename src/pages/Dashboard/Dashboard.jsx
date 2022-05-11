@@ -34,7 +34,6 @@ export default function Dashboard()
       <div className={styles.categorie_container}>
         {categoriesMetDoelstellingen.sort(({naam: a}, {naam: b}) => a.localeCompare(b)).map((c) =>
         <AccordionCategory key={c.id} {...c}></AccordionCategory>)}
-        {/* <Categorie key={c.id} {...c}></Categorie>)} */}
       </div>
     </>
   );
