@@ -60,7 +60,7 @@ export const TemplatesProvider = ({
 
 
 
-  const getAllTemplatesByRol = useCallback(async () =>
+  const getAllTemplatesByRol = useCallback(async (rolNaam) =>
   {
     try
     {
@@ -85,7 +85,7 @@ export const TemplatesProvider = ({
       setLoading(false)
     }
 
-  }, [rolNaam]);
+  }, [setTemplatesRol]);
 
   const getTemplatesMetCategorie = useCallback(async (templatesRol) =>
   {

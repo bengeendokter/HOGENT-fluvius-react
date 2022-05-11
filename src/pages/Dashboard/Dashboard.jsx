@@ -4,10 +4,11 @@ import {useCategories} from "../../contexts/CategorieProvider";
 import {useSession} from "../../contexts/AuthProvider";
 import
   {
-  useContext, useEffect
+  useContext, useEffect, useState
   } from 'react';
 import {SdgContext} from '../../contexts/SdgProvider';
 import {DoelstellingContext} from '../../contexts/DoelstellingProvider';
+import {TemplateContext} from '../../contexts/TemplatesProvider';
 
 export default function Dashboard()
 {
@@ -15,14 +16,15 @@ export default function Dashboard()
   const {getSdgsVoorCategories, categoriesMetSdgs, setCategories: setCategoriesSdgs} = useContext(SdgContext);
   const {getDoelstellingenVoorCategories, setCategories: setCategoriesDoelstellingen, categoriesMetDoelstellingen} = useContext(DoelstellingContext);
   
-  const {hasRole, roles} = useSession();
+  const {roles} = useSession();
+  const {getAllTemplatesByRol} = useContext(TemplateContext);
+  const [templates, setTemplates] = useState([]);
 
 
   useEffect(() =>
   {
-    console.log(hasRole("MVO coördinator"));
-    console.log(roles);
-  }, [roles, hasRole]);
+    setTemplates(getAllTemplatesByRol(roles));
+  }, [setTemplates, roles, getAllTemplatesByRol]);
 
   useEffect(() =>
   {
