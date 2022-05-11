@@ -1,23 +1,17 @@
-import Doelstelling from '../../components/Doelstelling';
-import {DoelstellingContext} from '../../contexts/DoelstellingProvider';
-import {SdgContext} from '../../contexts/SdgProvider';
-import {useParams} from "react-router-dom";
-import {NavLink, Link} from 'react-router-dom';
-import {useCategories} from "../../contexts/CategorieProvider";
-import {useMemo} from "react";
 import styles from './CategorieDashboard.module.css';
+import {DoelstellingContext} from '../../contexts/DoelstellingProvider';
+import {useParams} from "react-router-dom";
+import {useContext, useEffect, useMemo} from 'react';
+import {NavLink} from "react-router-dom";
+import {SdgContext} from '../../contexts/SdgProvider';
+import DoelstellingPreview from "../../components/DoelstellingPreview/DoelstellingPreview";
+import {useCategories} from "../../contexts/CategorieProvider";
 
-import
+export default function CategorieDashboard()
 {
-  useEffect, useContext
-} from 'react';
-import DoelstellingPreview from '../../components/DoelstellingPreview';
-
-export default function CategorieDashboard(c)
-{
-  const {doelstellingenCat, getDoelstellingByCategorieID, setCatId, doelstellingen} = useContext(DoelstellingContext);
+  const {doelstellingenCat, getDoelstellingByCategorieID, setCatId} = useContext(DoelstellingContext);
   const {sdgsCat, getSdgsByCategorieId, setCatId1} = useContext(SdgContext);
-  const {currentCategorie, setCurrent, categories} = useCategories();
+  const {currentCategorie} = useCategories();
   const {id} = useParams();
 
 
@@ -28,7 +22,6 @@ export default function CategorieDashboard(c)
     setCatId1(id);
     getSdgsByCategorieId();
   }, [setCatId, setCatId1, getDoelstellingByCategorieID, getSdgsByCategorieId, id]);
-
 
   let arrayIcons = [];
   sdgsCat.forEach(s =>
@@ -45,30 +38,47 @@ export default function CategorieDashboard(c)
   return (
 
     <>
-      <div className="m-2 border-2 border-[#055063]">
-        <div className="border-2 border-[#055063] bg-[#055063] text-white text-left p-1 grid grid-cols-2">
-          <div>
-            <NavLink
-              to="/dashboard"
-              className="underline"
-
-            >
+      <div className={styles["detail-container"]}>
+        <div className={styles["detail-header"]}>
+          <div className={styles["detail-breadcrumb"]}>
+            <NavLink to="/dashboard" className={styles["breadcrumb-link"]}>
               Dashboard
             </NavLink>
-            <p data-cy="naamCurrentCategorie" className="inline-block">&nbsp;- {currentCategorie.NAAM}</p>
+            &nbsp;  /  &nbsp;
+            <NavLink to={`/categorieDashboard/${(currentCategorie === undefined || currentCategorie.CATEGORIEID === null) ? 2 : currentCategorie.CATEGORIEID}`} className={styles["breadcrumb-link"]}>
+              {
+                (currentCategorie === undefined || currentCategorie.NAAM === null) ?
+                  "Ecologie"
+                  :
+                  currentCategorie.NAAM
+              }
+            </NavLink>
 
           </div>
-          <div className="justify-self-end mr-2">
-            {arrayIcons.map(s => <img src={`/assets${s}`} key={s} alt={`${s}`} className="w-12 inline-block p-1" />)}
-
+          <div className={styles["sdgs"]}>
+            {arrayIcons?.map(s =>
+            {
+              return <img className={styles["sdg"]} src={`/assets${s}`} key={s} alt={`${s}`}  />
+            })}
           </div>
         </div>
-        <div className={styles["doelstellingen"]}>
-          {doelstellingenCat.map(d => <DoelstellingPreview key={d.id} {...d} />)}
+        <div className={styles["detail-bottom"]}>
+          <div className={styles["subdoelstellingen-titel"]}>
+            {(doelstellingenCat && doelstellingenCat.length > 0) ?
+              "Doelstellingen" : "Geen doelstellingen"
+            }
+          </div>
+          {doelstellingenCat &&
+            <div className={styles["subdoelstellingen"]}>
+              {
+                doelstellingenCat.map(sub =>
+                {
+                  return <DoelstellingPreview {...sub} key={`${sub.id}${sub.naam}`}></DoelstellingPreview>
+                })
+              }
+            </div>
+          }
         </div>
-
-
-
       </div>
     </>
   );

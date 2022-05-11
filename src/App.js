@@ -14,7 +14,7 @@ import Niks from "./pages/Niks";
 import Dashboard from "./pages/Dashboard";
 import OverzichtWijzigen from "./pages/OverzichtWijzigen";
 import TemplateBeheren from "./pages/TemplateBeheren";
-import CategorieDashboard from "./pages/CategorieDashboard/CategorieDashboard";
+import CategorieDashboard from "./pages/CategorieDashboard";
 import Login from "./pages/Login";
 import Itsme from "./pages/Itsme";
 // Imports nodig voor de grid layout

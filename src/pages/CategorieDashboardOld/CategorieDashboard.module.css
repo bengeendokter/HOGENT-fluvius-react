@@ -1,0 +1,17 @@
+.doelstellingen {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+    padding: 15px;
+    background-color: rgba(0, 76, 105, 0.1);
+}
+
+@media screen and (min-width: 1280px) {
+    .doelstellingen {
+        justify-content:left;
+    }
+}
