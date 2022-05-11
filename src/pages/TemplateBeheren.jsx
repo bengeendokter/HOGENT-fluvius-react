@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useTheme} from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -11,14 +11,13 @@ import {RolContext} from '../contexts/RolProvider';
 import eye from "../images/eye.jpg";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import {grey} from '@mui/material/colors';
+import { grey } from '@mui/material/colors';
 import {TemplateContext} from '../contexts/TemplatesProvider';
 import TemplateCategorieRol from '../components/TemplateCategorieRol';
-import {Link, useParams, useNavigate} from "react-router-dom";
-import
-  {
-    useEffect, useContext
-  } from 'react';
+import { Link, useParams, useNavigate } from "react-router-dom";
+import {
+  useEffect, useContext
+} from 'react';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -32,8 +31,7 @@ const MenuProps = {
 };
 
 
-function getStyles(name, personName, theme)
-{
+function getStyles(name, personName, theme) {
   return {
     fontWeight:
       personName.indexOf(name) === -1
@@ -42,13 +40,22 @@ function getStyles(name, personName, theme)
   };
 }
 
-export default function TemplateBeheren()
-{
+export default function TemplateBeheren() {
   const theme = useTheme();
   const [selectedRol, setSelectedRol] = React.useState('');
   const {rollen} = useContext(RolContext);
-  const {getTemplatesMetCategorie, templatesMetCategorie, setTemplatesRol, templatesRol, getAllTemplatesByRol, setRolNaam, templates, setTemplateToUpdate, currentTemplate} = useContext(TemplateContext);
-  const {id} = useParams();
+  const {verander, rolNaam, createOrUpdateTemplate, getTemplatesMetCategorie, templatesMetCategorie, setTemplatesRol, templatesRol, getAllTemplatesByRol, setRolNaam, templates, setTemplateToUpdate, currentTemplate} = useContext(TemplateContext);
+  const { id } = useParams();
+
+  //TODO:
+  //-personaliseerbaar V
+  //-overzicht rollen en categories
+  //-useeffect bij verandering template V
+  //-order categories (horizontal... gebruiken)
+  //-reset template V
+  //-reset 2 keer klikken oplossen
+  //-seeds niet gebruiken -> zelf aanmaken indien het niet bestaat in de databank
+  //-bug fixen (wijziging niet opslaan -> blijft zo bij reset)
 
   // useEffect(() => {
   //   if(selectedRol){
@@ -62,35 +69,27 @@ export default function TemplateBeheren()
   //   }
   // }, [selectedRol, currentTemplate]);
 
-  useEffect(() =>
-  {
-    if(selectedRol)
-    {
-      setRolNaam(selectedRol[0]);
-      getAllTemplatesByRol();
-    }
-  }, [selectedRol, getAllTemplatesByRol, setRolNaam]);
+  
 
+  
 
-  useEffect(() =>
+  /*useEffect(() =>
   {
-    if(templatesRol.length !== 0)
-    {
+    if(templatesRol.length !== 0){
       console.log("templ rol", templatesRol);
       getTemplatesMetCategorie(templatesRol);
     }
-  }, [templatesRol, getTemplatesMetCategorie]);
+  }, [templatesRol, getTemplatesMetCategorie]);*/
 
-  useEffect(() =>
+  /*useEffect(() =>
   {
-    console.log("templ met cat rol", templatesMetCategorie);
-  }, [templatesMetCategorie]);
+      console.log("templ met cat rol", templatesMetCategorie);
+  }, [templatesMetCategorie]); */
 
 
-  const handleChange = (event) =>
-  {
+  const handleChange = (event) => {
     const {
-      target: {value},
+      target: { value },
     } = event;
     setSelectedRol(
       typeof value === 'string' ? value.split(',') : value,
@@ -102,62 +101,115 @@ export default function TemplateBeheren()
     // aan de hand van de geselecteerde rol --> categorieën opvragen --> ook visibility weergeven
   };
 
-  const onClick = () =>
-  {
+  const onClick = () => {
     console.log("onclick verander visibility");
   };
 
-  const reset = () =>
-  {
+  const reset1 = React.useCallback(
+    async (temp) => {
+      //console.log(temp);
+      try {
+        //is_visible: 1, is_costumisable: 1 (andere rollen)
+        //is_visible: 1, is_costumisable: 0 (Stakeholder)
+        
+          await createOrUpdateTemplate({
+           id: temp.id,
+           category_id: temp.category_id,
+           rol: selectedRol[0],
+           is_visible: 1,
+           is_costumisable: (selectedRol[0] === "Stakeholder") ? 0 : 1,
+          });
+          
+      } catch (error) {
+
+        throw error;
+      }
+    },
+    [
+      createOrUpdateTemplate, selectedRol
+    ]
+  );
+
+
+  const reset = () => {
+    if (selectedRol[0] !== undefined) {
+      templatesMetCategorie.forEach(temp => reset1(temp));
+      getAllTemplatesByRol();
+      getTemplatesMetCategorie(templatesRol);
+      
+    }
     console.log("reset template voor geselecteerde rol");
   };
 
-  const save = () =>
+  /*useEffect(() =>
   {
-    console.log("save template voor geselecteerde rol");
-  };
+    console.log("ait");
+  }, [reset]);*/
 
+  /*const save = () => {
+    console.log("save template voor geselecteerde rol");
+  };*/
+
+  useEffect(() =>
+  {
+    if(selectedRol){
+      setRolNaam(selectedRol[0]);
+      getAllTemplatesByRol();
+      //console.log("Done1");
+    }
+  }, [selectedRol, getAllTemplatesByRol, setRolNaam, verander]);
+
+  useEffect(() =>
+  {
+    if(templatesRol.length !== 0){
+      //console.log("templ rol", templatesRol);
+      getTemplatesMetCategorie(templatesRol);
+      //console.log("test", templatesMetCategorie);
+    }
+  }, [templatesRol, getTemplatesMetCategorie, verander]);
 
   return (
     <>
-      <div className="flex justify-center mt-5">
-        <div>
-
-          <FormControl sx={{m: 1, width: 300}}>
-            <InputLabel id="demo-simple-select-label">rol</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={selectedRol}
-              label="Age"
-              onChange={handleChange}
-            >
-              {rollen.map((rol) => (
-                <MenuItem
-                  key={rol.NAAM}
-                  value={rol.NAAM}
-                  style={getStyles(rol.NAAM, selectedRol, theme)}
-                >
-                  {rol.NAAM}
-                </MenuItem>))}
-            </Select>
-          </FormControl>
-        </div>
-
-      </div>
+    <div className="flex justify-center mt-5">
       <div>
 
-        <p className="font-bold text-xl ml-10 mb-10 text-[#055063]">Template {selectedRol}</p>
-        {templatesMetCategorie.map(r => <TemplateCategorieRol key={r.id} {...r}  ></TemplateCategorieRol>)}
-        <div className="flex justify-end mr-8">
-          <div onClick={reset} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
-            Reset template
-          </div>
-          <div onClick={save} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
-            Opslaan
-          </div>
-        </div>
+      <FormControl sx={{ m: 1, width: 300 }}>
+  <InputLabel id="demo-simple-select-label">rol</InputLabel>
+  <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    value={selectedRol}
+    label="Age" 
+    onChange={handleChange}
+  >
+    {rollen.map((rol) => (
+            <MenuItem
+              key={rol.NAAM}
+              value={rol.NAAM}
+              style={getStyles(rol.NAAM, selectedRol, theme)}
+            >
+              {rol.NAAM}
+            </MenuItem>))}
+  </Select>
+</FormControl>
       </div>
+      
+    </div>
+    <div>
+      
+      <p className="font-bold text-xl ml-10 mb-10 text-[#004C69]">Template {selectedRol}</p>
+      {verander && rolNaam && selectedRol && templatesMetCategorie.map(r => <TemplateCategorieRol key={r.id} { ...r} rolTemplate={selectedRol} ></TemplateCategorieRol>)}
+      <div className="flex justify-end mr-8">
+        <div onClick={reset} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
+          Reset template
+        </div>
+        {/*
+        <div onClick={save} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
+          Opslaan
+        </div>
+    */}
+      </div>
+    </div>
 
     </>
   );

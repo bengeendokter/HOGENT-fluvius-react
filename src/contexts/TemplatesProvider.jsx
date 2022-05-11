@@ -21,11 +21,14 @@ export const TemplatesProvider = ({
   const [initialLoad, setInitialLoad] = useState(false);
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
-  const [rolNaam, setRolNaam] = useState("manager");
+  const [rolNaam, setRolNaam] = useState("");
   const [currentTemplate, setCurrentTemplate] = useState({test: 0});
   const [templates, setTemplates] = useState([]);
   const [templatesRol, setTemplatesRol] = useState([]);
   const [templatesMetCategorie, setTemplatesMetCategorie] = useState([]);
+
+  //test
+  const [verander, setVerander] = useState(false);
 
   const { ready : authReady } = useSession();
 
@@ -60,19 +63,19 @@ export const TemplatesProvider = ({
 
 
 
-  const getAllTemplatesByRol = useCallback(async (rolNaam) =>
+  const getAllTemplatesByRol = useCallback(async () =>
   {
     try
     {
       setError('');
       setLoading(true);
       // TODO aanpassen naar rolNaam!!!
-      // console.log(rolNaam);
+      //console.log(rolNaam);
       if(rolNaam)
       {
         const data = await templatesApi.getAllTemplatesByRol(rolNaam);
         setTemplatesRol(data);
-        // console.log("date rol", data);
+        //console.log("date rol", data);
         return data;
       }
 
@@ -85,7 +88,7 @@ export const TemplatesProvider = ({
       setLoading(false)
     }
 
-  }, [setTemplatesRol]);
+  }, [rolNaam]);
 
   const getTemplatesMetCategorie = useCallback(async (templatesRol) =>
   {
@@ -94,17 +97,21 @@ export const TemplatesProvider = ({
       setError('');
       setLoading(true);
       let newTemplatesMetCategorie = [];
-      console.log("dikke miserie", templatesRol);
+      //console.log("dikke miserie", templatesRol);
       for(const temp of templatesRol)
       {
-        console.log("temp", temp);
+        //console.log("temp", temp);
         const newCat = await categoriesApi.getCategorieByID(temp.category_id);
-        console.log("newcat", newCat);
-        console.log("newcat NAAM", newCat[0].NAAM);
-        newTemplatesMetCategorie.push({id: temp.id, category_id: newCat[0].NAAM, is_visible: temp.is_visible});
+        //console.log("newcat", newCat);
+        //console.log("newcat NAAM", newCat[0].NAAM);
+        //newTemplatesMetCategorie.push({id: temp.id, category_id: newCat[0].NAAM, is_visible: temp.is_visible, icon: newCat[0].ICON});
+        newTemplatesMetCategorie.push({id: temp.id, category_id: newCat[0].NAAM, is_visible: temp.is_visible, icon: newCat[0].ICON, is_costumisable: temp.is_costumisable});
       }
-      console.log("miserie", newTemplatesMetCategorie);
+      //console.log("miserie", newTemplatesMetCategorie);
       setTemplatesMetCategorie(newTemplatesMetCategorie);
+      //test
+      setVerander(true);
+      
       return newTemplatesMetCategorie;
     } catch(error)
     {
@@ -121,7 +128,8 @@ export const TemplatesProvider = ({
     id,
     category_id,
     rol,
-    is_visible
+    is_visible,
+    is_costumisable
   }) =>
   {
     setError();
@@ -133,7 +141,8 @@ export const TemplatesProvider = ({
         id,
         category_id,
         rol,
-        is_visible
+        is_visible,
+        is_costumisable
       });
       await refreshTemplates();
       return changedTemplate;
@@ -153,7 +162,7 @@ export const TemplatesProvider = ({
     setError();
     try
     {
-      console.log("delete");
+      //console.log("delete");
       await templatesApi.deleteTemplate(id);
       refreshTemplates();
     } catch(error)
@@ -188,7 +197,7 @@ export const TemplatesProvider = ({
 
 
   return (
-    <TemplateContext.Provider value={{templatesMetCategorie, getTemplatesMetCategorie, setTemplates, setTemplatesRol, templatesRol, deleteTemplate, currentTemplate, setTemplateToUpdate, createOrUpdateTemplate, setRolNaam, refreshTemplates, getAllTemplatesByRol, templates, error, setError, loading, setLoading}}>
+    <TemplateContext.Provider value={{verander, rolNaam, templatesMetCategorie, getTemplatesMetCategorie, setTemplates, setTemplatesRol, templatesRol, deleteTemplate, currentTemplate, setTemplateToUpdate, createOrUpdateTemplate, setRolNaam, refreshTemplates, getAllTemplatesByRol, templates, error, setError, loading, setLoading}}>
       {children}
     </TemplateContext.Provider>
   );

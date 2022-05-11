@@ -1,117 +1,132 @@
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import {grey} from '@mui/material/colors';
-import {useCategories} from "../contexts/CategorieProvider";
-import
-  {
-    useEffect, useContext, useCallback
-  } from 'react';
+import { grey } from '@mui/material/colors';
+import { useCategories } from "../contexts/CategorieProvider";
+import {
+  useEffect, useContext, useCallback, useState
+} from 'react';
 import {TemplateContext} from '../contexts/TemplatesProvider';
 
+import Alert from '@mui/material/Alert';
 
+//customisable
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import EditOffIcon from '@mui/icons-material/EditOff';
 
+export default function TemplateCategorieRol(r) {
+  
+  let {id, is_visible, rol, icon, category_id, is_costumisable, rolTemplate } = r;
+  //console.log("dit is een template voor de rol: ", rolTemplate[0]);
 
-
-export default function TemplateCategorieRol(r)
-{
-  console.log("r", r);
-  let {id, category_id, rol, is_visible} = r;
   const {currentCategorie, setCatId, getCategorieByID} = useCategories();
   const {setTemplateToUpdate, createOrUpdateTemplate, currentTemplate} = useContext(TemplateContext);
-  // met state werken! is_visible en setIs_visible! dan zo aanpassen en dan createOrUpdate doen, geen current!
-  let test = 0;
-  // useEffect(() =>
-  // {
-  //   setCatId(category_id);
-  //   getCategorieByID();
-  // }, [setCatId, getCategorieByID,category_id]);
+  const [visible, setVisible] = useState(0);
+  const [verander, setVerander] = useState(0);
+  const [gelukt, setGelukt] = useState(0);
+  //customisable
+  const [customisable, setCustomisable] = useState(0);
 
-  // console.log("current cat", currentCategorie);
-
-  useEffect(() =>
-  {
-    console.log("id,", id);
-    setTemplateToUpdate(id);
-  }, [setTemplateToUpdate, id]);
-
-  useEffect(() =>
-  {
-    if(currentTemplate)
-    {
-      console.log("onclick verander visibility", currentTemplate);
+  const onClick = () => {
+    if(visible === parseInt(1)){
+      setVisible(0);
+    }else{
+      setVisible(1);
     }
-  }, [currentTemplate]);
+    
+  };
 
-  // const onClick = () => {
-  //   if(is_visible == 1){
-  //               console.log(is_visible);
-  //               is_visible = 0;
-  //               console.log(is_visible);
-  //             }else{
-  //               is_visible = 1;
-  //             }
-  //             test = 1;
-  // };
+  const onClickCustom = () => {
+    if(customisable === parseInt(1)){
+      setCustomisable(0);
+    }else{
+      setCustomisable(1);
+    }
+    
+  };
 
-  // useEffect(() => {
-  //   setTemplateToUpdate(id);
-  // },[onClick]);
+  useEffect(() =>
+  {
+    setVisible(is_visible);
+    //stakeholders krijgen niet de optie hun dashboard te personaliseren
+    if (rolTemplate[0] === "Stakeholder") {
+      setCustomisable(0);
+    } else {
+      setCustomisable(is_costumisable);
+    }
+    
+  }, [is_visible, is_costumisable], rolTemplate[0]);
 
-  const onClick = useCallback(
-    async (data) =>
-    {
-      try
-      {
-        //await setTemplateToUpdate(id);
-        if(currentTemplate)
-        {
-          if(is_visible == 1)
-          {
-            console.log(is_visible);
-            is_visible = 0;
-            console.log(is_visible);
-          } else
-          {
-            is_visible = 1;
-          }
-          console.log("current", currentTemplate);
+  
+  /*useEffect(() =>
+  {
+    setVisible(is_visible);
+    setCustomisable(is_costumisable);
+  }, [is_visible, is_costumisable]);*/
+
+ 
+
+  const onClick2 = useCallback(
+    async (data) => {
+      try {
+        setVerander(1);
           await createOrUpdateTemplate({
-            id: currentTemplate.id,
-            category_id: currentTemplate.category_id,
-            rol: currentTemplate.rol,
-            is_visible: is_visible,
+            id: id,
+            category_id: category_id,
+            rol: rolTemplate[0],
+            is_visible: visible,
+            is_costumisable: customisable,
           });
-          //setTemplateToUpdate(null);
-          console.log("call");
-        }
-      } catch(error)
-      {
+          
+      
+       setGelukt(1);
+      
+      } catch (error) {
+        setGelukt(0);
         throw error;
       }
     },
     [
-      currentTemplate,
       createOrUpdateTemplate,
-      setTemplateToUpdate
+      visible,
+      customisable
     ]
   );
 
   return (
     <>
-      {r &&
-        <div className="ml-10 grid grid-cols-2 bg-[#055063] p-3 mr-10 mb-4">
-          <div className="text-white">
-            {category_id}
-            {/* test */}
-          </div>
-          <div className="justify-self-end" >
-            {is_visible == 1 ? <><VisibilityIcon sx={{color: grey[50]}} onClick={onClick} /></> : <><VisibilityOffIcon sx={{color: grey[50]}} onClick={onClick} /> </>}
+    {r &&
 
-          </div>
-        </div>
-      }
+    <div class="max-w-sm rounded overflow-hidden shadow-lg">
+  <img className="w-full inline-block p-1" src={`/assets${icon.substring(8)}`}  alt="icon"/>
+  <div class="px-6 py-4">
+    <div class="font-bold text-xl mb-2">{category_id}</div>
+    <p class="text-gray-700 text-base">
+    {visible === 1 ? <><VisibilityIcon sx={{ color: grey[900] }} onClick={onClick} /></>: <><VisibilityOffIcon sx={{ color: grey[900] }} onClick={onClick} /> </>}
+    </p>
+    {(rolTemplate[0] !== "Stakeholder") &&
+    <p class="text-gray-700 text-base">
+      {customisable === 1 ? <><ModeEditIcon sx={{ color: grey[900] }} onClick={onClickCustom} /></>: <><EditOffIcon sx={{ color: grey[900] }} onClick={onClickCustom} /> </>}
+    </p>}
+    {/*<button onClick={onClick2} class="mt-4 bg-[#004C69] hover:bg-white text-white font-semibold hover:text-[#004C69] py-2 px-4 border border-[#004C69] hover:border-transparent rounded">
+  Opslaan
+    </button>*/}
+  </div>
+  <div class="px-6 flex">
+    
+    
+  </div>
+  {verander == 1 && gelukt == 1 ? (
+  <Alert severity="success">Wijzigingen zijn opgeslagen!</Alert>) : (<></>)
+}
+{verander == 1 && gelukt == 0 ? (
+  <Alert severity="error">This is an error alert — check it out!</Alert>
+  ) : (<></>)
+}
 
+</div>
+}
+        
     </>
   );
 }

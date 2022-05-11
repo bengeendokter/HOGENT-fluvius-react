@@ -19,7 +19,8 @@ export const save = async ({
         id,
         category_id,
         rol,
-        is_visible
+        is_visible,
+        is_costumisable
     
   }) => {
     console.log("isvis", is_visible);
@@ -31,7 +32,8 @@ export const save = async ({
       data: {
         category_id,
         rol,
-        is_visible
+        is_visible,
+        is_costumisable
       },
     });
     
