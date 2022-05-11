@@ -200,9 +200,9 @@ export default function TemplateBeheren() {
       <p className="font-bold text-xl ml-10 mb-10 text-[#004C69]">Template {selectedRol}</p>
       {verander && rolNaam && selectedRol && templatesMetCategorie.map(r => <TemplateCategorieRol key={r.id} { ...r} rolTemplate={selectedRol} ></TemplateCategorieRol>)}
       <div className="flex justify-end mr-8">
-        <div onClick={reset} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
+        <button onClick={reset} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
           Reset template
-        </div>
+        </button>
         {/*
         <div onClick={save} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
           Opslaan
