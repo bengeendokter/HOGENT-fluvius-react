@@ -20,11 +20,8 @@ export default function Dashboard()
 
   useEffect(() =>
   {
-    console.log(klant);
-    // console.log(hasRole("manager"));
-    // console.log(hasRole("Manager"));
-    // console.log(hasRole("MVO coördinator"));
-    // console.log(hasRole("MVO coordinator"));
+    console.log("ö: " +  hasRole("MVO coördinator"));
+    console.log("C6: " + hasRole("MVO coC6rdinator"));
   }, [klant, hasRole]);
 
   useEffect(() =>

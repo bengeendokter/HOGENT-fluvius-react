@@ -65,10 +65,13 @@ export const AuthProvider = ({
   const [error, setError] = useState('');
   const [token, setToken] = useState(localStorage.getItem(JWT_TOKEN_KEY));
   const [klant, setKlant] = useState(null);
+  const [roles, setRoles] = useState([]);
 
   const setSession = useCallback(async (token, klant) => {
     setKlant(klant);
-    const {exp} = parseJwt(token);
+    const {exp, roles} = parseJwt(token);
+    console.log(parseJwt(token));
+    setRoles(roles);
     const expiry = parseExp(exp);
     const stillValid = expiry >= new Date();
 
@@ -131,9 +134,8 @@ export const AuthProvider = ({
   }, [setSession]);
 
   const hasRole = useCallback((role) => {
-    if (!klant) return false;
-    return klant.roles.includes(role);
-  }, [klant]);
+    return roles.includes(role);
+  }, [roles]);
 
   const value = useMemo(() => ({
     token,
