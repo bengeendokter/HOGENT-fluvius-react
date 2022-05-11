@@ -10,8 +10,7 @@
   display: grid;
   grid-gap: 1.6em;
   margin-inline: 1.2em;
-  justify-content: center;
-  justify-items: center;
+  align-items: start;
 }
 
 @media screen and (min-width: 1280px)
