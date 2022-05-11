@@ -34,11 +34,9 @@ export default function Dashboard()
       <h1 data-cy="dashboard-label" className={styles.title}>Dashboard</h1>
       <h2>{error && <pre className="text-red-600">{error.message}</pre>}</h2>
       <div className={styles.categorie_container}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {categoriesMetDoelstellingen.sort(({naam: a}, {naam: b}) => a.localeCompare(b)).map((c) =>
         <AccordionCategory key={c.id} {...c}></AccordionCategory>)}
         {/* <Categorie key={c.id} {...c}></Categorie>)} */}
-        </div>
       </div>
     </>
   );

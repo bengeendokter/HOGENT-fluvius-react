@@ -14,10 +14,10 @@ export default function AccordionCategory({naam, id, doelstellingen, sdgs})
 
   return (
     <>
-      <div className="accordion-item">
-        <div className="accordion-header" id={`headingOne${id}`}>
+      <div className={["accordion-item", styles.item].join(" ")}>
+        <div className={["accordion-header", styles.header].join(" ")} id={`headingOne${id}`}>
           <button
-          className="accordion-button flex"
+          className={["accordion-button flex", styles.button].join(" ")}
           type="button"
           data-bs-toggle="collapse"
           data-bs-target={`#collapseOne${id}`}
@@ -29,6 +29,7 @@ export default function AccordionCategory({naam, id, doelstellingen, sdgs})
             </div> */}
               <NavLink key={id} to={`/categorieDashboard/${id}`}>
                 <h2
+                className={styles.title}
                 onClick={handleClick}
                 data-cy="categorieClick"
                 >{naam}</h2>
@@ -39,7 +40,7 @@ export default function AccordionCategory({naam, id, doelstellingen, sdgs})
         id={`collapseOne${id}`}
         className="accordion-collapse collapse show"
         aria-labelledby={`headingOne${id}`}>
-          <div className="accordion-body">
+          <div className={["accordion-body", styles.body].join(" ")}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {doelstellingen
               .sort(({naam: a}, {naam: b}) => a.localeCompare(b))

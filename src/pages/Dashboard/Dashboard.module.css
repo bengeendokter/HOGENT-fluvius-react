@@ -8,5 +8,16 @@
 .categorie_container
 {
   display: grid;
-  grid-gap: .7em;
+  grid-gap: 1.6em;
+  margin-inline: 1.2em;
+  justify-content: center;
+  justify-items: center;
+}
+
+@media screen and (min-width: 1280px)
+{
+  .categorie_container
+  {
+    grid-template-columns: 1fr 1fr;
+  }
 }

@@ -1,6 +1,32 @@
-.categorie
+.item
 {
-  display: grid;
-  border: var(--clr-primary) 2px solid;
-  margin-inline: .5em;
+  background-color: var(--clr-gray);
+  border-radius: 15px;
+  box-shadow: -2px 2px 20px rgba(0, 0, 0, 0.18);
+  max-width: 700px;
+}
+
+.header
+{
+  display: flex;
+  padding-inline: 0.8em;
+  padding-block-start: 0.7em;
+  gap: 0.7em;
+  align-items: center;
+}
+
+.title
+{
+  font-size: 1.7rem;
+}
+
+.button
+{
+  color: var(--clr-foreground);
+  fill: var(--clr-foreground);
+}
+
+.body
+{
+  padding: 1em;
 }
