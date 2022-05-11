@@ -20,6 +20,11 @@
   font-weight: 700;
 }
 
+.title:hover
+{
+  text-decoration: underline;
+}
+
 .button
 {
   color: var(--clr-foreground);
