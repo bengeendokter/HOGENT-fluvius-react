@@ -12,7 +12,7 @@ function parseJwt(token) {
   if (!token) return {};
   const base64Url = token.split('.')[1];
   const payload = Buffer.from(base64Url, 'base64');
-  const jsonPayload = payload.toString('ascii');
+  const jsonPayload = payload.toString('utf8');
   return JSON.parse(jsonPayload);
   
 }
