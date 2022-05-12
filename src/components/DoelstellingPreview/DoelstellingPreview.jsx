@@ -24,7 +24,7 @@ export default function DoelstellingPreview({id, doelwaarde: doelwaardeProp, isM
         const huidigFetch = huidigDoel?.data[0][2022][0]
         setHuidieWaarde(huidigFetch);
         setDoelBehaald(isMax ? huidigFetch <= doelwaarde : huidigFetch >= doelwaarde);
-        setPercentage((huidigFetch - doelwaarde) / (doelwaarde !== 0 ? doelwaarde : 0.01) * 100);
+        setPercentage(Math.round((huidigFetch - doelwaarde) / (doelwaarde !== 0 ? doelwaarde : 0.01) * 100));
     }, [doelId, isMax, doelwaarde, data, setEenheid, setHuidieWaarde, setDoelBehaald]);
     return (
         <>

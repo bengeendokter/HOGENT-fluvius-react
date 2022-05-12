@@ -44,7 +44,8 @@ export default function DoelstellingDashboard() {
     percentage = (huidigeWaarde - doelwaarde) / (doelwaarde !== 0 ? doelwaarde : 0.01) * 100;
 
     return {
-      isOnder: huidigeWaarde < doelwaarde,
+      // isMax ? huidigFetch <= doelwaarde : huidigFetch >= doelwaarde
+      isOnder: currentDoel.isMax ? huidigeWaarde <= doelwaarde : huidigeWaarde >= doelwaarde,
       percentage
     }
   }, [currentDoel, vindActueleWaardeData])
@@ -129,7 +130,7 @@ export default function DoelstellingDashboard() {
             <div className={styles["detail-right-panel-iconInfo"]}>
               <img className={styles["detail-info-icons"]} src="/assets/images/target_icon.PNG" alt="graph icon"/>
               <div className={styles["detail-right-panel-iconInfo-text"]}>
-                <div>{currentDoel.isMax? "Doelwaarde:":"Drempelwaarde:"}</div>
+                <div>{currentDoel.isMax? "Drempelwaarde:":"Doelwaarde:"}</div>
                 <div>{currentDoel.doelwaarde} {vindDataDoelstelling?.eenheid}</div>
               </div>
             </div>
@@ -138,7 +139,7 @@ export default function DoelstellingDashboard() {
               <img className={styles["detail-info-icons"]} src="/assets/images/question_icon.PNG" alt="graph icon"/>
               <div className={styles["detail-right-panel-iconInfo-text"]}>
                 <div>Doel {berekenPercentage.isOnder? "niet":""} behaald:</div>
-                <div className={berekenPercentage.isOnder? styles["percentage-onder"]:styles["percentage-boven"]}>{!berekenPercentage.isOnder && "+"}{berekenPercentage.percentage}%</div>
+                <div className={!berekenPercentage.isOnder? styles["percentage-onder"]:styles["percentage-boven"]}>{(vindActueleWaardeData >= currentDoel.doelwaarde) ? "+" : ""}{Math.round(berekenPercentage.percentage)}% t.o.v. doel</div>
               </div>
             </div>
             <div className={styles["detail-fout-melden-div"]}>
