@@ -20,7 +20,8 @@ export default function DoelstellingPreview({id, doelwaarde: doelwaardeProp, isM
     {
         const huidigDoel = data.find(doel => doel.id === doelId);
         setEenheid(huidigDoel?.eenheid);
-        const huidigFetch = huidigDoel?.data[0][2020][0]
+        // TODO jaartal niet hardcoden
+        const huidigFetch = huidigDoel?.data[0][2022][0]
         setHuidieWaarde(huidigFetch);
         setDoelBehaald(isMax ? huidigFetch <= doelwaarde : huidigFetch >= doelwaarde);
         setPercentage((huidigFetch - doelwaarde) / (doelwaarde !== 0 ? doelwaarde : 0.01) * 100);

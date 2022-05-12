@@ -17,7 +17,7 @@ export default function Dashboard()
   const {getDoelstellingenVoorCategories, setCategories: setCategoriesDoelstellingen, categoriesMetDoelstellingen} = useContext(DoelstellingContext);
   
   const {roles} = useSession();
-  const {getAllTemplatesByRol} = useContext(TemplateContext);
+  const {getAllTemplatesByRol, setRolNaam} = useContext(TemplateContext);
   const [templates, setTemplates] = useState([]);
   const [idToIsVisableMap, setidToIsVisableMap] = useState(new Map());
 
@@ -25,15 +25,19 @@ export default function Dashboard()
   useEffect(() =>
   {async function fetchData()
   {
-    const newTemplate = await getAllTemplatesByRol(roles);
+    setRolNaam(roles);
+    const newTemplate = await getAllTemplatesByRol();
+    console.log(newTemplate);
     setTemplates(newTemplate);
   }
+  console.log(roles);
   fetchData();
-}, [setTemplates, roles, getAllTemplatesByRol]);
+}, [setRolNaam, setTemplates, roles, getAllTemplatesByRol]);
 
   useEffect(() =>
   {
     const map = new Map();
+    // console.log(templates);
     if(templates && templates.length > 0)
     {
       templates.forEach(t => {
