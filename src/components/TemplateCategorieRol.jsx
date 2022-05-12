@@ -112,7 +112,7 @@ export default function TemplateCategorieRol(r) {
     <>
     {r &&
 
-    <div class="max-w-sm rounded overflow-hidden shadow-lg">
+    <div class="categorie_rol max-w-sm rounded overflow-hidden shadow-lg">
   <img className="w-full inline-block p-1" src={`/assets${icon.substring(8)}`}  alt="icon"/>
   <div class="px-6 py-4">
     <div class="font-bold text-xl mb-2">{category_id}</div>
