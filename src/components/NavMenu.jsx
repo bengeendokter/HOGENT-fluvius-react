@@ -5,10 +5,11 @@ import {useLogout, useSession} from '../contexts/AuthProvider';
 
 const NavItem = ({
 	to,
-	label
+	label,
+	 ...other
 }) => (
 
-	<span>
+	<span {...other}>
 		<NavLink
 			to={to}
 			className="xl:inline-block mt-2  block  m-3 text-white-200 hover:text-[#055063] hover:bg-white bg-[#055063]  p-2 rounded-xl text-white font-bold"
@@ -44,7 +45,7 @@ export default function NavMenu()
 						<NavItem to="/dashboard" label="DASHBOARD" />
 						<NavItem to="/templateBeheren" label="TEMPLATE BEHEREN" />
 						<NavItem to="/overzichtWijzigen" label="OVERZICHT WIJZIGEN" />
-						{isAuthed ? <button className='logout' data-cy="logout_btn" onClick={handleClick}>Logout</button> : <NavItem to="/login" label="LOGIN" />}
+						{isAuthed ? <NavItem to="/login" label="LOGOUT" className='logout' data-cy="logout_btn" onClick={handleClick}>Logout</NavItem> : <NavItem to="/login" label="LOGIN" />}
 
 					</nav>
 				</div>
