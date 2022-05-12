@@ -22,11 +22,20 @@ const BarChart = ({naam, id}) =>
   const dataD = x.filter(d => d.naam === naam);
   const doelwaardes = dataD[0]['doelwaarde'];
   const eenheid = dataD[0]['eenheid'];
+  //const kleuren = ["#055063", "#05635f", "#056348", "#053963", "#0b7ad3"];
+  const kleuren = ["#d30b7a", "#d3640b", "#0bd364", "#0bd364", "#640bd3"];
+  const gebruikt = [];
 
   const datas = dataD[0]['data'].map(d =>
   {
     //const kleur = `${ '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0').toUpperCase()}`;
-    const kleur = "#055063";
+    let kleur = kleuren[Math.floor(Math.random()*kleuren.length)];
+    let voorwaarde = gebruikt.includes(kleur);
+    while (voorwaarde) {
+      kleur = kleuren[Math.floor(Math.random()*kleuren.length)];
+      voorwaarde = gebruikt.includes(kleur);
+    }
+    gebruikt.push(kleur);
 
     return {
       label: `${Object.entries(d)[0][0]}`,
