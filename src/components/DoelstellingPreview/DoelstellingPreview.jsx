@@ -21,7 +21,12 @@ export default function DoelstellingPreview({id, doelwaarde: doelwaardeProp, isM
         const huidigDoel = data.find(doel => doel.id === doelId);
         setEenheid(huidigDoel?.eenheid);
         // TODO jaartal niet hardcoden
-        const huidigFetch = huidigDoel?.data[0][2022][0]
+        let huidigFetch;
+        for(let i = 0; i < huidigDoel?.data.length; i++)
+        {
+            if(huidigDoel?.data[i][2022] !== undefined) huidigFetch = huidigDoel?.data[i][2022][0];
+        }
+        //const huidigFetch = huidigDoel?.data[0][2022][0]
         setHuidieWaarde(huidigFetch);
         setDoelBehaald(isMax ? huidigFetch <= doelwaarde : huidigFetch >= doelwaarde);
         setPercentage(Math.round((huidigFetch - doelwaarde) / (doelwaarde !== 0 ? doelwaarde : 0.01) * 100));
