@@ -56,9 +56,12 @@ export default function CategorieDashboard()
 
           </div>
           <div className={styles["sdgs"]}>
-            {arrayIcons?.map(s =>
-            {
-              return <img className={styles["sdg"]} src={`/assets${s}`} key={s} alt={`${s}`}  />
+            {arrayIcons?.map(s => {
+              return <>
+                <a href={`https://sdgs.un.org/goals/goal${s.substring(8).split("").reverse().join("").substring(4).split("").reverse().join("")}`} target="_blank">
+                  <img className={styles["sdg"]} src={`/assets${s}`} key={s} alt={`${s}`} />
+                </a>
+              </>
             })}
           </div>
         </div>

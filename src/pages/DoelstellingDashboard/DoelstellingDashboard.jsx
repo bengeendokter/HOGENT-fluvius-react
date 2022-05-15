@@ -1,5 +1,5 @@
 import styles from './DoelstellingDashboard.module.css';
-import { DoelstellingContext} from '../../contexts/DoelstellingProvider';
+import { DoelstellingContext } from '../../contexts/DoelstellingProvider';
 import { useData } from '../../contexts/DataProvider';
 import { useParams } from "react-router-dom";
 import { useCallback, useContext, useEffect, useMemo } from 'react';
@@ -9,16 +9,16 @@ import { SdgContext } from '../../contexts/SdgProvider';
 import DoelstellingPreview from "../../components/DoelstellingPreview/DoelstellingPreview";
 
 export default function DoelstellingDashboard() {
-  const {doelstellingen, setCurrentDoelstelling, currentDoel,pad} = useContext(DoelstellingContext);
-  const {sdgs} = useContext(SdgContext);
-  const {data} = useData();
+  const { doelstellingen, setCurrentDoelstelling, currentDoel, pad } = useContext(DoelstellingContext);
+  const { sdgs } = useContext(SdgContext);
+  const { data } = useData();
   const { id } = useParams();
   useEffect(() => {
     //laden
     if (doelstellingen.length >= 1) {
       setCurrentDoelstelling(id);
     }
-    
+
   }, [doelstellingen, id, setCurrentDoelstelling]);
 
   const vindDataDoelstelling = useMemo(() => {
@@ -31,7 +31,7 @@ export default function DoelstellingDashboard() {
 
   const vindActueleWaardeData = useMemo(() => {
     if (vindDataDoelstelling) {
-      return Object.values(vindDataDoelstelling?.data.sort((a,b) => Object.keys(a)[0] < Object.keys(b)[0])[0])[0];
+      return Object.values(vindDataDoelstelling?.data.sort((a, b) => Object.keys(a)[0] < Object.keys(b)[0])[0])[0];
     }
     return null
   }, [vindDataDoelstelling])
@@ -49,11 +49,11 @@ export default function DoelstellingDashboard() {
       percentage
     }
   }, [currentDoel, vindActueleWaardeData])
-  
+
   const vindSdgs = useMemo(() => {
     let validSDGs = [];
     let categorie;
-    
+
     if (currentDoel && currentDoel.categorie) {
       if (currentDoel.parent_doelstelling && currentDoel.categorie.id === null) {
         categorie = doelstellingen.find(d => d.id === currentDoel.parent_doelstelling.id).categorie;
@@ -83,44 +83,48 @@ export default function DoelstellingDashboard() {
         <div className={styles["detail-header"]}>
           <div className={styles["detail-breadcrumb"]}>
             <NavLink to="/dashboard" className={styles["breadcrumb-link"]}>
-              Dashboard 
+              Dashboard
             </NavLink>
             &nbsp;  /  &nbsp;
-            <NavLink to={`/categorieDashboard/${(currentDoel.categorie === undefined || currentDoel.categorie.id === null) ? 2: currentDoel.categorie.id}`} className={styles["breadcrumb-link"]}>
+            <NavLink to={`/categorieDashboard/${(currentDoel.categorie === undefined || currentDoel.categorie.id === null) ? 2 : currentDoel.categorie.id}`} className={styles["breadcrumb-link"]}>
               {
-              (currentDoel.categorie === undefined || currentDoel.categorie.naam === null)? 
-                "Ecologie"
-                : 
-                currentDoel.categorie.naam
+                (currentDoel.categorie === undefined || currentDoel.categorie.naam === null) ?
+                  "Ecologie"
+                  :
+                  currentDoel.categorie.naam
               }
             </NavLink>
 
             {
-              pad.map(p=>  { 
-                return <p key={`${p.naam}${currentDoel.naam}`}> 
-                &nbsp; /  &nbsp;
-                { (p.naam !== currentDoel.naam)?
-                  <NavLink to={`/doelstellingDashboard/${p.id}`} className={styles["breadcrumb-link"]}>
-                    {p.naam}
-                  </NavLink>
-                  :
-                  p.naam
-                }
-              </p>
+              pad.map(p => {
+                return <p key={`${p.naam}${currentDoel.naam}`}>
+                  &nbsp; /  &nbsp;
+                {(p.naam !== currentDoel.naam) ?
+                    <NavLink to={`/doelstellingDashboard/${p.id}`} className={styles["breadcrumb-link"]}>
+                      {p.naam}
+                    </NavLink>
+                    :
+                    p.naam
+                  }
+                </p>
               })
             }
           </div>
           <div className={styles["sdgs"]}>
-          {vindSdgs?.map(s => {
-            return <img className={styles["sdg"]} src={`/assets/images/${s.AFBEELDINGNAAM}.jpg`} key={`${s.idSDG}${s.AFBEELDINGNAAM}${s.CATID}`} alt={s.NAAM} />
+            {vindSdgs?.map(s => {
+              return <>
+                <a href={`https://sdgs.un.org/goals/goal${s.AFBEELDINGNAAM}`} target="_blank">
+                  <img className={styles["sdg"]} src={`/assets/images/${s.AFBEELDINGNAAM}.jpg`} key={`${s.idSDG}${s.AFBEELDINGNAAM}${s.CATID}`} alt={s.NAAM} />
+                </a>
+              </>
             })}
           </div>
         </div>
         <div className={styles["detail-top"]}>
-          {currentDoel.naam && currentDoel.id && <BarChart naam={currentDoel.naam} id={currentDoel.id}/>}
+          {currentDoel.naam && currentDoel.id && <BarChart naam={currentDoel.naam} id={currentDoel.id} />}
           <div className={styles["detail-right-panel"]}>
             <div className={styles["detail-right-panel-iconInfo"]}>
-              <img className={styles["detail-info-icons"]} src="/assets/images/graph_icon.PNG" alt="graph icon"/>
+              <img className={styles["detail-info-icons"]} src="/assets/images/graph_icon.PNG" alt="graph icon" />
               <div className={styles["detail-right-panel-iconInfo-text"]}>
                 <div>Huidige waarde:</div>
                 <div>{vindActueleWaardeData} {vindDataDoelstelling?.eenheid}</div>
@@ -128,18 +132,18 @@ export default function DoelstellingDashboard() {
             </div>
 
             <div className={styles["detail-right-panel-iconInfo"]}>
-              <img className={styles["detail-info-icons"]} src="/assets/images/target_icon.PNG" alt="graph icon"/>
+              <img className={styles["detail-info-icons"]} src="/assets/images/target_icon.PNG" alt="graph icon" />
               <div className={styles["detail-right-panel-iconInfo-text"]}>
-                <div>{currentDoel.isMax? "Drempelwaarde:":"Doelwaarde:"}</div>
+                <div>{currentDoel.isMax ? "Drempelwaarde:" : "Doelwaarde:"}</div>
                 <div>{currentDoel.doelwaarde} {vindDataDoelstelling?.eenheid}</div>
               </div>
             </div>
 
             <div className={styles["detail-right-panel-iconInfo"]}>
-              <img className={styles["detail-info-icons"]} src="/assets/images/question_icon.PNG" alt="graph icon"/>
+              <img className={styles["detail-info-icons"]} src="/assets/images/question_icon.PNG" alt="graph icon" />
               <div className={styles["detail-right-panel-iconInfo-text"]}>
-                <div>Doel {berekenPercentage.isOnder? "niet":""} behaald:</div>
-                <div className={!berekenPercentage.isOnder? styles["percentage-onder"]:styles["percentage-boven"]}>{(vindActueleWaardeData >= currentDoel.doelwaarde) ? "+" : ""}{Math.round(berekenPercentage.percentage)}% t.o.v. doel</div>
+                <div>Doel {berekenPercentage.isOnder ? "niet" : ""} behaald:</div>
+                <div className={!berekenPercentage.isOnder ? styles["percentage-onder"] : styles["percentage-boven"]}>{(vindActueleWaardeData >= currentDoel.doelwaarde) ? "+" : ""}{Math.round(berekenPercentage.percentage)}% t.o.v. doel</div>
               </div>
             </div>
             <div className={styles["detail-fout-melden-div"]}>
@@ -152,16 +156,16 @@ export default function DoelstellingDashboard() {
         </div>
         <div className={styles["detail-bottom"]}>
           <div className={styles["subdoelstellingen-titel"]}>
-            {(currentDoel.subdoelstellingen && currentDoel.subdoelstellingen.length > 0)?
-              "Subdoelstellingen":"Geen subdoelstellingen"
+            {(currentDoel.subdoelstellingen && currentDoel.subdoelstellingen.length > 0) ?
+              "Subdoelstellingen" : "Geen subdoelstellingen"
             }
           </div>
           {currentDoel.subdoelstellingen &&
-            <div className={styles["subdoelstellingen"]}> 
+            <div className={styles["subdoelstellingen"]}>
               {
-              currentDoel.subdoelstellingen.map(sub => {
-                return <DoelstellingPreview {...sub} key={`${sub.id}${sub.naam}`}></DoelstellingPreview>
-              })
+                currentDoel.subdoelstellingen.map(sub => {
+                  return <DoelstellingPreview {...sub} key={`${sub.id}${sub.naam}`}></DoelstellingPreview>
+                })
               }
             </div>
           }
