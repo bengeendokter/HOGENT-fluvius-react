@@ -8,7 +8,6 @@
   transition: box-shadow .2s ease;
   width: 100%;
   flex: 1 1 350px;
-  
 }
 
 .doelstelling:hover
@@ -68,10 +67,17 @@
   font-style: italic;
 }
 
-.percentage strong
+.percentage_getal
 {
+  --percent-decoratie: overline;
   font-weight: bold;
   font-size: 1.7rem;
+  text-decoration: var(--percent-decoratie);
+}
+
+.doel_boven
+{
+  --percent-decoratie: underline;
 }
 
 @media screen and (min-width: 1280px) {
