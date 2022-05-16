@@ -1,5 +1,5 @@
 .card {
-    flex: 0 0 300px;
+    flex: 0 1 300px;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     padding: 5px;
@@ -13,7 +13,6 @@
 
 .card-info {
     width: 100%;
-    /*px-6 py-4*/
 }
 
 .card-title {

@@ -216,7 +216,9 @@ export default function TemplateBeheren()
             </div>
 
             <div className={styles["categorie-container"]}>
-              {templatesMetCategorie.map(r => <TemplateCategorieRol key={r.id} {...r} rolTemplate={selectedRol} ></TemplateCategorieRol>)}
+              {templatesMetCategorie.map(r => 
+                <TemplateCategorieRol key={r.id} {...r} rolTemplate={selectedRol} isPersonalisatieScherm={false} />)
+              }
             </div>
           </>
         }

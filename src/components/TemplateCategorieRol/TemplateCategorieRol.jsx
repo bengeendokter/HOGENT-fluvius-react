@@ -15,10 +15,9 @@ import Alert from '@mui/material/Alert';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import EditOffIcon from '@mui/icons-material/EditOff';
 
-export default function TemplateCategorieRol(r) {
+export default function TemplateCategorieRol({isPersonalisatieScherm, ...r}) {
   
   let {id, is_visible, rol, icon, category_id, is_costumisable, rolTemplate } = r;
-  //console.log("dit is een template voor de rol: ", rolTemplate[0]);
 
   const {currentCategorie, setCatId, getCategorieByID} = useCategories();
   const {setTemplateToUpdate, createOrUpdateTemplate, currentTemplate} = useContext(TemplateContext);
@@ -103,42 +102,61 @@ export default function TemplateCategorieRol(r) {
   return (
     <>
     {r &&
+    <>
+    {!isPersonalisatieScherm?
       <div className={styles["card"]}>
         <img className={styles["card-img"]} src={`/assets${icon.substring(8)}`}  alt="icon"/>
         <div className={styles["card-info"]}>
           <div className={styles["card-title"]}>{category_id}</div>
-          <div className={styles["card-buttons"]}>
-            {visible === 1?
-              <div onClick={handleClick} className={styles["card-button-green"]}>
-                <VisibilityIcon sx={{ color: grey[900] }} />
-              </div>
-              :
-              <div onClick={handleClick} className={styles["card-button-red"]}>
-                <VisibilityOffIcon sx={{ color: grey[900] }} />
-              </div>
-            }
-            {(rolTemplate[0] !== "Stakeholder") &&
-              <>
-                {customisable === 1?
-                  <div onClick={handleClickCustom} className={styles["card-button-green"]}>
-                    <ModeEditIcon sx={{ color: grey[900] }} />
-                  </div>
-                  :
-                  <div onClick={handleClickCustom} className={styles["card-button-red"]}>
-                    <EditOffIcon sx={{ color: grey[900] }} />
-                  </div>
-                }
-              </>
-            }
-          </div>
+          {!isPersonalisatieScherm && 
+            <div className={styles["card-buttons"]}>
+              {visible === 1?
+                <div onClick={handleClick} className={styles["card-button-green"]}>
+                  <VisibilityIcon />
+                </div>
+                :
+                <div onClick={handleClick} className={styles["card-button-red"]}>
+                  <VisibilityOffIcon />
+                </div>
+              }
+              {(rolTemplate[0] !== "Stakeholder") &&
+                <>
+                  {customisable === 1?
+                    <div onClick={handleClickCustom} className={styles["card-button-green"]}>
+                      <ModeEditIcon />
+                    </div>
+                    :
+                    <div onClick={handleClickCustom} className={styles["card-button-red"]}>
+                      <EditOffIcon />
+                    </div>
+                  }
+                </>
+              }
+            </div>
+          }
         </div>
-        {verander === 1 && gelukt === 1 &&
-          <Alert severity="success">Wijzigingen zijn opgeslagen!</Alert>
-        }
-        {verander === 1 && gelukt === 0 &&
-          <Alert severity="error">This is an error alert — check it out!</Alert>
+        {!isPersonalisatieScherm && 
+          <>
+            {verander === 1 && gelukt === 1 &&
+              <Alert severity="success">Wijzigingen zijn opgeslagen!</Alert>
+            }
+            {verander === 1 && gelukt === 0 &&
+              <Alert severity="error">Oops, er is iets misgegaan.</Alert>
+            }
+          </>
         }
       </div>
+      :
+      <>
+        <img className={styles["card-img"]} src={`/assets${icon.substring(8)}`}  alt="icon"/>
+        <div className={styles["card-info"]}>
+          <div className={styles["card-title"]}>
+            {category_id}
+          </div>
+        </div>
+      </>
+    }
+    </>
     }
         
     </>

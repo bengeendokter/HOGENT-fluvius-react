@@ -1,4 +1,5 @@
 import * as React from 'react';
+import styles from './OverzichtWijzigen.module.css';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -7,20 +8,20 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
-import {RolContext} from '../contexts/RolProvider';
-import eye from "../images/eye.jpg";
+import {RolContext} from '../../contexts/RolProvider';
+import eye from "../../images/eye.jpg";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { grey } from '@mui/material/colors';
-import {TemplateContext} from '../contexts/TemplatesProvider';
-import TemplateCategorieRol from '../components/TemplateCategorieRol/TemplateCategorieRol';
+import {TemplateContext} from '../../contexts/TemplatesProvider';
+import TemplateCategorieRol from '../../components/TemplateCategorieRol/TemplateCategorieRol';
 import { Link, useParams, useNavigate } from "react-router-dom";
 import {
   useEffect, useContext, useState
 } from 'react';
 // BEAUTIFUL DRAG AND DROP
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { useSession, useAuth } from "../contexts/AuthProvider";
+import { useSession, useAuth } from "../../contexts/AuthProvider";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -145,41 +146,46 @@ export default function OverzichtWijzigen() {
 
   return (
     <>
-    <div>
-      <p className="font-bold text-xl ml-10 mb-10 text-[#004C69]">Template {selectedRol}</p>
-      {verander && rolNaam && temps &&
-      <DragDropContext onDragEnd={handleOnDragEnd} >
-  <Droppable droppableId="characters"  direction="horizontal">
-    {(provided, snapshot) => (
-    <div style={getListStyle()} {...provided.droppableProps} ref={provided.innerRef}>
-    {temps.map((element, index) => {
-    return (
-      <Draggable key={element.id} draggableId={element.id} index={index}>
-      {(provided, snapshot) => (
-        <div  ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={getItemStyle(
-          snapshot.isDragging,
-          provided.draggableProps.style
-        )}>
-          <TemplateCategorieRol key={element.id} { ...element } rolTemplate={selectedRol} ></TemplateCategorieRol>
-        </div>
-      )}
-    </Draggable>
-    );
-  })}
-  {provided.placeholder}
-</div>)}
-  </Droppable>
-</DragDropContext>}
+    <div className={styles["personalisation-all"]}>
+      <div className={styles["categorie-titles-personalisatie"]}>
+        <p className={styles["categorie-title-personalisatie"]}>Template {roles}</p>
+        <p className={styles["categorie-title-personalisatie"]}>Verander de volgorde van je categorieën!</p>
+      </div>
+      <div >
+        {verander && rolNaam && temps &&
+        <DragDropContext onDragEnd={handleOnDragEnd} >
+          <Droppable droppableId="characters"  direction="horizontal">
+            {(provided, snapshot) => (
+            <div className={styles["draggable-categorie-container"]} {...provided.droppableProps} ref={provided.innerRef}>
+            {temps.map((element, index) => {
+            return (
+              <Draggable key={element.id} draggableId={element.id} index={index}>
+              {(provided, snapshot) => (
+                <div className={styles["dragCard"]} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={getItemStyle(
+                  snapshot.isDragging,
+                  provided.draggableProps.style
+                )}>
+                  <TemplateCategorieRol key={element.id} rolTemplate={selectedRol} isPersonalisatieScherm={true} {...element}/>
+                </div>
+              )}
+            </Draggable>
+            );
+          })}
+          {provided.placeholder}
+        </div>)}
+          </Droppable>
+        </DragDropContext>}
 
-      <div className="flex justify-end mr-8">
-        {
-        <button onClick={save} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
-          Opslaan
-        </button>
-    }
+        <div className="flex justify-end mr-8">
+          {
+          <button onClick={save} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
+            Opslaan
+          </button>
+      }
+        </div>
       </div>
     </div>
-
+    <div className={styles["personalisation-none"]}>Het personaliseren van je categorieën kan alleen gebeuren op een grotere scherm. Zoom uit of probeer opnieuw op een bredere scherm.</div>
     </>
   );
 }
