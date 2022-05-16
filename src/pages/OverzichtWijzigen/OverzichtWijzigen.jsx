@@ -137,7 +137,8 @@ export default function OverzichtWijzigen() {
   }, [templatesRol, getTemplatesMetCategorie, verander]);
 
   useEffect(() => {
-    updateTemps(templatesMetCategorie.sort((a, b) => a.order - b.order)); 
+    
+    updateTemps(templatesMetCategorie.filter(t => t.is_costumisable === 1).sort((a, b) => a.order - b.order)); 
   },[templatesMetCategorie]);
 
   return (
