@@ -31,7 +31,7 @@ export default function DoelstellingDashboard() {
 
   const vindActueleWaardeData = useMemo(() => {
     if (vindDataDoelstelling) {
-      return Object.values(vindDataDoelstelling?.data.sort((a, b) => Object.keys(a)[0] < Object.keys(b)[0])[0])[0];
+      return Object.values(vindDataDoelstelling?.data.sort((a, b) => Object.keys(a)[0] < Object.keys(b)[0])[0])[0][0];
     }
     return null
   }, [vindDataDoelstelling])
