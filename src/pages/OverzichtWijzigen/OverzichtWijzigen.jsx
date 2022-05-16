@@ -121,6 +121,13 @@ export default function OverzichtWijzigen() {
       orderVoorTemplate(temps);
   };
 
+  const reset = React.useCallback(() => {
+    let newTemps = temps.sort(({category_id: a}, {category_id: b}) => a.localeCompare(b));
+    newTemps.forEach((t, index) => t.order = index);
+    updateTemps(newTemps);
+    orderVoorTemplate(temps);
+  }, [orderVoorTemplate, temps])
+
   useEffect(() =>
   {
     setRolNaam(roles);
@@ -178,7 +185,11 @@ export default function OverzichtWijzigen() {
         </DragDropContext>}
 
           <div className={styles["saveButton-container"]}>
-            
+
+            <button onClick={reset} className={styles["resetButton"]}>
+              Herstellen
+            </button>
+
             <button onClick={save} className={styles["saveButton"]}>
               Opslaan
             </button>

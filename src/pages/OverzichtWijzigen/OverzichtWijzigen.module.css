@@ -156,7 +156,7 @@
     margin: 15px auto;
     margin-top: 25px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 .saveButton {
@@ -174,6 +174,28 @@
 .saveButton:hover {
     background-color: white;
     color: #B8CE44;
+    border-radius: 5px;
+    font-size: larger;
+    font-weight: bold;
+    width: 150px;
+    padding: 10px;
+}
+
+.resetButton {
+    background-color: #FF4512;
+    color: white;
+    border: 2.5px solid #FF4512;
+    border-radius: 5px;
+    font-size: larger;
+    font-weight: bold;
+    width: 150px;
+    padding: 10px;
+    transition: 0.25s;
+}
+
+.resetButton:hover {
+    background-color: white;
+    color: #FF4512;
     border-radius: 5px;
     font-size: larger;
     font-weight: bold;
