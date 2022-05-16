@@ -53,10 +53,6 @@ export default function OverzichtWijzigen() {
   const {roles} = useSession();
   let voerUit = true;
 
-  /*const geefOrdeTemplates = React.useMemo(() => {
-    return temps.sort((a, b) => a.order - b.order);
-  }, [temps]);*/
-
    // DRAG AND DROP
    function handleOnDragEnd(result) {
     if (!result.destination) return;
@@ -100,7 +96,6 @@ export default function OverzichtWijzigen() {
 
   const saveOrder = React.useCallback(
     async (temp, index) => {
-      //console.log(temp);
       try {
           await createOrUpdateTemplate({
            id: temp.id,
@@ -122,19 +117,11 @@ export default function OverzichtWijzigen() {
   );
 
   const save = () => {
-     
-      console.log("temps", temps);
       orderVoorTemplate(temps);
       getAllTemplatesByRol();
       getTemplatesMetCategorie(templatesRol);
       getAllTemplatesByRol();
       getTemplatesMetCategorie(templatesRol);
-      /*temps.forEach((temp, index)=> saveOrder(temp, index));
-      getAllTemplatesByRol();
-      getTemplatesMetCategorie(templatesRol);*/
-
-      
-    
   };
 
   useEffect(() =>
@@ -142,7 +129,7 @@ export default function OverzichtWijzigen() {
     setRolNaam(roles);
     getAllTemplatesByRol();
     
-  }, [getAllTemplatesByRol, setRolNaam, roles]); //mss ook verander
+  }, [getAllTemplatesByRol, setRolNaam, roles]);
 
  useEffect(() =>
   {
@@ -153,21 +140,7 @@ export default function OverzichtWijzigen() {
   }, [templatesRol, getTemplatesMetCategorie, verander]);
 
   useEffect(() => {
-    //orderVoorTemplate(temps);
-    //initeel halen
-    /*getAllTemplatesByRol();
-    getTemplatesMetCategorie(templatesRol);*/
-
-
-    //console.log("wat is dit", templatesMetCategorie);
-    updateTemps(templatesMetCategorie.sort((a, b) => a.order - b.order));
-
-    /*else {
-      updateTemps(temps);
-    }*/
-    //updateTemps(templatesMetCategorie);
-
-    
+    updateTemps(templatesMetCategorie.sort((a, b) => a.order - b.order)); 
   },[templatesMetCategorie]);
 
   return (
@@ -202,9 +175,6 @@ export default function OverzichtWijzigen() {
   </Droppable>
 </DragDropContext>}
 
-
-
-      {/* {verander && rolNaam && selectedRol && templatesMetCategorie.map(r => <TemplateCategorieRol key={r.id} { ...r} rolTemplate={selectedRol} ></TemplateCategorieRol>)} */}
       <div className="flex justify-end mr-8">
         {
         <button onClick={save} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
