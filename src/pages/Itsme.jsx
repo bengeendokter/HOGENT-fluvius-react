@@ -1,77 +1,68 @@
 import {FormProvider, useForm} from 'react-hook-form';
 import LabelInput from '../components/LabelInput';
-// import { useLogin, useSession } from '../contexts/AuthProvider';
+import { useLogin } from '../contexts/AuthProvider';
+import {useNavigate} from 'react-router';
 import itsme from "../images/itsme.avif";
-
-// const validationRules = {
-//   email: {
-//     required: true
-//   },
-//   password: {
-//     required: true
-//   }
-// };
+import {useCallback, useState} from 'react';
 
 export default function Itsme()
 {
-  // const navigate = useNavigate ();
-  // const { loading, error, isAuthed } = useSession();
-  // const login = useLogin();
+  const [error, setError] = useState(0)
+  const navigate = useNavigate ();
+  const login = useLogin();
   const methods = useForm();
+  const {
+    handleSubmit,
+  } = methods;
 
 
-  // const handleLogin = useCallback(async ({ Email, Wachtwoord }) => {
-  //   const success = await login(Email, Wachtwoord);
-
-  //   if (success) {
-  //     navigate("/", { replace: true });
-  //   }
-  // }, [navigate, login]);
-
-  // const handleCancel = useCallback(() => {
-  //   reset();
-  // }, [reset]);
-
-  // if (isAuthed) {
-  //   return <Navigate from="/login" to="/" />
-  // }
+  const handleLogin = useCallback(async ({gsmnummer}) =>
+  {
+    
+    if(gsmnummer.length >= 9){
+      const success = await login("stakeholder", "123456789");
+      if(success)
+      {
+        navigate("/", {replace: true});
+      }
+    } else{
+      setError(1);
+    }
+  }, [navigate, login]);
 
   return (
+    <>
     <FormProvider {...methods}>
-      <div className="mx-auto w-2/3 xl:w-4/5 pt-10">
-
-        {/* <form className="grid grid-cols-1 gap-y-4" onSubmit={handleSubmit(handleLogin)}> */}
-        <form className="grid grid-cols-1 gap-y-4 text-left" >
-
+      <div className="mx-auto w-2/3 xl:w-1/5 pt-10">
+        <form className="grid grid-cols-1 gap-y-4 text-left" onSubmit={handleSubmit(handleLogin)}>
           <img
             src={itsme}
             alt="itsme"
             className="w-1/4 block lg:block lg:mt-0 justify-self-center rounded-full "
           />
-
           <h1 className="text-[#055063] text-xl font-bold justify-self-center">Identificeer je</h1>
-          {/* {
-            error ? (
-              <p className="text-red-500">
-                {error}
-              </p>
-            ) : null
-          } */}
           <LabelInput
-            name="Gsm-nummer"
+            name="gsmnummer"
             label="Gsm-nummer"
             type="text"
             defaultValue=""
             placeholder="BE(+32):"
             data-cy="Gsmnummer_input" />
-
-          {/* disabled={loading} */}
+            {
+            error ? (
+              <p data-cy="login-error" className="text-red-500">
+                Gelieve een correct gsm-nummer in te geven
+              </p>
+            ) : null
+          }
           <button data-cy="submit_btn" type="submit" className="disabled:opacity-50 block mt-2 lg:inline-block  lg:mt-0 text-white  bg-[#055063] xl:p-1 xl:text-xl  p-1.5  text-white">
-            Verstuur
-          </button>
+    Verstuur
+  </button>
 
         </form>
       </div>
     </FormProvider>
+    
+  </>
   );
 }
