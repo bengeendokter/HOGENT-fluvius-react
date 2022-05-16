@@ -9,14 +9,22 @@
     --hsl-white: 240, 100%, 100%;
     --hsl-oranje-itsme: 13, 100%, 54%;
     --hsl-gray: 180, 8%, 95%;
+    --hsl-yellow: 51, 94%, 69%;
+    --hsl-red: 360, 96%, 51%;
 
     --clr-primary: hsla(var(--hsl-blauw-fluvius));
     --clr-secondary: hsla(var(--hsl-groen-fluvius));
     --clr-accent: hsla(var(--hsl-white));
     --clr-negative: hsla(var(--hsl-oranje-itsme));
+    --clr-grenswaardeBijnaGoed: hsla(var(--hsl-yellow));
     --clr-background: hsla(var(--hsl-white));
     --clr-background-muted: hsla(var(--hsl-blauw-fluvius), .1);
     --clr-foreground: hsla(var(--hsl-black));
+
+    --clr-grenswaardeBijnaGoed: hsla(var(--hsl-yellow));
+    --clr-grenswaardeGoed: hsla(var(--hsl-groen-fluvius));
+    --clr-grenswaardeSlecht: hsla(var(--hsl-oranje-itsme));
+    --clr-grenswaardeHeelSlecht: hsla(var(--hsl-red));
 }
 
 body {

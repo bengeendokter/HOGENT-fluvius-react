@@ -21,6 +21,24 @@
   --clr-doel: var(--clr-secondary);
 }
 
+.doelbehaaldGoed
+{
+  --clr-doel: var(--clr-grenswaardeGoed);
+}
+.doelbehaaldBijnaGoed
+{
+  --clr-doel: var(--clr-grenswaardeBijnaGoed);
+}
+.doelbehaaldSlecht
+{
+  --clr-doel: var(--clr-grenswaardeSlecht);
+}
+.doelbehaaldHeelSlecht
+{
+  --clr-doel: var(--clr-grenswaardeHeelSlecht);
+}
+
+
 .naam
 {
   font-style: normal;
