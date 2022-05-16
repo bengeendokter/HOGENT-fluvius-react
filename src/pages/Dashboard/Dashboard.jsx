@@ -20,6 +20,7 @@ export default function Dashboard()
   const {getAllTemplatesByRol, setRolNaam} = useContext(TemplateContext);
   const [templates, setTemplates] = useState([]);
   const [idToIsVisableMap, setidToIsVisableMap] = useState(new Map());
+  const [ordersOfCat, setOrdersOfCat] = useState(new Map());
 
 
   useEffect(() =>
@@ -27,23 +28,23 @@ export default function Dashboard()
   {
     setRolNaam(roles);
     const newTemplate = await getAllTemplatesByRol();
-    console.log(newTemplate);
     setTemplates(newTemplate);
   }
-  console.log(roles);
   fetchData();
 }, [setRolNaam, setTemplates, roles, getAllTemplatesByRol]);
 
   useEffect(() =>
   {
     const map = new Map();
-    // console.log(templates);
+    const mapOrders = new Map();
     if(templates && templates.length > 0)
     {
       templates.forEach(t => {
-        map.set(t.category_id, t.is_visible)
+        map.set(t.category_id, t.is_visible, t.order);
+        mapOrders.set(t.category_id, t.order);
       });
       setidToIsVisableMap(map);
+      setOrdersOfCat(mapOrders);
     }
   }, [templates, setidToIsVisableMap]);
 
@@ -66,7 +67,8 @@ export default function Dashboard()
       <h2>{error && <pre className="text-red-600">{error.message}</pre>}</h2>
       <div className={styles.categorie_container}>
         {categoriesMetDoelstellingen
-        .sort(({naam: a}, {naam: b}) => a.localeCompare(b))
+        //.sort(({naam: a}, {naam: b}) => a.localeCompare(b))
+        .sort(({id : a}, {id : b}) => ordersOfCat.get(a) > ordersOfCat.get(b))
         .filter(({id}) => idToIsVisableMap.get(id) === 1)
         .map((c) => <AccordionCategory key={c.id} {...c}></AccordionCategory>)}
       </div>

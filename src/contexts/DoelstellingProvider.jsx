@@ -96,7 +96,7 @@ import {
         for(const categorie of categories)
         {
           const newDoelstellingen = await doelstellingApi.getDoelstellingByCategorieID(categorie.id);
-          newCategoriesMetDoelstellingen.push({id: categorie.id, naam: categorie.naam, sdgs: categorie.sdgs, doelstellingen: newDoelstellingen});
+          newCategoriesMetDoelstellingen.push({id: categorie.id, naam: categorie.naam, sdgs: categorie.sdgs, doelstellingen: newDoelstellingen, order: categorie.order});
         }
 
         setCategoriesMetDoelstellingen(newCategoriesMetDoelstellingen);
