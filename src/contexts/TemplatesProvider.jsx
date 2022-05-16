@@ -102,12 +102,12 @@ export const TemplatesProvider = ({
       {
         //console.log("temp", temp);
         const newCat = await categoriesApi.getCategorieByID(temp.category_id);
-        //console.log("newcat", newCat);
         //console.log("newcat NAAM", newCat[0].NAAM);
         //newTemplatesMetCategorie.push({id: temp.id, category_id: newCat[0].NAAM, is_visible: temp.is_visible, icon: newCat[0].ICON});
-        newTemplatesMetCategorie.push({id: temp.id, category_id: newCat[0].NAAM, is_visible: temp.is_visible, icon: newCat[0].ICON, is_costumisable: temp.is_costumisable});
+        newTemplatesMetCategorie.push({order: temp.order, id: temp.id, category_id: newCat[0].NAAM, is_visible: temp.is_visible, icon: newCat[0].ICON, is_costumisable: temp.is_costumisable});
       }
       //console.log("miserie", newTemplatesMetCategorie);
+      //newTemplatesMetCategorie.sort((a, b) => a.order - b.order);
       setTemplatesMetCategorie(newTemplatesMetCategorie);
       //test
       setVerander(true);
@@ -129,7 +129,8 @@ export const TemplatesProvider = ({
     category_id,
     rol,
     is_visible,
-    is_costumisable
+    is_costumisable,
+    order
   }) =>
   {
     setError();
@@ -142,7 +143,8 @@ export const TemplatesProvider = ({
         category_id,
         rol,
         is_visible,
-        is_costumisable
+        is_costumisable,
+        order
       });
       await refreshTemplates();
       return changedTemplate;
@@ -155,6 +157,33 @@ export const TemplatesProvider = ({
       setLoading(false)
     }
   }, [refreshTemplates]);
+
+  const orderVoorTemplate = useCallback(async (orderTemplates
+  ) =>
+  {
+    setError();
+    setLoading(true);
+    //templatesMetCategorie veranderen met orderTemplates
+    //de orde is de volgorde van de array orderTemplates
+
+    try
+    {
+      //setTemplatesMetCategorie(orderTemplates);
+      orderTemplates.forEach((temp, index) => {
+        temp.order = index;
+        createOrUpdateTemplate(temp)
+      });
+      await refreshTemplates();
+      return true;
+    } catch(error)
+    {
+      throw error;
+
+    } finally
+    {
+      setLoading(false)
+    }
+  }, [refreshTemplates, createOrUpdateTemplate]);
 
   const deleteTemplate = useCallback(async (id) =>
   {
@@ -197,7 +226,7 @@ export const TemplatesProvider = ({
 
 
   return (
-    <TemplateContext.Provider value={{verander, rolNaam, templatesMetCategorie, getTemplatesMetCategorie, setTemplates, setTemplatesRol, templatesRol, deleteTemplate, currentTemplate, setTemplateToUpdate, createOrUpdateTemplate, setRolNaam, refreshTemplates, getAllTemplatesByRol, templates, error, setError, loading, setLoading}}>
+    <TemplateContext.Provider value={{orderVoorTemplate, verander, rolNaam, templatesMetCategorie, getTemplatesMetCategorie, setTemplates, setTemplatesRol, templatesRol, deleteTemplate, currentTemplate, setTemplateToUpdate, createOrUpdateTemplate, setRolNaam, refreshTemplates, getAllTemplatesByRol, templates, error, setError, loading, setLoading}}>
       {children}
     </TemplateContext.Provider>
   );

@@ -125,6 +125,7 @@ export default function TemplateBeheren()
           rol: selectedRol[0],
           is_visible: 1,
           is_costumisable: (selectedRol[0] === "Stakeholder") ? 0 : 1,
+          order: temp.order
         });
 
       } catch(error)
@@ -143,6 +144,7 @@ export default function TemplateBeheren()
   {
     if(selectedRol[0] !== undefined)
     {
+      console.log("goed goed", templatesMetCategorie);
       templatesMetCategorie.forEach(temp => reset1(temp));
       getAllTemplatesByRol();
       getTemplatesMetCategorie(templatesRol);
