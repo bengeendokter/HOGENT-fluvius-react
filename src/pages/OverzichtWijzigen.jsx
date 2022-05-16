@@ -13,7 +13,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { grey } from '@mui/material/colors';
 import {TemplateContext} from '../contexts/TemplatesProvider';
-import TemplateCategorieRol from '../components/TemplateCategorieRol';
+import TemplateCategorieRol from '../components/TemplateCategorieRol/TemplateCategorieRol';
 import { Link, useParams, useNavigate } from "react-router-dom";
 import {
   useEffect, useContext, useState

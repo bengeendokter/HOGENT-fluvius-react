@@ -1,12 +1,13 @@
+import styles from './TemplateCategorieRol.module.css';
 import { NavLink } from "react-router-dom";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { grey } from '@mui/material/colors';
-import { useCategories } from "../contexts/CategorieProvider";
+import { useCategories } from "../../contexts/CategorieProvider";
 import {
   useEffect, useContext, useCallback, useState
 } from 'react';
-import {TemplateContext} from '../contexts/TemplatesProvider';
+import {TemplateContext} from '../../contexts/TemplatesProvider';
 
 import Alert from '@mui/material/Alert';
 
@@ -56,16 +57,7 @@ export default function TemplateCategorieRol(r) {
       setGelukt(0);
       console.error(error);
     }
-  }, [visible, customisable]);
-
-  // const onClickCustom = () => {
-  //   if(customisable === parseInt(1)){
-  //     setCustomisable(0);
-  //   }else{
-  //     setCustomisable(1);
-  //   }
-    
-  // };
+  }, [visible, customisable, category_id, createOrUpdateTemplate, id, rolTemplate]);
 
   const handleClickCustom = useCallback(async (data) => {
     try {
@@ -93,7 +85,7 @@ export default function TemplateCategorieRol(r) {
       setGelukt(0);
       console.error(error);
     }
-  }, [visible, customisable]);
+  }, [visible, customisable, category_id, rolTemplate, createOrUpdateTemplate, id]);
 
   useEffect(() =>
   {
@@ -111,36 +103,43 @@ export default function TemplateCategorieRol(r) {
   return (
     <>
     {r &&
-
-    <div className="categorie_rol max-w-sm rounded overflow-hidden shadow-lg">
-  <img className="w-full inline-block p-1" src={`/assets${icon.substring(8)}`}  alt="icon"/>
-  <div className="px-6 py-4">
-    <div className="font-bold text-xl mb-2">{category_id}</div>
-    <p className="text-gray-700 text-base">
-    {visible === 1 ? <><VisibilityIcon sx={{ color: grey[900] }} onClick={handleClick} /></>: <><VisibilityOffIcon sx={{ color: grey[900] }} onClick={handleClick} /> </>}
-    </p>
-    {(rolTemplate[0] !== "Stakeholder") &&
-    <p className="text-gray-700 text-base">
-      {customisable === 1 ? <><ModeEditIcon sx={{ color: grey[900] }} onClick={handleClickCustom} /></>: <><EditOffIcon sx={{ color: grey[900] }} onClick={handleClickCustom} /> </>}
-    </p>}
-    {/* <button onClick={onClick2} className="mt-4 bg-[#004C69] hover:bg-white text-white font-semibold hover:text-[#004C69] py-2 px-4 border border-[#004C69] hover:border-transparent rounded">
-  Opslaan
-</button> */}
-  </div>
-  <div className="px-6 flex">
-    
-    
-  </div>
-  {verander == 1 && gelukt == 1 ? (
-  <Alert severity="success">Wijzigingen zijn opgeslagen!</Alert>) : (<></>)
-}
-{verander == 1 && gelukt == 0 ? (
-  <Alert severity="error">This is an error alert — check it out!</Alert>
-  ) : (<></>)
-}
-
-</div>
-}
+      <div className={styles["card"]}>
+        <img className={styles["card-img"]} src={`/assets${icon.substring(8)}`}  alt="icon"/>
+        <div className={styles["card-info"]}>
+          <div className={styles["card-title"]}>{category_id}</div>
+          <div className={styles["card-buttons"]}>
+            {visible === 1?
+              <div onClick={handleClick} className={styles["card-button-green"]}>
+                <VisibilityIcon sx={{ color: grey[900] }} />
+              </div>
+              :
+              <div onClick={handleClick} className={styles["card-button-red"]}>
+                <VisibilityOffIcon sx={{ color: grey[900] }} />
+              </div>
+            }
+            {(rolTemplate[0] !== "Stakeholder") &&
+              <>
+                {customisable === 1?
+                  <div onClick={handleClickCustom} className={styles["card-button-green"]}>
+                    <ModeEditIcon sx={{ color: grey[900] }} />
+                  </div>
+                  :
+                  <div onClick={handleClickCustom} className={styles["card-button-red"]}>
+                    <EditOffIcon sx={{ color: grey[900] }} />
+                  </div>
+                }
+              </>
+            }
+          </div>
+        </div>
+        {verander === 1 && gelukt === 1 &&
+          <Alert severity="success">Wijzigingen zijn opgeslagen!</Alert>
+        }
+        {verander === 1 && gelukt === 0 &&
+          <Alert severity="error">This is an error alert — check it out!</Alert>
+        }
+      </div>
+    }
         
     </>
   );
