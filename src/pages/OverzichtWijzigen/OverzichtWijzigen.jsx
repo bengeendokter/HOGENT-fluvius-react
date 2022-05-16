@@ -119,10 +119,6 @@ export default function OverzichtWijzigen() {
 
   const save = () => {
       orderVoorTemplate(temps);
-      getAllTemplatesByRol();
-      getTemplatesMetCategorie(templatesRol);
-      getAllTemplatesByRol();
-      getTemplatesMetCategorie(templatesRol);
   };
 
   useEffect(() =>

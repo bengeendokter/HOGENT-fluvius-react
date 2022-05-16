@@ -12,8 +12,6 @@ import { useSession } from './AuthProvider';
 
 export const TemplateContext = createContext();
 
-
-
 export const TemplatesProvider = ({
   children
 }) =>
@@ -170,8 +168,10 @@ export const TemplatesProvider = ({
     {
       orderTemplates.forEach((temp, index) => {
         temp.order = index;
-        createOrUpdateTemplate(temp);
       });
+      await templatesApi.saveAlles(orderTemplates);
+      await getAllTemplatesByRol();
+      await getTemplatesMetCategorie(templatesRol)
       await refreshTemplates();
       return true;
     } catch(error)
@@ -182,7 +182,7 @@ export const TemplatesProvider = ({
     {
       setLoading(false)
     }
-  }, [refreshTemplates, createOrUpdateTemplate]);
+  }, [getAllTemplatesByRol, getTemplatesMetCategorie, templatesRol, refreshTemplates]);
 
   const deleteTemplate = useCallback(async (id) =>
   {
