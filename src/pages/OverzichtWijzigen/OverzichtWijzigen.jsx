@@ -141,6 +141,10 @@ export default function OverzichtWijzigen() {
     updateTemps(templatesMetCategorie.filter(t => t.is_costumisable === 1).sort((a, b) => a.order - b.order)); 
   },[templatesMetCategorie]);
 
+  if (!temps || (temps && temps.length === 0)) {
+    return <div className={styles["noneLeft"]}>Er zijn geen categorieën om te personaliseren.</div>
+  }
+
   return (
     <>
     <div className={styles["personalisation-all"]}>
@@ -173,13 +177,13 @@ export default function OverzichtWijzigen() {
           </Droppable>
         </DragDropContext>}
 
-        <div className="flex justify-end mr-8">
-          {
-          <button onClick={save} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
-            Opslaan
-          </button>
-      }
-        </div>
+          <div className={styles["saveButton-container"]}>
+            
+            <button onClick={save} className={styles["saveButton"]}>
+              Opslaan
+            </button>
+        
+          </div>
       </div>
     </div>
     <div className={styles["personalisation-none"]}>Het personaliseren van je categorieën kan alleen gebeuren op een grotere scherm. Zoom uit of probeer opnieuw op een bredere scherm.</div>
