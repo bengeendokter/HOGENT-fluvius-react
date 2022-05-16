@@ -53,6 +53,10 @@ export default function OverzichtWijzigen() {
   const {roles} = useSession();
   let voerUit = true;
 
+  /*const geefOrdeTemplates = React.useMemo(() => {
+    return temps.sort((a, b) => a.order - b.order);
+  }, [temps]);*/
+
    // DRAG AND DROP
    function handleOnDragEnd(result) {
     if (!result.destination) return;
@@ -121,8 +125,10 @@ export default function OverzichtWijzigen() {
      
       console.log("temps", temps);
       orderVoorTemplate(temps);
-      /*getAllTemplatesByRol();
-      getTemplatesMetCategorie(templatesRol);*/
+      getAllTemplatesByRol();
+      getTemplatesMetCategorie(templatesRol);
+      getAllTemplatesByRol();
+      getTemplatesMetCategorie(templatesRol);
       /*temps.forEach((temp, index)=> saveOrder(temp, index));
       getAllTemplatesByRol();
       getTemplatesMetCategorie(templatesRol);*/
@@ -149,12 +155,12 @@ export default function OverzichtWijzigen() {
   useEffect(() => {
     //orderVoorTemplate(temps);
     //initeel halen
-    getAllTemplatesByRol();
-    getTemplatesMetCategorie(templatesRol);
+    /*getAllTemplatesByRol();
+    getTemplatesMetCategorie(templatesRol);*/
 
 
-    console.log("wat is dit", templatesMetCategorie);
-    updateTemps(templatesMetCategorie);
+    //console.log("wat is dit", templatesMetCategorie);
+    updateTemps(templatesMetCategorie.sort((a, b) => a.order - b.order));
 
     /*else {
       updateTemps(temps);
@@ -162,7 +168,7 @@ export default function OverzichtWijzigen() {
     //updateTemps(templatesMetCategorie);
 
     
-  },[]);
+  },[templatesMetCategorie]);
 
   return (
     <>

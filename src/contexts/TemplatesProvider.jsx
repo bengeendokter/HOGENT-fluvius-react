@@ -171,7 +171,7 @@ export const TemplatesProvider = ({
       //setTemplatesMetCategorie(orderTemplates);
       orderTemplates.forEach((temp, index) => {
         temp.order = index;
-        createOrUpdateTemplate(temp)
+        createOrUpdateTemplate(temp);
       });
       await refreshTemplates();
       return true;
