@@ -144,8 +144,11 @@ export default function OverzichtWijzigen() {
   }, [templatesRol, getTemplatesMetCategorie, verander]);
 
   useEffect(() => {
-    
-    updateTemps(templatesMetCategorie.filter(t => t.is_costumisable === 1).sort((a, b) => a.order - b.order)); 
+    if (templatesMetCategorie.some( t => t.order === null)) {
+      updateTemps(templatesMetCategorie.filter(t => t.is_costumisable === 1).sort(({category_id: a}, {category_id: b}) => a.localeCompare(b)))
+    } else {
+      updateTemps(templatesMetCategorie.filter(t => t.is_costumisable === 1).sort((a, b) => a.order - b.order)); 
+    }
   },[templatesMetCategorie]);
 
   if (!temps || (temps && temps.length === 0)) {

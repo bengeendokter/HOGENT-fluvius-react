@@ -66,11 +66,19 @@ export default function Dashboard()
     <>
       <h2>{error && <pre className="text-red-600">{error.message}</pre>}</h2>
       <div className={styles.categorie_container}>
-        {categoriesMetDoelstellingen
-        //.sort(({naam: a}, {naam: b}) => a.localeCompare(b))
-        .sort(({id : a}, {id : b}) => ordersOfCat.get(a) > ordersOfCat.get(b))
-        .filter(({id}) => idToIsVisableMap.get(id) === 1)
-        .map((c) => <AccordionCategory key={c.id} {...c}></AccordionCategory>)}
+        {templates?.some(t => t.order === null)?
+
+          categoriesMetDoelstellingen
+            .sort(({naam: a}, {naam: b}) => a.localeCompare(b))
+            .filter(({id}) => idToIsVisableMap.get(id) === 1)
+            .map((c) => <AccordionCategory key={c.id} {...c}></AccordionCategory>)
+          :   
+          categoriesMetDoelstellingen
+          .sort(({id : a}, {id : b}) => ordersOfCat.get(a) > ordersOfCat.get(b))
+          .filter(({id}) => idToIsVisableMap.get(id) === 1)
+          .map((c) => <AccordionCategory key={c.id} {...c}></AccordionCategory>)
+
+        }
       </div>
     </>
   );
