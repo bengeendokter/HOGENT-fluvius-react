@@ -105,29 +105,29 @@ export default function TemplateCategorieRol(r) {
       setCustomisable(is_costumisable);
     }
     
-  }, [is_visible, is_costumisable], rolTemplate[0]);
+  }, [is_visible, is_costumisable, rolTemplate]);
 
 
   return (
     <>
     {r &&
 
-    <div class="categorie_rol max-w-sm rounded overflow-hidden shadow-lg">
+    <div className="categorie_rol max-w-sm rounded overflow-hidden shadow-lg">
   <img className="w-full inline-block p-1" src={`/assets${icon.substring(8)}`}  alt="icon"/>
-  <div class="px-6 py-4">
-    <div class="font-bold text-xl mb-2">{category_id}</div>
-    <p class="text-gray-700 text-base">
+  <div className="px-6 py-4">
+    <div className="font-bold text-xl mb-2">{category_id}</div>
+    <p className="text-gray-700 text-base">
     {visible === 1 ? <><VisibilityIcon sx={{ color: grey[900] }} onClick={handleClick} /></>: <><VisibilityOffIcon sx={{ color: grey[900] }} onClick={handleClick} /> </>}
     </p>
     {(rolTemplate[0] !== "Stakeholder") &&
-    <p class="text-gray-700 text-base">
+    <p className="text-gray-700 text-base">
       {customisable === 1 ? <><ModeEditIcon sx={{ color: grey[900] }} onClick={handleClickCustom} /></>: <><EditOffIcon sx={{ color: grey[900] }} onClick={handleClickCustom} /> </>}
     </p>}
-    {/* <button onClick={onClick2} class="mt-4 bg-[#004C69] hover:bg-white text-white font-semibold hover:text-[#004C69] py-2 px-4 border border-[#004C69] hover:border-transparent rounded">
+    {/* <button onClick={onClick2} className="mt-4 bg-[#004C69] hover:bg-white text-white font-semibold hover:text-[#004C69] py-2 px-4 border border-[#004C69] hover:border-transparent rounded">
   Opslaan
 </button> */}
   </div>
-  <div class="px-6 flex">
+  <div className="px-6 flex">
     
     
   </div>
