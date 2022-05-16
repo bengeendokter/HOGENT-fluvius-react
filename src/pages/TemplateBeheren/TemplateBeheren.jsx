@@ -1,4 +1,5 @@
 import * as React from 'react';
+import styles from './TemplateBeheren.module.css';
 import {useTheme} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -7,13 +8,13 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
-import {RolContext} from '../contexts/RolProvider';
-import eye from "../images/eye.jpg";
+import {RolContext} from '../../contexts/RolProvider';
+import eye from "../../images/eye.jpg";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import {grey} from '@mui/material/colors';
-import {TemplateContext} from '../contexts/TemplatesProvider';
-import TemplateCategorieRol from '../components/TemplateCategorieRol';
+import {TemplateContext} from '../../contexts/TemplatesProvider';
+import TemplateCategorieRol from '../../components/TemplateCategorieRol/TemplateCategorieRol';
 import {Link, useParams, useNavigate} from "react-router-dom";
 import
   {
@@ -72,10 +73,6 @@ export default function TemplateBeheren()
   //   }
   // }, [selectedRol, currentTemplate]);
 
-
-
-
-
   /*useEffect(() =>
   {
     if(templatesRol.length !== 0){
@@ -125,6 +122,7 @@ export default function TemplateBeheren()
           rol: selectedRol[0],
           is_visible: 1,
           is_costumisable: (selectedRol[0] === "Stakeholder") ? 0 : 1,
+          order: temp.order
         });
 
       } catch(error)
@@ -143,6 +141,7 @@ export default function TemplateBeheren()
   {
     if(selectedRol[0] !== undefined)
     {
+      console.log("goed goed", templatesMetCategorie);
       templatesMetCategorie.forEach(temp => reset1(temp));
       getAllTemplatesByRol();
       getTemplatesMetCategorie(templatesRol);
@@ -180,26 +179,12 @@ export default function TemplateBeheren()
     }
   }, [templatesRol, getTemplatesMetCategorie, verander]);
 
-  const css = `
-  .categorie_container
-  {
-    display: flex;
-    justify-content: space-around;
-  }
-
-  .categorie_rol
-  {
-    width: 320px;
-  }
-      `
-
   return (
     <>
-      <div className="flex justify-center mt-5">
-        <div>
+      <div className={styles["beheren-header"]}>
 
-          <FormControl sx={{m: 1, width: 300}}>
-            <InputLabel id="demo-simple-select-label">rol</InputLabel>
+          <FormControl className={styles["beheren-header-select"]}>
+            <InputLabel id="demo-simple-select-label">Rol</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -217,29 +202,27 @@ export default function TemplateBeheren()
                 </MenuItem>))}
             </Select>
           </FormControl>
-        </div>
+          <button onClick={reset} className={styles["beheren-header-button"]}>
+            Herstel standaard weergave
+          </button>
 
       </div>
       <div>
 
-        <p className="font-bold text-xl ml-10 mb-10 text-[#004C69]">Weergave {selectedRol}</p>
-        <style>
-          {css}
-        </style>
+        {verander && rolNaam && selectedRol && 
+          <>
+            <div className={styles["categorie-title"]}>
+              Weergave {selectedRol}
+            </div>
 
-        <div className="categorie_container">
-          {verander && rolNaam && selectedRol && templatesMetCategorie.map(r => <TemplateCategorieRol key={r.id} {...r} rolTemplate={selectedRol} ></TemplateCategorieRol>)}
+            <div className={styles["categorie-container"]}>
+              {templatesMetCategorie.map(r => 
+                <TemplateCategorieRol key={r.id} {...r} rolTemplate={selectedRol} isPersonalisatieScherm={false} />)
+              }
+            </div>
+          </>
+        }
 
-        </div><div className="flex justify-end mr-8">
-          <button onClick={reset} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
-          Herstel standaard weergave
-          </button>
-          {/*
-        <div onClick={save} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
-          Opslaan
-        </div>
-    */}
-        </div>
       </div>
 
     </>

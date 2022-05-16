@@ -1,0 +1,83 @@
+.card {
+    flex: 0 1 300px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 5px;
+    height: min-content;
+}
+
+.card-img {
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+}
+
+.card-info {
+    width: 100%;
+}
+
+.card-title {
+    width: 100%;
+    font-size: x-large;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    min-height: max-content;
+    margin-top: 5px;
+}
+
+.card-buttons {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.card-button-red {
+    flex: 1 1 50%;
+    background-color: #FF4512;
+    height: 60px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    transition: 0.25s;
+}
+
+.card-button-red svg {
+    color: white;
+    font-size: xx-large;
+}
+
+.card-button-red:hover {
+    border: 1px solid #FF4512;
+    background-color: white;
+    cursor: pointer;
+}
+
+.card-button-red:hover svg {
+    color: #FF4512;
+}
+
+.card-button-green {
+    flex: 1 1 50%;
+    background-color: #B8CE44;
+    height: 60px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    transition: 0.25s;
+}
+
+.card-button-green svg {
+    color: white;
+    font-size: xx-large;
+}
+
+.card-button-green:hover {
+    border: 1px solid #B8CE44;
+    background-color: white;
+    cursor: pointer;
+}
+
+.card-button-green:hover svg {
+    color: #B8CE44;
+}

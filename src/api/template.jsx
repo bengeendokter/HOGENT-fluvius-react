@@ -20,7 +20,8 @@ export const save = async ({
         category_id,
         rol,
         is_visible,
-        is_costumisable
+        is_costumisable,
+        order
     
   }) => {
     console.log("isvis", is_visible);
@@ -33,11 +34,40 @@ export const save = async ({
         category_id,
         rol,
         is_visible,
-        is_costumisable
+        is_costumisable,
+        order
       },
     });
     
     return data;
+  };
+
+export const saveAlles = async (templates) => {
+  
+    if (typeof templates === "object" && templates.length !== 0) {
+      for (const temp of templates) {
+        const {
+          id,
+          category_id,
+          rol,
+          is_visible,
+          is_costumisable,
+          order } = temp;
+
+        await axios({
+          method: id ? 'put' : 'post',
+          url: `templates/${id ?? ''}`,
+          data: {
+            category_id,
+            rol,
+            is_visible,
+            is_costumisable,
+            order
+          },
+        });
+        
+      }
+    }
   };
 
   export const deleteTemplate = async (id) => {
