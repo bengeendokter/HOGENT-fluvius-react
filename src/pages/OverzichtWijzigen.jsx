@@ -160,11 +160,7 @@ export default function OverzichtWijzigen() {
           snapshot.isDragging,
           provided.draggableProps.style
         )}>
-        
-        <p>
-        
           <TemplateCategorieRol key={element.id} { ...element } rolTemplate={selectedRol} ></TemplateCategorieRol>
-        </p>
         </div>
       )}
     </Draggable>
