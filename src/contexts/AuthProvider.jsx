@@ -81,7 +81,7 @@ export const AuthProvider = ({
       } else {
         localStorage.removeItem(JWT_TOKEN_KEY);
         token = null;
-        setError("Session expired, please sign in again")
+        setError("Uw sessie is verlopen, log in om toegang te krijgen")
       }
     } else {
       localStorage.removeItem(JWT_TOKEN_KEY);
@@ -107,7 +107,7 @@ export const AuthProvider = ({
       await setSession(token, user);
       return true;
     } catch (error) {
-      setError('Login failed, try again');
+      setError('Het inloggen is mislukt, probeer opnieuw');
       return false;
     } finally {
       setLoading(false);

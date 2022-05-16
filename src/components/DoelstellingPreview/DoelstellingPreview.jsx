@@ -44,6 +44,6 @@ export default function DoelstellingPreview({id, doelwaarde: doelwaardeProp, isM
                 <p className={styles.label}>{isMax ? "Drempelwaarde:" : "Doelwaarde:"}</p>
                 <p className={styles.doelWaarde}>{doelwaarde} {eenheid}</p>
             </div>
-            <p className={styles.percentage}><strong>{huidieWaarde >= doelwaarde ? "+" : ""}{percentage}%</strong> t.o.v. doel</p>
+            <p className={styles.percentage}><strong>{Math.abs(percentage)}%</strong> {huidieWaarde >= doelwaarde ? "boven" : "onder"} {isMax ? "drempel" : "doel"}</p>
         </NavLink>}</>)
 };

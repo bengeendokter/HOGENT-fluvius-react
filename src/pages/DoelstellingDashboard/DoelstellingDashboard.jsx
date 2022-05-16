@@ -142,8 +142,8 @@ export default function DoelstellingDashboard() {
             <div className={styles["detail-right-panel-iconInfo"]}>
               <img className={styles["detail-info-icons"]} src="/assets/images/question_icon.PNG" alt="graph icon" />
               <div className={styles["detail-right-panel-iconInfo-text"]}>
-                <div>Doel {berekenPercentage.isOnder ? "niet" : ""} behaald:</div>
-                <div className={!berekenPercentage.isOnder ? styles["percentage-onder"] : styles["percentage-boven"]}>{(vindActueleWaardeData >= currentDoel.doelwaarde) ? "+" : ""}{Math.round(berekenPercentage.percentage)}% t.o.v. doel</div>
+                <div>{currentDoel.isMax ? "Drempel" : "Doel"} {(currentDoel.isMax && (vindActueleWaardeData <= currentDoel.doelwaarde)) && "niet"} bereikt:</div>
+                <div className={!berekenPercentage.isOnder ? styles["percentage-onder"] : styles["percentage-boven"]}>{Math.abs(Math.round(berekenPercentage.percentage))}% {vindActueleWaardeData >= currentDoel.doelwaarde ? "boven" : "onder"} {currentDoel.isMax ? "drempel" : "doel"}</div>
               </div>
             </div>
             <div className={styles["detail-fout-melden-div"]}>

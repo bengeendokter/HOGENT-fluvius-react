@@ -43,9 +43,9 @@ export default function NavMenu()
 
 
 						<NavItem to="/dashboard" label="DASHBOARD" />
-						<NavItem to="/templateBeheren" label="TEMPLATE BEHEREN" />
-						<NavItem to="/overzichtWijzigen" label="OVERZICHT WIJZIGEN" />
-						{isAuthed ? <NavItem to="/login" label="LOGOUT" className='logout' data-cy="logout_btn" onClick={handleClick}>Logout</NavItem> : <NavItem to="/login" label="LOGIN" />}
+						<NavItem to="/templateBeheren" label="ROLLEN BEHEREN" />
+						<NavItem to="/overzichtWijzigen" label="DASHBOARD PERSONALISEREN" />
+						{isAuthed ? <NavItem to="/login" label="UITLOGGEN" className='logout' data-cy="logout_btn" onClick={handleClick}/> : <NavItem to="/login" label="INLOGGEN" />}
 
 					</nav>
 				</div>

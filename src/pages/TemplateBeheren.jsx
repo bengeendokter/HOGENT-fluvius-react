@@ -222,7 +222,7 @@ export default function TemplateBeheren()
       </div>
       <div>
 
-        <p className="font-bold text-xl ml-10 mb-10 text-[#004C69]">Template {selectedRol}</p>
+        <p className="font-bold text-xl ml-10 mb-10 text-[#004C69]">Weergave {selectedRol}</p>
         <style>
           {css}
         </style>
@@ -232,7 +232,7 @@ export default function TemplateBeheren()
 
         </div><div className="flex justify-end mr-8">
           <button onClick={reset} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
-            Reset template
+          Herstel standaard weergave
           </button>
           {/*
         <div onClick={save} className="xl:inline-block mt-2  block  m-3 text-white hover:text-white hover:bg-[#FF4512] bg-[#B8CE44]  p-2 rounded-xl text-white font-bold">
