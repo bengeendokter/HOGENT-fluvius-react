@@ -53,9 +53,6 @@ export default function Login()
       <div className="mx-auto w-2/3 xl:w-1/5 pt-10">
 
         <form className="grid grid-cols-1 gap-y-4" onSubmit={handleSubmit(handleLogin)}>
-
-
-
           <h1 className="text-[#055063] text-xl font-bold justify-self-center">Meld aan</h1>
           {
             error ? (
@@ -80,10 +77,10 @@ export default function Login()
           <button data-cy="submit_btn" type="submit" className="disabled:opacity-50 block mt-2 lg:inline-block  lg:mt-0 text-white  bg-[#055063] xl:p-1 xl:text-xl  p-1.5  text-white">
             Meld aan
           </button>
-          <div className="grid grid-cols-1 md:grid-cols-2 bg-[rgb(255,70,21)]">
-            <div className="md:justify-self-end justify-self-center ">
+          <div className="flex justify-center bg-[rgb(255,70,21)]">
+            <div className=" ">
               <Link to="/itsme" href="#responsive-header">
-                <button type="button" className="md:justify-self-end justify-self-center lg:inline-block  lg:mt-0   bg-[rgb(255,70,21)] xl:p-1 xl:text-xl  text-white">
+                <button type="button" className=" lg:inline-block  lg:mt-0   bg-[rgb(255,70,21)] pt-4 xl:text-xl  text-white">
                   Aanmelden met
 
                 </button>
@@ -92,7 +89,7 @@ export default function Login()
             <img
               src={itsme}
               alt="itsme"
-              className="w-1/4 lg:mt-0 justify-self-begin sm:justify-self-begin  "
+              className="w-1/4 lg:mt-0   "
             />
           </div>
 

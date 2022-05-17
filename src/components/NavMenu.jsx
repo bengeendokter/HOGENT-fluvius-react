@@ -34,7 +34,7 @@ export default function NavMenu()
 	}, [logout]);
 	return (
 		<>
-			<div className="header bg-[#055063]">
+			{/* <div className="header bg-[#055063]">
 				<div className="logofluvius mt-5 md:ml-5">
 					<Link to="/dashboard"><img src={logo} alt="Logo" href="#responsive-header" className="min-w-8 w-28 block  min-h-0 lg:inline-block lg:mt-0 " /></Link>
 				</div>
@@ -48,13 +48,26 @@ export default function NavMenu()
 						{isAuthed ? <NavItem to="/login" label="UITLOGGEN" className='logout' data-cy="logout_btn" onClick={handleClick}/> : <NavItem to="/login" label="INLOGGEN" />}
 
 					</nav>
+				</div> */}
+
+				<div className="bg-[#055063] flex flex-col md:flex-row justify-between ">
+					<div className="mt-5 md:ml-5 ">
+						<Link to="/dashboard"><img src={logo} alt="Logo" href="#responsive-header" className="min-w-8 w-28   min-h-0 lg:mt-0 " /></Link>
+					</div>
+					<div className="mt-3">
+							<nav className="navigation">
+								<NavItem to="/dashboard" label="DASHBOARD" />
+								<NavItem to="/templateBeheren" label="ROLLEN BEHEREN" />
+								<NavItem to="/overzichtWijzigen" label="DASHBOARD PERSONALISEREN" />
+							</nav>
+					</div>
+					<div className="mt-3 text-center">
+						{isAuthed ? <NavItem to="/login" label="UITLOGGEN" className='logout' data-cy="logout_btn" onClick={handleClick}/> : <NavItem to="/login" label="INLOGGEN" />}
+					</div>
+
 				</div>
 
-				<div className="mt-5 acountknoppen flex flex-row-reverse underline">
-
-				</div>
-
-			</div>
+			{/* </div> */}
 
 		</>
 	);

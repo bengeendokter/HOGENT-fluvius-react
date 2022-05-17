@@ -60,6 +60,7 @@ export default function DoelstellingDashboard() {
       } else {
         categorie = currentDoel.categorie;
       }
+      console.log("sdgssss", sdgs);
       const allSDGs = sdgs.filter(s => s.CATID === categorie.id);
 
       allSDGs.forEach((sdg, index) => {

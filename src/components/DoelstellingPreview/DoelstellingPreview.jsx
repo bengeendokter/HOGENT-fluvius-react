@@ -14,6 +14,7 @@ export default function DoelstellingPreview({id, doelwaarde: doelwaardeProp, isM
     // TODO hoe geef ik error boodschap door aan parent (Dashboard.jsx) ?
     const [isDoelBehaald, setDoelBehaald] = useState(false);
     const [percentage, setPercentage] = useState(0);
+    const [kleur, setKleur] = useState('');
 
     // haal huidigeWaarde en eenheid op via API
     useEffect(() =>
@@ -30,11 +31,75 @@ export default function DoelstellingPreview({id, doelwaarde: doelwaardeProp, isM
         setHuidieWaarde(huidigFetch);
         setDoelBehaald(isMax ? huidigFetch <= doelwaarde : huidigFetch >= doelwaarde);
         setPercentage(Math.round((huidigFetch - doelwaarde) / (doelwaarde !== 0 ? doelwaarde : 0.01) * 100));
-    }, [doelId, isMax, doelwaarde, data, setEenheid, setHuidieWaarde, setDoelBehaald]);
+        
+        // DREMPELWAARDE BEHAALD
+        if(isDoelBehaald && isMax && (Math.abs(percentage) < 20) ){
+            setKleur('doelbehaaldHeelSlecht');
+        }
+        if(isDoelBehaald && isMax && (Math.abs(percentage) >= 40) && (Math.abs(percentage) < 60)){
+            setKleur('doelbehaaldSlecht');
+        }
+        if(isDoelBehaald && isMax && (Math.abs(percentage) >= 60) && (Math.abs(percentage) < 80)){
+            setKleur('doelbehaaldBijnaGoed');
+        }
+        if(isDoelBehaald && isMax && (Math.abs(percentage) >=80) ){
+            setKleur('doelbehaaldGoed');
+        }
+
+        // DREMPELWAARDE NIET BEHAALD
+        if(!isDoelBehaald && isMax && (Math.abs(percentage) < 20) ){
+            setKleur('doelbehaaldGoed');
+        }
+        if(!isDoelBehaald && isMax && (Math.abs(percentage) >= 40) && (Math.abs(percentage) < 60)){
+            setKleur('doelbehaaldBijnaGoed');
+        }
+        if(!isDoelBehaald && isMax && (Math.abs(percentage) >= 60) && (Math.abs(percentage) < 80)){
+            setKleur('doelbehaaldSlecht');
+        }
+        if(!isDoelBehaald && isMax && (Math.abs(percentage) >=80) ){
+            setKleur('doelbehaaldHeelSlecht');
+        }
+
+        // DOELWAARDE BEHAALD
+        if(isDoelBehaald && !isMax && (Math.abs(percentage) >= 60) ){
+            setKleur('doelbehaaldHeelSlecht');
+        }
+        if(isDoelBehaald && !isMax && (Math.abs(percentage) >= 40) && (Math.abs(percentage) < 60)){
+            setKleur('doelbehaaldSlecht');
+        }
+        if(isDoelBehaald && !isMax && (Math.abs(percentage) >= 20) && (Math.abs(percentage) < 40)){
+            setKleur('doelbehaaldBijnaGoed');
+        }
+        if(isDoelBehaald && !isMax && (Math.abs(percentage) < 20) ){
+            setKleur('doelbehaaldGoed');
+        }
+
+        // DOELWAARDE NIET BEHAALD
+        if(!isDoelBehaald && !isMax && (Math.abs(percentage) >= 60) ){
+            setKleur('doelbehaaldHeelSlecht');
+        }
+        if(!isDoelBehaald && !isMax && (Math.abs(percentage) >= 40) && (Math.abs(percentage) < 60)){
+            setKleur('doelbehaaldSlecht');
+        }
+        if(!isDoelBehaald && !isMax && (Math.abs(percentage) >= 20) && (Math.abs(percentage) < 40)){
+            setKleur('doelbehaaldBijnaGoed');
+        }
+        if(!isDoelBehaald && !isMax && (Math.abs(percentage) < 20) ){
+            setKleur('doelbehaaldGoed');
+        }
+    }, [doelId, isMax, doelwaarde, data, setEenheid, setHuidieWaarde, setDoelBehaald, isDoelBehaald, percentage]);
+
+    
+
     return (
         <>
         { 
-        <NavLink to={`/doelstellingDashboard/${doelId}`} className={[styles.doelstelling, isDoelBehaald && styles.doelbehaald].join(" ")}>
+        <NavLink to={`/doelstellingDashboard/${doelId}`} className={
+            [styles.doelstelling, kleur ==="doelbehaaldHeelSlecht" && styles.doelbehaaldHeelSlecht,
+            kleur ==="doelbehaaldSlecht" && styles.doelbehaaldSlecht,
+            kleur ==="doelbehaaldBijnaGoed" && styles.doelbehaaldBijnaGoed,
+            kleur ==="doelbehaaldGoed" && styles.doelbehaaldGoed,
+        ].join(" ")}>
             <h3 data-cy="doelstellingNaam" className={styles.naam}>{naam}</h3>
             <div className={styles["huidigeWaarde-div"]}>
                 <p className={styles.label}>Huidige waarde:</p>

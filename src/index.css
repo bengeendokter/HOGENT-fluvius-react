@@ -11,6 +11,7 @@
     --hsl-gray: 180, 8%, 95%;
     --hsl-yellow: 51, 94%, 69%;
     --hsl-red: 360, 96%, 51%;
+    --hsl-orange: 26, 95%, 59%;
 
     --clr-primary: hsla(var(--hsl-blauw-fluvius));
     --clr-secondary: hsla(var(--hsl-groen-fluvius));
@@ -23,7 +24,7 @@
 
     --clr-grenswaardeBijnaGoed: hsla(var(--hsl-yellow));
     --clr-grenswaardeGoed: hsla(var(--hsl-groen-fluvius));
-    --clr-grenswaardeSlecht: hsla(var(--hsl-oranje-itsme));
+    --clr-grenswaardeSlecht: hsla(var(--hsl-orange));
     --clr-grenswaardeHeelSlecht: hsla(var(--hsl-red));
 }
 
