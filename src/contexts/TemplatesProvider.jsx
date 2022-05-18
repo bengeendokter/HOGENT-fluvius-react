@@ -238,16 +238,18 @@ export const TemplatesProvider = ({
   // );
 
   useEffect(() => {
-    if (templates.length === 0 || !templates.some(d => d.rol === roles)) {
-      const templatesToCreate = categories.map(c => ({
-        category_id : c.CATEGORIEID,
-        rol : roles,
-        is_visible : 1,
-        is_costumisable: 1,
-        order: null
-      }))
-
-      orderVoorTemplate(templatesToCreate, false);
+    if (categories && categories.length > 0) {
+      if (templates.length === 0 || !templates.some(d => d.rol === roles)) {
+        const templatesToCreate = categories.map(c => ({
+          category_id : c.CATEGORIEID,
+          rol : roles,
+          is_visible : 1,
+          is_costumisable: 1,
+          order: null
+        }))
+  
+        orderVoorTemplate(templatesToCreate, false);
+      }
     }
   }, [roles, categories, templates])
 
