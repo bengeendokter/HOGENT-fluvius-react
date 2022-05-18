@@ -2,19 +2,22 @@ import styles from './DoelstellingDashboard.module.css';
 import { DoelstellingContext } from '../../contexts/DoelstellingProvider';
 import { useData } from '../../contexts/DataProvider';
 import { useParams } from "react-router-dom";
-import { useCallback, useContext, useEffect, useMemo } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { NavLink } from "react-router-dom";
 import BarChart from '../../components/BarChart';
 import { SdgContext } from '../../contexts/SdgProvider';
 import DoelstellingPreview from "../../components/DoelstellingPreview/DoelstellingPreview";
+import { DatasourceContext } from '../../contexts/DatasourceProvider';
 import {useSession} from "../../contexts/AuthProvider";
 
 export default function DoelstellingDashboard() {
   const { doelstellingen, setCurrentDoelstelling, currentDoel, pad } = useContext(DoelstellingContext);
+  const {updateDatasource} = useContext(DatasourceContext);
   const { sdgs } = useContext(SdgContext);
   const { data } = useData();
   const { id } = useParams();
   const { roles } = useSession();
+  const [fout, setFout] = useState(0);
   useEffect(() => {
     //laden
     if (doelstellingen.length >= 1) {
@@ -76,8 +79,13 @@ export default function DoelstellingDashboard() {
   }, [sdgs, currentDoel, doelstellingen])
 
   const handleReport = useCallback(() => {
-    console.log("Reported doelstelling: '", currentDoel.naam, "'")
-  }, [currentDoel])
+    //TODO fout melden
+    if (currentDoel)
+      updateDatasource(currentDoel.datasource.id);
+      setFout(1);
+
+    console.log("Reported doelstelling: '", currentDoel.naam);
+  }, [currentDoel]);
 
   return (
 
@@ -154,6 +162,7 @@ export default function DoelstellingDashboard() {
                 <div className={styles["detail-fout-melden"]}>
                   <p>Fout melden</p>
                   <img onClick={handleReport} src="/assets/images/exlamation_icon.png" alt="meld icon" />
+                  {fout === 1 && <><p className={styles[`${fout? "fout" : "juist"}`]}>Fout melden was succesvol</p></>}
                 </div>
               </div>
             }

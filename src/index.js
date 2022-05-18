@@ -1,5 +1,5 @@
 import React from "react";
-import { createRoot } from 'react-dom/client';
+import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
@@ -13,6 +13,7 @@ import { DataProvider } from "./contexts/DataProvider";
 import { TemplatesProvider } from "./contexts/TemplatesProvider";
 import { AuthProvider } from "./contexts/AuthProvider";
 import "tw-elements";
+import { DatasourceProvider } from "./contexts/DatasourceProvider";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -23,7 +24,9 @@ createRoot(document.getElementById("root")).render(
             <RolProvider>
               <TemplatesProvider>
                 <DoelstellingProvider>
-                  <App />
+                  <DatasourceProvider>
+                    <App />
+                  </DatasourceProvider>
                 </DoelstellingProvider>
               </TemplatesProvider>
             </RolProvider>
