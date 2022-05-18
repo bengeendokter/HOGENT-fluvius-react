@@ -1,57 +1,109 @@
-import React, {useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Bar, Chart} from "react-chartjs-2";
 import zoomPlugin from "chartjs-plugin-zoom";
 import annotationPlugin from "chartjs-plugin-annotation";
-import {useData} from "../contexts/DataProvider";
+//import {useData, getAllDataByDoelstellingId, alldata} from "../contexts/DataProvider";
 import styles from "./BarChart/BarChart.module.css"
 import {BloodtypeOutlined} from "@mui/icons-material";
+import { DataContext } from '../contexts/DataProvider';
+import { useParams } from "react-router-dom";
 
 Chart.register(zoomPlugin);
 Chart.register(annotationPlugin);
 
 const BarChart = ({naam, id}) =>
 {
-  const {data: x} = useData();
+  const { id: ID} = useParams();
 
-  if(x.length === 0)
-  {
-    return <></>
-  }
+  //const {data: x} = useData();
+  const {data: x, getAllDataByDoelstellingId, alldata} = useContext(DataContext);
 
-  const labels = [""];
+  useEffect(() => {
+    if(x.length >= 1) {
+      getAllDataByDoelstellingId(ID);
+    }
+  }, []);
+
+  let dataLabels = [];  //jaar
+  let dataWaarden = []; //data.value
+  let dataKleuren = []; //willekeurig kleur
+
   const dataD = x.filter(d => d.naam === naam);
-  const doelwaardes = dataD[0]['doelwaarde'];
+  //const doelwaardes = dataD[0]['doelwaarde'];
   const eenheid = dataD[0]['eenheid'];
   //const kleuren = ["#055063", "#05635f", "#056348", "#053963", "#0b7ad3"];
   const kleuren = ["#d30b7a", "#d3640b", "#0bd364", "#0bd364", "#640bd3"];
   const gebruikt = [];
 
-  const datas = dataD[0]['data'].map(d =>
-  {
-    //const kleur = `${ '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0').toUpperCase()}`;
-    let kleur = kleuren[Math.floor(Math.random()*kleuren.length)];
-    let voorwaarde = gebruikt.includes(kleur);
-    while (voorwaarde) {
-      kleur = kleuren[Math.floor(Math.random()*kleuren.length)];
-      voorwaarde = gebruikt.includes(kleur);
-    }
-    gebruikt.push(kleur);
+  let doels = [];
 
-    return {
-      label: `${Object.entries(d)[0][0]}`,
-      data: labels.map(() => Object.entries(d)[0][1][0]),
-      backgroundColor: kleur,
-      hoverBackgroundColor: kleur,
-      borderColor: kleur,
-      borderWidth: 2,
+  //alldata.sort((a,b) => a.jaar - b.jaar);
+  alldata.reverse().map(d =>
+    {
+      let kleur = kleuren[Math.floor(Math.random()*kleuren.length)];
+      let voorwaarde = gebruikt.includes(kleur);
+      while (voorwaarde) {
+        kleur = kleuren[Math.floor(Math.random()*kleuren.length)];
+        voorwaarde = gebruikt.includes(kleur);
+      }
+      gebruikt.push(kleur);
+
+      doels.push(d.doelwaarde);
+
+      dataLabels.push(d.jaar);
+      dataWaarden.push(d.data[0].value);
+      dataKleuren.push(kleur);
     }
+  ); 
+
+  let data = {
+    labels: dataLabels,
+    datasets: [{
+      order: 1,
+      type: 'bar',
+      label: ['Waarden'],
+      data: dataWaarden,
+      borderColor: dataKleuren,
+      backgroundColor: dataKleuren,
+      borderWidth: 2
+    }]
   }
-  );
 
-  const data = {
-    labels,
-    datasets: datas,
-  };
+  if (alldata.length !== 1) {
+    data.datasets.push({
+      order: 0,
+      type: 'line',
+      label: 'Doel/Drempel',
+      data: doels,
+      fill: false,
+      borderColor: "orange",
+      lineTension: 0.5
+    });
+  } 
+
+  let op = {};
+
+  if (alldata.length === 1) { 
+    op = {
+      type: "line",
+      mode: "horizontal",
+      scaleID: "y-axis-0",
+      yMin: doels[0],
+      yMax: doels[0],
+      borderColor: "orange",
+      borderWidth: 5,
+      label: {
+        enabled: true,
+        content: `${doels[0]}`,
+        font: {
+          size: 25,
+        }
+      },
+    }
+  } else {
+    op = {};
+  }
+
   const options = {
     scales: {
       y: {
@@ -71,22 +123,7 @@ const BarChart = ({naam, id}) =>
     plugins: {
       annotation: {
         annotations: [
-          {
-            type: "line",
-            mode: "horizontal",
-            scaleID: "y-axis-0",
-            yMin: doelwaardes,
-            yMax: doelwaardes,
-            borderColor: "orange",
-            borderWidth: 5,
-            label: {
-              enabled: true,
-              content: `${doelwaardes}`,
-              font: {
-                size: 25,
-              }
-            },
-          },
+          op
         ],
       },
       legend: {
@@ -98,7 +135,7 @@ const BarChart = ({naam, id}) =>
           },
         }
       },
-      zoom: {
+      /*zoom: {
         zoom: {
           wheel: {
             enabled: false, // SET SCROLL ZOOM TO TRUE
@@ -111,15 +148,17 @@ const BarChart = ({naam, id}) =>
           mode: "xy",
           speed: 100,
         },
-      },
+      },*/
     },
   };
-
+  
   return (
-    x && dataD &&
+    x && alldata && dataD && <>
     <div className={styles["barchart"]}>
-      <Bar data={data} options={options} />
+      {<Bar data={data} options={options}/> }
     </div>
+    </>
+    
   );
 };
 

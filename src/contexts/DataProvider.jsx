@@ -22,6 +22,7 @@ export const DataProvider = ({
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [alldata, setAllData] = useState([]);
 
   const { ready : authReady } = useSession();
 
@@ -75,6 +76,7 @@ export const DataProvider = ({
         setError('');
         setLoading(true);
         const data = await dataApi.getAllDataByDoelstellingId(id);
+        setAllData(data);
         return data;
       } catch (error) {
         setError(error);
@@ -116,7 +118,8 @@ export const DataProvider = ({
      setError,
      loading,
      setLoading,
-   }), [refreshData,getDataByDoelstellingId, getDataByDoelstellingIdAndYear, getAllDataByDoelstellingId, data, error, setError, loading, setLoading])
+     alldata
+   }), [alldata, refreshData,getDataByDoelstellingId, getDataByDoelstellingIdAndYear, getAllDataByDoelstellingId, data, error, setError, loading, setLoading])
 
   return (
     <DataContext.Provider value={value}>
