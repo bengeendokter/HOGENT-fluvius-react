@@ -66,7 +66,7 @@ export default function DoelstellingDashboard() {
         categorie = currentDoel.categorie;
       }
       console.log("sdgssss", sdgs);
-      const allSDGs = sdgs.filter(s => s.CATID === categorie.id);
+      const allSDGs = sdgs.filter(s => s.idSDG === currentDoel.sdg_goal.id);
 
       allSDGs.forEach((sdg, index) => {
         const subArray = allSDGs.slice(0, index);
