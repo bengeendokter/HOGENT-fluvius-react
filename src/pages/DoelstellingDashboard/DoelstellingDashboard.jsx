@@ -7,9 +7,11 @@ import { NavLink } from "react-router-dom";
 import BarChart from '../../components/BarChart';
 import { SdgContext } from '../../contexts/SdgProvider';
 import DoelstellingPreview from "../../components/DoelstellingPreview/DoelstellingPreview";
+import { DatasourceContext } from '../../contexts/DatasourceProvider';
 
 export default function DoelstellingDashboard() {
   const { doelstellingen, setCurrentDoelstelling, currentDoel, pad } = useContext(DoelstellingContext);
+  const {updateDatasource} = useContext(DatasourceContext);
   const { sdgs } = useContext(SdgContext);
   const { data } = useData();
   const { id } = useParams();
@@ -74,8 +76,12 @@ export default function DoelstellingDashboard() {
   }, [sdgs, currentDoel, doelstellingen])
 
   const handleReport = useCallback(() => {
-    console.log("Reported doelstelling: '", currentDoel.naam, "'")
-  }, [currentDoel])
+    //TODO fout melden
+    if (currentDoel)
+      updateDatasource(currentDoel.datasource.id);
+
+    console.log("Reported doelstelling: '", currentDoel.naam);
+  }, [currentDoel]);
 
   return (
 
@@ -114,7 +120,7 @@ export default function DoelstellingDashboard() {
           <div className={styles["sdgs"]}>
             {vindSdgs?.map(s => {
               return <>
-                <a href={`https://sdgs.un.org/goals/goal${s.AFBEELDINGNAAM}`} target="_blank">
+                <a href={`https://sdgs.un.org/goals/goal${s.AFBEELDINGNAAM}`} target="_blank" rel="noreferrer">
                   <img className={styles["sdg"]} src={`/assets/images/${s.AFBEELDINGNAAM}.jpg`} key={`${s.idSDG}${s.AFBEELDINGNAAM}${s.CATID}`} alt={s.NAAM} />
                 </a>
               </>
