@@ -135,7 +135,7 @@ const BarChart = ({naam, id}) =>
           },
         }
       },
-      zoom: {
+      /*zoom: {
         zoom: {
           wheel: {
             enabled: false, // SET SCROLL ZOOM TO TRUE
@@ -148,14 +148,14 @@ const BarChart = ({naam, id}) =>
           mode: "xy",
           speed: 100,
         },
-      },
+      },*/
     },
   };
   
   return (
     x && alldata && dataD && <>
     <div className={styles["barchart"]}>
-      {<Bar type='bar' data={data} options={options}/> }
+      {<Bar data={data} options={options}/> }
     </div>
     </>
     
