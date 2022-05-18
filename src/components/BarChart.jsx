@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Bar, Chart} from "react-chartjs-2";
 import zoomPlugin from "chartjs-plugin-zoom";
 import annotationPlugin from "chartjs-plugin-annotation";
@@ -21,6 +21,10 @@ const BarChart = ({naam, id}) =>
     }
   }, []);
 
+  let dataLabels = [];  //jaar
+  let dataWaarden = []; //data.value
+  let dataKleuren = []; //willekeurig kleur
+
   //const labels = [""];
   const dataD = x.filter(d => d.naam === naam);
   //const doelwaardes = dataD[0]['doelwaarde'];
@@ -29,15 +33,10 @@ const BarChart = ({naam, id}) =>
   const kleuren = ["#d30b7a", "#d3640b", "#0bd364", "#0bd364", "#640bd3"];
   const gebruikt = [];
 
-  //label n keer opvullen met '' als lege array
-  //dataset = bars en line met array van doelwaarden 
   let doels = [];
 
-  //let omgekeerd = alldata.reverse();
-
-  let datas = alldata.reverse().map(d =>
+  alldata.reverse().map(d =>
     {
-      //const kleur = `${ '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0').toUpperCase()}`;
       let kleur = kleuren[Math.floor(Math.random()*kleuren.length)];
       let voorwaarde = gebruikt.includes(kleur);
       while (voorwaarde) {
@@ -47,38 +46,122 @@ const BarChart = ({naam, id}) =>
       gebruikt.push(kleur);
 
       doels.push(d.doelwaarde);
-  
-      return {
-        label: d.jaar,
-        data: d.data[0],
-        backgroundColor: kleur,
-        hoverBackgroundColor: kleur,
-        borderColor: kleur,
-        borderWidth: 2,
-      }
-    }
-  );
 
-  datas.push({
-    type: 'line',
-    label: 'Doelwaarden/Drempelwaarden',
-    data: doels,
-    fill: false,
-    borderColor: 'rgb(54, 162, 235)',
-    lineTension: 0.5
-  });
-  
-  const data = {
-    //labels: alldata.map(e => {return ""}),
-    labels: ["", "", ""],
-    datasets: datas
+      dataLabels.push(d.jaar);
+      dataWaarden.push(d.data[0].value);
+      dataKleuren.push(kleur);
+    }
+  ); 
+
+  let data = {
+    labels: dataLabels,
+    datasets: [{
+      type: 'bar',
+      label: ['Waarden'],
+      data: dataWaarden,
+      borderColor: dataKleuren,
+      backgroundColor: dataKleuren,
+      borderWidth: 2
+    }]
+  }
+
+  if (alldata.length !== 1) {
+    data.datasets.push({
+      type: 'line',
+      label: 'Doel/Drempel',
+      data: doels,
+      fill: false,
+      borderColor: "orange",
+      lineTension: 0.5
+    });
+  } 
+
+  let op = {};
+
+  if (alldata.length === 1) { 
+    op = {
+      type: "line",
+      mode: "horizontal",
+      scaleID: "y-axis-0",
+      yMin: doels[0],
+      yMax: doels[0],
+      borderColor: "orange",
+      borderWidth: 5,
+      label: {
+        enabled: true,
+        content: `${doels[0]}`,
+        font: {
+          size: 25,
+        }
+      },
+    }
+  }
+
+  const options = {
+    scales: {
+      y: {
+        //max: 800,
+        title: {display: true, text: `${eenheid}`, font: {size: 25, weight: 600, }},
+        ticks: {
+          font: {
+            size: 25,
+            family: 'vazir',
+            weight: 600,
+          }
+        }
+
+      },
+
+    },
+    plugins: {
+      annotation: {
+        annotations: [
+          op
+        ],
+      },
+      legend: {
+        display: true,
+        labels: {
+          font: {
+            size: 25,
+            weight: 600,
+          },
+        }
+      },
+      zoom: {
+        zoom: {
+          wheel: {
+            enabled: false, // SET SCROLL ZOOM TO TRUE
+          },
+          mode: "xy",
+          speed: 100,
+        },
+        pan: {
+          enabled: true,
+          mode: "xy",
+          speed: 100,
+        },
+      },
+    },
   };
 
+  
+
+  
+
+  /*dataLabels = [];  //jaar
+  let dataWaarden = []; //data.value
+  let dataKleuren*/
+  
   return (
     x && alldata && dataD && <>
     <div className={styles["barchart"]}>
-      {/*<Bar data={data}  />*/}
-      {<Bar type='bar' data={data} />}
+      {<Bar data={data} options={options}/>}
+      {/*<Bar type='bar' data={data} />*/}
+      {/*console.log("dataLabels", dataLabels)*/}
+      {/*console.log("dataWaarden", dataWaarden)*/}
+      {/*console.log("dataKleuren", dataKleuren)*/}
+       {console.log("lengte", alldata.length)}
 
     </div>
     </>
