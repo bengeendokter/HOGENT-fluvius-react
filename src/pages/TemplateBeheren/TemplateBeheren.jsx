@@ -20,6 +20,8 @@ import
   {
     useEffect, useContext
   } from 'react';
+import { useCategories } from '../../contexts/CategorieProvider';
+import { useSession } from '../../contexts/AuthProvider';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -48,45 +50,11 @@ export default function TemplateBeheren()
   const theme = useTheme();
   const [selectedRol, setSelectedRol] = React.useState('');
   const {rollen} = useContext(RolContext);
-  const {verander, rolNaam, createOrUpdateTemplate, getTemplatesMetCategorie, templatesMetCategorie, setTemplatesRol, templatesRol, getAllTemplatesByRol, setRolNaam, templates, setTemplateToUpdate, currentTemplate} = useContext(TemplateContext);
+  const {roles} = useSession();
+  const {verander, rolNaam, createOrUpdateTemplate, orderVoorTemplate, getTemplatesMetCategorie, templatesMetCategorie, setTemplatesRol, templatesRol, getAllTemplatesByRol, setRolNaam, templates, setTemplateToUpdate, currentTemplate} = useContext(TemplateContext);
+  const {categories} = useCategories();
   const {id} = useParams();
-
-  //TODO:
-  //-personaliseerbaar V
-  //-overzicht rollen en categories
-  //-useeffect bij verandering template V
-  //-order categories (horizontal... gebruiken)
-  //-reset template V
-  //-reset 2 keer klikken oplossen
-  //-seeds niet gebruiken -> zelf aanmaken indien het niet bestaat in de databank
-  //-bug fixen (wijziging niet opslaan -> blijft zo bij reset)
-
-  // useEffect(() => {
-  //   if(selectedRol){
-  //     setTemplateToUpdate(selectedRol[0]);
-  //   }
-  // }, [selectedRol, setTemplateToUpdate]);
-
-  // useEffect(() => {
-  //   if(selectedRol){
-  //     console.log("current", currentTemplate);
-  //   }
-  // }, [selectedRol, currentTemplate]);
-
-  /*useEffect(() =>
-  {
-    if(templatesRol.length !== 0){
-      console.log("templ rol", templatesRol);
-      getTemplatesMetCategorie(templatesRol);
-    }
-  }, [templatesRol, getTemplatesMetCategorie]);*/
-
-  /*useEffect(() =>
-  {
-      console.log("templ met cat rol", templatesMetCategorie);
-  }, [templatesMetCategorie]); */
-
-
+  
   const handleChange = (event) =>
   {
     const {

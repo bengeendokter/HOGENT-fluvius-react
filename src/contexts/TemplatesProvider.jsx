@@ -9,6 +9,7 @@ import
 import * as templatesApi from "../api/template";
 import * as categoriesApi from "../api/categories";
 import { useSession } from './AuthProvider';
+import { useCategories } from './CategorieProvider';
 
 export const TemplateContext = createContext();
 
@@ -24,6 +25,8 @@ export const TemplatesProvider = ({
   const [templates, setTemplates] = useState([]);
   const [templatesRol, setTemplatesRol] = useState([]);
   const [templatesMetCategorie, setTemplatesMetCategorie] = useState([]);
+  const {categories} = useCategories();
+  const {roles} = useSession();
 
   //test
   const [verander, setVerander] = useState(false);
@@ -37,7 +40,28 @@ export const TemplatesProvider = ({
       setError('');
       setLoading(true);
       const data = await templatesApi.getAllTemplates();
-      setTemplates(data.data);
+
+        if (!data?.data.some(d => d.rol === roles)) {
+          if (roles) {
+            if (categories && categories.length > 0) {
+              const templatesToCreate = categories.map(c => ({
+                category_id : c.CATEGORIEID,
+                rol : roles,
+                is_visible : 1,
+                is_costumisable: 1,
+                order: null
+              }))
+              await orderVoorTemplate(templatesToCreate);
+
+              const data2 = await templatesApi.getAllTemplates();
+
+              setTemplates(data2.data)
+            }
+          }
+        } else {
+          setTemplates(data.data);
+        }
+
       return true;
     } catch(error)
     {
@@ -72,9 +96,28 @@ export const TemplatesProvider = ({
       if(rolNaam)
       {
         const data = await templatesApi.getAllTemplatesByRol(rolNaam);
+
+        if (data.length === 0) {
+          if (categories && categories.length > 0) {
+            const templatesToCreate = categories.map(c => ({
+              category_id : c.CATEGORIEID,
+              rol : rolNaam,
+              is_visible : 1,
+              is_costumisable: 1,
+              order: null
+            }))
+            await orderVoorTemplate(templatesToCreate);
+
+            const data2 = await templatesApi.getAllTemplatesByRol(rolNaam);
+
+            setTemplatesRol(data2)
+            return data2;
+        }
+      } else {
         setTemplatesRol(data);
-        //console.log("date rol", data);
         return data;
+      }
+        return null;
       }
 
     } catch(error)
@@ -176,7 +219,7 @@ export const TemplatesProvider = ({
       return true;
     } catch(error)
     {
-      throw error;
+      return false;
 
     } finally
     {
