@@ -21,13 +21,10 @@ export default function DoelstellingPreview({id, doelwaarde: doelwaardeProp, isM
     {
         const huidigDoel = data.find(doel => doel.id === doelId);
         setEenheid(huidigDoel?.eenheid);
-        // TODO jaartal niet hardcoden
-        let huidigFetch;
-        for(let i = 0; i < huidigDoel?.data.length; i++)
-        {
-            if(huidigDoel?.data[i][2022] !== undefined) huidigFetch = huidigDoel?.data[i][2022][0];
-        }
-        //const huidigFetch = huidigDoel?.data[0][2022][0]
+
+        // haal huidige waarde van laatste jaar op
+        const huidigFetch = Object.values(Object.values(huidigDoel.data).sort((obj1, obj2) => Object.keys(obj2)[0] - Object.keys(obj1)[0])[0])[0][0];
+
         setHuidieWaarde(huidigFetch);
         setDoelBehaald(isMax ? huidigFetch <= doelwaarde : huidigFetch >= doelwaarde);
         setPercentage(Math.round((huidigFetch - doelwaarde) / (doelwaarde !== 0 ? doelwaarde : 0.01) * 100));
@@ -77,10 +74,7 @@ export default function DoelstellingPreview({id, doelwaarde: doelwaardeProp, isM
         <>
         { 
         <NavLink to={`/doelstellingDashboard/${doelId}`} className={
-            [styles.doelstelling, kleur ==="doelbehaaldHeelSlecht" && styles.doelbehaaldHeelSlecht,
-            kleur ==="doelbehaaldSlecht" && styles.doelbehaaldSlecht,
-            kleur ==="doelbehaaldBijnaGoed" && styles.doelbehaaldBijnaGoed,
-            kleur ==="doelbehaaldGoed" && styles.doelbehaaldGoed,
+            [styles.doelstelling, styles[`${kleur}`],
         ].join(" ")}>
             <h3 data-cy="doelstellingNaam" className={styles.naam}>{naam}</h3>
             <div className={styles["huidigeWaarde-div"]}>
