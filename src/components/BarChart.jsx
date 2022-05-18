@@ -21,7 +21,6 @@ const BarChart = ({naam, id}) =>
   useEffect(() => {
     if(x.length >= 1) {
       getAllDataByDoelstellingId(ID);
-      //getAllDataByDoelstellingId(id);
     }
   }, []);
 
@@ -38,6 +37,7 @@ const BarChart = ({naam, id}) =>
 
   let doels = [];
 
+  //alldata.sort((a,b) => a.jaar - b.jaar);
   alldata.reverse().map(d =>
     {
       let kleur = kleuren[Math.floor(Math.random()*kleuren.length)];
@@ -152,19 +152,10 @@ const BarChart = ({naam, id}) =>
     },
   };
   
-  
-  
-  
   return (
     x && alldata && dataD && <>
     <div className={styles["barchart"]}>
-      {<Bar data={data} options={options}/> /*console.log("ding", dataD)*/}
-      {/*<Bar type='bar' data={data} />*/}
-      {/*console.log("dataLabels", dataLabels)*/}
-      {/*console.log("dataWaarden", dataWaarden)*/}
-      {/*console.log("dataKleuren", dataKleuren)*/}
-       {/*console.log("lengte", alldata)*/}
-
+      {<Bar type='bar' data={data} options={options}/> }
     </div>
     </>
     
