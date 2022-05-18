@@ -34,7 +34,7 @@ function App() {
         <Route exact path="/" element={<Navigate to={"/dashboard"} replace/>}/>
         <Route exact path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}/>
         <Route exact path="/categorieDashboard/:id" element={<PrivateRoute><CategorieDashboard /></PrivateRoute>}/>
-        <Route exact path="/templateBeheren" element={<PrivateRoute><TemplateBeheren /></PrivateRoute>}/>
+        <Route exact path="/templateBeheren" element={<PrivateRoute role="MVO coördinator"><TemplateBeheren /></PrivateRoute>}/>
         <Route exact path="/overzichtWijzigen" element={<PrivateRoute><OverzichtWijzigen /></PrivateRoute>}/>
         <Route exact path="/doelstellingDashboard/:id" element={<PrivateRoute><DoelstellingDashboard /></PrivateRoute>}/>
           

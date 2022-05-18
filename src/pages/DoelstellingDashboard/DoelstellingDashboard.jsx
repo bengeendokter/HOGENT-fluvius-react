@@ -7,12 +7,14 @@ import { NavLink } from "react-router-dom";
 import BarChart from '../../components/BarChart';
 import { SdgContext } from '../../contexts/SdgProvider';
 import DoelstellingPreview from "../../components/DoelstellingPreview/DoelstellingPreview";
+import {useSession} from "../../contexts/AuthProvider";
 
 export default function DoelstellingDashboard() {
   const { doelstellingen, setCurrentDoelstelling, currentDoel, pad } = useContext(DoelstellingContext);
   const { sdgs } = useContext(SdgContext);
   const { data } = useData();
   const { id } = useParams();
+  const { roles } = useSession();
   useEffect(() => {
     //laden
     if (doelstellingen.length >= 1) {
@@ -114,7 +116,7 @@ export default function DoelstellingDashboard() {
           <div className={styles["sdgs"]}>
             {vindSdgs?.map(s => {
               return <>
-                <a href={`https://sdgs.un.org/goals/goal${s.AFBEELDINGNAAM}`} target="_blank">
+                <a href={`https://sdgs.un.org/goals/goal${s.AFBEELDINGNAAM}`} target="_blank" rel="noreferrer">
                   <img className={styles["sdg"]} src={`/assets/images/${s.AFBEELDINGNAAM}.jpg`} key={`${s.idSDG}${s.AFBEELDINGNAAM}${s.CATID}`} alt={s.NAAM} />
                 </a>
               </>
@@ -147,12 +149,14 @@ export default function DoelstellingDashboard() {
                 <div className={!berekenPercentage.isOnder ? styles["percentage-onder"] : styles["percentage-boven"]}>{Math.abs(Math.round(berekenPercentage.percentage))}% {vindActueleWaardeData >= currentDoel.doelwaarde ? "boven" : "onder"} {currentDoel.isMax ? "drempel" : "doel"}</div>
               </div>
             </div>
-            <div className={styles["detail-fout-melden-div"]}>
-              <div className={styles["detail-fout-melden"]}>
-                <p>Fout melden</p>
-                <img onClick={handleReport} src="/assets/images/exlamation_icon.png" alt="meld icon" />
+            { roles && roles === "Manager" &&
+              <div className={styles["detail-fout-melden-div"]}>
+                <div className={styles["detail-fout-melden"]}>
+                  <p>Fout melden</p>
+                  <img onClick={handleReport} src="/assets/images/exlamation_icon.png" alt="meld icon" />
+                </div>
               </div>
-            </div>
+            }
           </div>
         </div>
         <div className={styles["detail-bottom"]}>
