@@ -1,7 +1,6 @@
 import { axios } from ".";
 
 export const login = async (gebruikersnaam, wachtwoord) => {
-  console.log(gebruikersnaam, wachtwoord)
   const { data } = await axios.post(`users/login`, {
     GEBRUIKERSNAAM: gebruikersnaam,
     WACHTWOORD: `${wachtwoord}`,

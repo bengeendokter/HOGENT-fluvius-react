@@ -41,26 +41,7 @@ export const TemplatesProvider = ({
       setLoading(true);
       const data = await templatesApi.getAllTemplates();
 
-        if (!data?.data.some(d => d.rol === roles)) {
-          if (roles) {
-            if (categories && categories.length > 0) {
-              const templatesToCreate = categories.map(c => ({
-                category_id : c.CATEGORIEID,
-                rol : roles,
-                is_visible : 1,
-                is_costumisable: 1,
-                order: null
-              }))
-              await orderVoorTemplate(templatesToCreate);
-
-              const data2 = await templatesApi.getAllTemplates();
-
-              setTemplates(data2.data)
-            }
-          }
-        } else {
-          setTemplates(data.data);
-        }
+      setTemplates(data.data)
 
       return true;
     } catch(error)
@@ -84,7 +65,6 @@ export const TemplatesProvider = ({
   }, [authReady, initialLoad, refreshTemplates]);
 
 
-
   const getAllTemplatesByRol = useCallback(async () =>
   {
     try
@@ -106,7 +86,7 @@ export const TemplatesProvider = ({
               is_costumisable: 1,
               order: null
             }))
-            await orderVoorTemplate(templatesToCreate);
+            await orderVoorTemplate(templatesToCreate, false);
 
             const data2 = await templatesApi.getAllTemplatesByRol(rolNaam);
 
@@ -199,7 +179,7 @@ export const TemplatesProvider = ({
     }
   }, [refreshTemplates]);
 
-  const orderVoorTemplate = useCallback(async (orderTemplates
+  const orderVoorTemplate = useCallback(async (orderTemplates, zetIndexAlsOrder = true
   ) =>
   {
     setError();
@@ -209,9 +189,11 @@ export const TemplatesProvider = ({
 
     try
     {
-      orderTemplates.forEach((temp, index) => {
-        temp.order = index;
-      });
+      if (zetIndexAlsOrder) {
+        orderTemplates.forEach((temp, index) => {
+          temp.order = index;
+        });
+      }
       await templatesApi.saveAlles(orderTemplates);
       await getAllTemplatesByRol();
       await getTemplatesMetCategorie(templatesRol)
@@ -254,6 +236,20 @@ export const TemplatesProvider = ({
   //   },
   //   [templates]
   // );
+
+  useEffect(() => {
+    if (templates.length === 0 || !templates.some(d => d.rol === roles)) {
+      const templatesToCreate = categories.map(c => ({
+        category_id : c.CATEGORIEID,
+        rol : roles,
+        is_visible : 1,
+        is_costumisable: 1,
+        order: null
+      }))
+
+      orderVoorTemplate(templatesToCreate, false);
+    }
+  }, [roles, categories, templates])
 
   const setTemplateToUpdate = useCallback(
     (id) =>

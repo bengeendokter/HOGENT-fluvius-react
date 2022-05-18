@@ -17,11 +17,10 @@ export default function Dashboard()
   const {getDoelstellingenVoorCategories, setCategories: setCategoriesDoelstellingen, categoriesMetDoelstellingen} = useContext(DoelstellingContext);
   
   const {roles} = useSession();
-  const {getAllTemplatesByRol, setRolNaam} = useContext(TemplateContext);
+  const {getAllTemplatesByRol, setRolNaam, refreshTemplates, templates : hihi} = useContext(TemplateContext);
   const [templates, setTemplates] = useState([]);
   const [idToIsVisableMap, setidToIsVisableMap] = useState(new Map());
   const [ordersOfCat, setOrdersOfCat] = useState(new Map());
-
 
   useEffect(() =>
   {async function fetchData()
@@ -31,7 +30,7 @@ export default function Dashboard()
     setTemplates(newTemplate);
   }
   fetchData();
-}, [setRolNaam, setTemplates, roles, getAllTemplatesByRol]);
+}, [setRolNaam, setTemplates, roles, getAllTemplatesByRol, hihi]);
 
   useEffect(() =>
   {
