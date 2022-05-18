@@ -29,41 +29,45 @@ export default function DoelstellingPreview({id, doelwaarde: doelwaardeProp, isM
         setDoelBehaald(isMax ? huidigFetch <= doelwaarde : huidigFetch >= doelwaarde);
         setPercentage(Math.round((huidigFetch - doelwaarde) / (doelwaarde !== 0 ? doelwaarde : 0.01) * 100));
         
-        // DREMPELWAARDE 
-        if( isMax && percentage < -10){
-            setKleur('doelbehaaldGoed');
+        // DREMPELWAARDE
+        if(isMax)
+        {
+            if(percentage < -10)
+            {
+                setKleur('doelbehaaldGoed');
+            }
+            else if(percentage < 20)
+            {
+                setKleur('doelbehaaldBijnaGoed');
+            }
+            else if(percentage < 40)
+            {
+                setKleur('doelbehaaldSlecht');
+            }
+            else
+            {
+                setKleur('doelbehaaldHeelSlecht');
+            }
         }
-        if( isMax && percentage >= -10 && percentage < 20){
-            setKleur('doelbehaaldBijnaGoed');
-        }
-
-        if( isMax && percentage >= 20 && percentage < 40){
-            setKleur('doelbehaaldSlecht');
-        }
-
-        if( isMax && percentage >= 40 ){
-            setKleur('doelbehaaldHeelSlecht');
-        }
-
         // DOELWAARDE 
-        if( !isMax && percentage >= 10){
-            setKleur('doelbehaaldGoed');
-        }
-
-        if( !isMax && percentage < 10 && percentage >= - 20){
-            setKleur('doelbehaaldBijnaGoed');
-        }
-
-        if( !isMax && percentage < -20 && percentage >= -40){
-            setKleur('doelbehaaldBijnaGoed');
-        }
-
-        if( !isMax && percentage < -40 && percentage >= -60){
-            setKleur('doelbehaaldSlecht');
-        }
-
-        if( !isMax && percentage < -60){
-            setKleur('doelbehaaldHeelSlecht');
+        else
+        {
+            if(percentage >= 10)
+            {
+                setKleur('doelbehaaldGoed');
+            }
+            else if(percentage >= - 20)
+            {
+                setKleur('doelbehaaldBijnaGoed');
+            }
+            else if(percentage >= - 40)
+            {
+                setKleur('doelbehaaldSlecht');
+            }
+            else
+            {
+                setKleur('doelbehaaldHeelSlecht');
+            }
         }
 
     }, [doelId, isMax, doelwaarde, data, setEenheid, setHuidieWaarde, setDoelBehaald, isDoelBehaald, percentage]);
