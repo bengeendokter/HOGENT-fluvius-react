@@ -1,4 +1,6 @@
 {
     "base_url": "http://localhost:9000/api/",
+    "lan_url": "http://localhost:9000/api/",
+    "online_url": "https://mvo-fluvius.herokuapp.com/api/",
     "token_key" : "auth_token"
 }
