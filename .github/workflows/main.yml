@@ -24,6 +24,8 @@ jobs:
   build-and-deploy:
     name: Build and Github Pages Deploy
     runs-on: ubuntu-latest
+    env:
+      REACT_APP_BACKEND_BASE_URL: https://mvo-fluvius.herokuapp.com/api/
 #     needs:
 #       - cypress-run
     steps:
