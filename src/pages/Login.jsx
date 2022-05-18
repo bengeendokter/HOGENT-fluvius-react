@@ -68,7 +68,7 @@ export default function Login()
       <div className="mx-auto w-2/3 xl:w-1/5 pt-10">
 
         <form className="grid grid-cols-1 gap-y-4" onSubmit={handleSubmit(handleLogin)}>
-          <h1 className="text-[#055063] text-xl font-bold justify-self-center">Meld aan</h1>
+          <h1 className={`text-[#055063] text-xl font-bold justify-self-center`}>Meld aan</h1>
           {
             error ? (
               <p data-cy="login-error" className="text-red-500">
@@ -89,7 +89,7 @@ export default function Login()
             defaultValue=""
             data-cy="password_input"
             validation={validationRules.password} />
-          <button data-cy="submit_btn" type="submit" className="disabled:opacity-50 block mt-2 lg:inline-block  lg:mt-0 text-white  bg-[#055063] xl:p-1 xl:text-xl  p-1.5  text-white">
+          <button disabled={loading} data-cy="submit_btn" type="submit" className="disabled:opacity-50 block mt-2 lg:inline-block  lg:mt-0 text-white  bg-[#055063] xl:p-1 xl:text-xl  p-1.5  text-white ">
             Meld aan
           </button>
 
