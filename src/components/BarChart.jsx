@@ -6,18 +6,22 @@ import annotationPlugin from "chartjs-plugin-annotation";
 import styles from "./BarChart/BarChart.module.css"
 import {BloodtypeOutlined} from "@mui/icons-material";
 import { DataContext } from '../contexts/DataProvider';
+import { useParams } from "react-router-dom";
 
 Chart.register(zoomPlugin);
 Chart.register(annotationPlugin);
 
 const BarChart = ({naam, id}) =>
 {
+  const { id: ID} = useParams();
+
   //const {data: x} = useData();
   const {data: x, getAllDataByDoelstellingId, alldata} = useContext(DataContext);
 
   useEffect(() => {
     if(x.length >= 1) {
-      getAllDataByDoelstellingId(id);
+      getAllDataByDoelstellingId(ID);
+      //getAllDataByDoelstellingId(id);
     }
   }, []);
 
@@ -25,7 +29,6 @@ const BarChart = ({naam, id}) =>
   let dataWaarden = []; //data.value
   let dataKleuren = []; //willekeurig kleur
 
-  //const labels = [""];
   const dataD = x.filter(d => d.naam === naam);
   //const doelwaardes = dataD[0]['doelwaarde'];
   const eenheid = dataD[0]['eenheid'];
@@ -56,6 +59,7 @@ const BarChart = ({naam, id}) =>
   let data = {
     labels: dataLabels,
     datasets: [{
+      order: 1,
       type: 'bar',
       label: ['Waarden'],
       data: dataWaarden,
@@ -67,6 +71,7 @@ const BarChart = ({naam, id}) =>
 
   if (alldata.length !== 1) {
     data.datasets.push({
+      order: 0,
       type: 'line',
       label: 'Doel/Drempel',
       data: doels,
@@ -95,6 +100,8 @@ const BarChart = ({naam, id}) =>
         }
       },
     }
+  } else {
+    op = {};
   }
 
   const options = {
@@ -144,24 +151,19 @@ const BarChart = ({naam, id}) =>
       },
     },
   };
-
   
-
   
-
-  /*dataLabels = [];  //jaar
-  let dataWaarden = []; //data.value
-  let dataKleuren*/
+  
   
   return (
     x && alldata && dataD && <>
     <div className={styles["barchart"]}>
-      {<Bar data={data} options={options}/>}
+      {<Bar data={data} options={options}/> /*console.log("ding", dataD)*/}
       {/*<Bar type='bar' data={data} />*/}
       {/*console.log("dataLabels", dataLabels)*/}
       {/*console.log("dataWaarden", dataWaarden)*/}
       {/*console.log("dataKleuren", dataKleuren)*/}
-       {console.log("lengte", alldata.length)}
+       {/*console.log("lengte", alldata)*/}
 
     </div>
     </>
