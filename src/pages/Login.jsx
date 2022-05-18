@@ -24,7 +24,6 @@ export default function Login()
 
   const {
     handleSubmit,
-    reset,
   } = methods;
 
   const handleLogin = useCallback(async ({gebruikersnaam, wachtwoord}) =>
@@ -38,15 +37,31 @@ export default function Login()
 
   }, [navigate, login]);
 
-  const handleCancel = useCallback(() =>
-  {
-    reset();
-  }, [reset]);
-
   if(isAuthed)
   {
     return <Navigate from="/login" to="/" />
   }
+
+  const css = `
+  .itsme_login
+  {
+    background: var(--clr-negative);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.9em;
+    padding: 0.6em;
+  }
+  .itsme_tekst
+  {
+    color: white;
+  }
+  .itsme_afb
+  {
+    width: 2.7em;
+    height: auto;
+  }
+      `
 
   return (
     <FormProvider {...methods}>
@@ -77,21 +92,19 @@ export default function Login()
           <button data-cy="submit_btn" type="submit" className="disabled:opacity-50 block mt-2 lg:inline-block  lg:mt-0 text-white  bg-[#055063] xl:p-1 xl:text-xl  p-1.5  text-white">
             Meld aan
           </button>
-          <div className="flex justify-center bg-[rgb(255,70,21)]">
-            <div className=" ">
-              <Link to="/itsme" href="#responsive-header">
-                <button type="button" className=" lg:inline-block  lg:mt-0   bg-[rgb(255,70,21)] pt-4 xl:text-xl  text-white">
-                  Aanmelden met
 
-                </button>
-              </Link>
-            </div>
+          <Link to="/itsme" href="#responsive-header" className="itsme_login">
+            <p className="itsme_tekst" >Aanmelden met</p>
             <img
               src={itsme}
               alt="itsme"
-              className="w-1/4 lg:mt-0   "
+              className="itsme_afb"
             />
-          </div>
+          </Link>
+
+          <style>
+            {css}
+          </style>
 
 
         </form>
