@@ -32,61 +32,43 @@ export default function DoelstellingPreview({id, doelwaarde: doelwaardeProp, isM
         setDoelBehaald(isMax ? huidigFetch <= doelwaarde : huidigFetch >= doelwaarde);
         setPercentage(Math.round((huidigFetch - doelwaarde) / (doelwaarde !== 0 ? doelwaarde : 0.01) * 100));
         
-        // DREMPELWAARDE BEHAALD
-        if(isDoelBehaald && isMax && (Math.abs(percentage) < 20) ){
-            setKleur('doelbehaaldHeelSlecht');
-        }
-        if(isDoelBehaald && isMax && (Math.abs(percentage) >= 40) && (Math.abs(percentage) < 60)){
-            setKleur('doelbehaaldSlecht');
-        }
-        if(isDoelBehaald && isMax && (Math.abs(percentage) >= 60) && (Math.abs(percentage) < 80)){
-            setKleur('doelbehaaldBijnaGoed');
-        }
-        if(isDoelBehaald && isMax && (Math.abs(percentage) >=80) ){
+        // DREMPELWAARDE 
+        if( isMax && percentage < -10){
             setKleur('doelbehaaldGoed');
+        }
+        if( isMax && percentage >= -10 && percentage < 20){
+            setKleur('doelbehaaldBijnaGoed');
         }
 
-        // DREMPELWAARDE NIET BEHAALD
-        if(!isDoelBehaald && isMax && (Math.abs(percentage) < 20) ){
-            setKleur('doelbehaaldGoed');
-        }
-        if(!isDoelBehaald && isMax && (Math.abs(percentage) >= 40) && (Math.abs(percentage) < 60)){
-            setKleur('doelbehaaldBijnaGoed');
-        }
-        if(!isDoelBehaald && isMax && (Math.abs(percentage) >= 60) && (Math.abs(percentage) < 80)){
+        if( isMax && percentage >= 20 && percentage < 40){
             setKleur('doelbehaaldSlecht');
         }
-        if(!isDoelBehaald && isMax && (Math.abs(percentage) >=80) ){
+
+        if( isMax && percentage >= 40 ){
             setKleur('doelbehaaldHeelSlecht');
         }
 
-        // DOELWAARDE BEHAALD
-        if(isDoelBehaald && !isMax && (Math.abs(percentage) >= 60) ){
-            setKleur('doelbehaaldHeelSlecht');
-        }
-        if(isDoelBehaald && !isMax && (Math.abs(percentage) >= 40) && (Math.abs(percentage) < 60)){
-            setKleur('doelbehaaldSlecht');
-        }
-        if(isDoelBehaald && !isMax && (Math.abs(percentage) >= 20) && (Math.abs(percentage) < 40)){
-            setKleur('doelbehaaldBijnaGoed');
-        }
-        if(isDoelBehaald && !isMax && (Math.abs(percentage) < 20) ){
+        // DOELWAARDE 
+        if( !isMax && percentage >= 10){
             setKleur('doelbehaaldGoed');
         }
 
-        // DOELWAARDE NIET BEHAALD
-        if(!isDoelBehaald && !isMax && (Math.abs(percentage) >= 60) ){
-            setKleur('doelbehaaldHeelSlecht');
-        }
-        if(!isDoelBehaald && !isMax && (Math.abs(percentage) >= 40) && (Math.abs(percentage) < 60)){
-            setKleur('doelbehaaldSlecht');
-        }
-        if(!isDoelBehaald && !isMax && (Math.abs(percentage) >= 20) && (Math.abs(percentage) < 40)){
+        if( !isMax && percentage < 10 && percentage >= - 20){
             setKleur('doelbehaaldBijnaGoed');
         }
-        if(!isDoelBehaald && !isMax && (Math.abs(percentage) < 20) ){
-            setKleur('doelbehaaldGoed');
+
+        if( !isMax && percentage < -20 && percentage >= -40){
+            setKleur('doelbehaaldBijnaGoed');
         }
+
+        if( !isMax && percentage < -40 && percentage >= -60){
+            setKleur('doelbehaaldSlecht');
+        }
+
+        if( !isMax && percentage < -60){
+            setKleur('doelbehaaldHeelSlecht');
+        }
+
     }, [doelId, isMax, doelwaarde, data, setEenheid, setHuidieWaarde, setDoelBehaald, isDoelBehaald, percentage]);
 
     
