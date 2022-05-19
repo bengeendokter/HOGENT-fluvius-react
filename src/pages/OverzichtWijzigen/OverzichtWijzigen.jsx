@@ -87,7 +87,8 @@ export default function OverzichtWijzigen() {
             <div className={styles["draggable-categorie-container"]} {...provided.droppableProps} ref={provided.innerRef}>
             {temps.map((element, index) => {
             return (
-              <Draggable key={element.id} draggableId={element.id} index={index}>
+              <Draggable key={element.id} draggableId={element.id} index={index} >
+
               {(provided, snapshot) => (
                 <div className={styles["dragCard"]} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={getItemStyle(
                   snapshot.isDragging,
