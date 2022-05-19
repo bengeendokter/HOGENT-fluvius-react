@@ -63,69 +63,57 @@ export default function TemplateBeheren()
     setSelectedRol(
       typeof value === 'string' ? value.split(',') : value,
     );
-    // console.log("sel", selectedRol);
-    // setRolNaam(selectedRol);
-    // getAllTemplatesByRol();
-    // console.log("test", templatesRol);
-    // aan de hand van de geselecteerde rol --> categorieën opvragen --> ook visibility weergeven
   };
 
-  const onClick = () =>
-  {
-    console.log("onclick verander visibility");
-  };
 
-  const reset1 = React.useCallback(
-    async (temp) =>
+
+  const reset = React.useCallback(
+    async () =>
     {
-      //console.log(temp);
       try
       {
-        //is_visible: 1, is_costumisable: 1 (andere rollen)
-        //is_visible: 1, is_costumisable: 0 (Stakeholder)
+        if(selectedRol[0] !== undefined)
+        {
+         for (let m = 0; m < templatesMetCategorie.length; m++) {
+          await createOrUpdateTemplate({
+            id: templatesMetCategorie[m].id,
+            category_id: templatesMetCategorie[m].category_id,
+            rol: selectedRol[0],
+            is_visible: 1,
+            is_costumisable: (selectedRol[0] === "Stakeholder") ? 0 : 1,
+            order: templatesMetCategorie[m].order
+          });
+          }
 
-        await createOrUpdateTemplate({
-          id: temp.id,
-          category_id: temp.category_id,
-          rol: selectedRol[0],
-          is_visible: 1,
-          is_costumisable: (selectedRol[0] === "Stakeholder") ? 0 : 1,
-          order: temp.order
-        });
+          getAllTemplatesByRol();
+          getTemplatesMetCategorie(templatesRol);
+        }
+
 
       } catch(error)
       {
-
+        console.log(error);
         throw error;
       }
     },
     [
-      createOrUpdateTemplate, selectedRol
+      createOrUpdateTemplate, selectedRol, getAllTemplatesByRol, getTemplatesMetCategorie, templatesRol
     ]
   );
 
 
-  const reset = () =>
-  {
-    if(selectedRol[0] !== undefined)
-    {
-      console.log("goed goed", templatesMetCategorie);
-      templatesMetCategorie.forEach(temp => reset1(temp));
-      getAllTemplatesByRol();
-      getTemplatesMetCategorie(templatesRol);
+  // const reset = () =>
+  // {
+  //   if(selectedRol[0] !== undefined)
+  //   {
+  //     console.log("goed goed", templatesMetCategorie);
+  //     templatesMetCategorie.forEach(temp => reset1(temp));
+  //     getAllTemplatesByRol();
+  //     getTemplatesMetCategorie(templatesRol);
 
-    }
-    console.log("reset template voor geselecteerde rol");
-  };
-
-  /*useEffect(() =>
-  {
-    console.log("ait");
-  }, [reset]);*/
-
-  /*const save = () => {
-    console.log("save template voor geselecteerde rol");
-  };*/
+  //   }
+  //   console.log("reset template voor geselecteerde rol");
+  // };
 
   useEffect(() =>
   {
@@ -133,7 +121,6 @@ export default function TemplateBeheren()
     {
       setRolNaam(selectedRol[0]);
       getAllTemplatesByRol();
-      //console.log("Done1");
     }
   }, [selectedRol, getAllTemplatesByRol, setRolNaam, verander]);
 
@@ -141,9 +128,7 @@ export default function TemplateBeheren()
   {
     if(templatesRol.length !== 0)
     {
-      //console.log("templ rol", templatesRol);
       getTemplatesMetCategorie(templatesRol);
-      //console.log("test", templatesMetCategorie);
     }
   }, [templatesRol, getTemplatesMetCategorie, verander]);
 
