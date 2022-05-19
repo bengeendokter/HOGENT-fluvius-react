@@ -10,12 +10,7 @@ const NavItem = ({
 }) => (
 
 	<span {...other}>
-		<NavLink
-			to={to}
-			className="xl:inline-block mt-2  block  m-3 text-white-200 hover:text-[#055063] hover:bg-white bg-[#055063]  p-2 rounded-xl text-white font-bold"
-
-		>
-
+		<NavLink to={to} className="xl:inline-block mt-2  block  m-3 text-white-200 hover:text-[#055063] hover:bg-white bg-[#055063]  p-2 rounded-xl text-white font-bold">
 			{label}
 		</NavLink>
 	</span>
@@ -24,35 +19,31 @@ const NavItem = ({
 
 export default function NavMenu()
 {
-
-	const {isAuthed} = useSession();
+	const {isAuthed, hasRole} = useSession();
 	const logout = useLogout();
 
 	const handleClick = useCallback(async () =>
 	{
 		logout();
 	}, [logout]);
+
 	return (
 		<>
-				<div className="bg-[#055063] flex flex-col md:flex-row justify-between ">
-					<div className="mt-5 md:ml-5 ">
-						<Link to="/dashboard"><img src={logo} alt="Logo" href="#responsive-header" className="min-w-8 w-28   min-h-0 lg:mt-0 " /></Link>
-					</div>
-					<div className="mt-3">
-							<nav className="navigation">
-								<NavItem to="/dashboard" label="DASHBOARD" />
-								<NavItem to="/templateBeheren" label="ROLLEN BEHEREN" />
-								<NavItem to="/overzichtWijzigen" label="DASHBOARD PERSONALISEREN" />
-							</nav>
-					</div>
-					<div className="mt-3 text-center">
-						{isAuthed ? <NavItem to="/login" label="UITLOGGEN" className='logout' data-cy="logout_btn" onClick={handleClick}/> : <NavItem to="/login" label="INLOGGEN" />}
-					</div>
-
+			<div className="bg-[#055063] flex flex-col md:flex-row justify-between ">
+				<div className="mt-5 md:ml-5 ">
+					<Link to="/dashboard"><img src={logo} alt="Logo" href="#responsive-header" className="min-w-8 w-28   min-h-0 lg:mt-0 " /></Link>
 				</div>
-
-			{/* </div> */}
-
+				<div className="mt-3">
+					<nav className="navigation">
+						<NavItem to="/dashboard" label="DASHBOARD" />
+							{isAuthed && hasRole("MVO coördinator") ? (<><NavItem to="/templateBeheren" label="ROLLEN BEHEREN" /></>) : (<></>)}
+							{isAuthed && (hasRole("MVO coördinator") || hasRole("Manager") || hasRole("Directie"))? (<><NavItem to="/overzichtWijzigen" label="DASHBOARD PERSONALISEREN" /></>) : (<></>)}
+					</nav>
+				</div>
+				<div className="mt-3 text-center">
+					{isAuthed ? <NavItem to="/login" label="UITLOGGEN" className='logout' data-cy="logout_btn" onClick={handleClick}/> : <NavItem to="/login" label="INLOGGEN" />}
+				</div>
+			</div>
 		</>
 	);
 }
