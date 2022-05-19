@@ -60,11 +60,11 @@ const BarChart = ({naam, id}) =>
     datasets: [{
       order: 1,
       type: 'bar',
-      label: ['Waarden'],
+      label: 'Waarden',
       data: dataWaarden,
       borderColor: dataKleuren,
-      backgroundColor: dataKleuren
-    }]
+      backgroundColor: dataKleuren,
+    }],
   };
 
   if (alldata.length !== 1) {
@@ -127,6 +127,9 @@ const BarChart = ({naam, id}) =>
             size: 25,
             weight: 600,
           },
+          filter: item => {
+            return item.text != "Waarden"
+          }
         }
       },
       zoom: {
