@@ -24,7 +24,6 @@ export const save = async ({
         order
     
   }) => {
-    console.log("isvis", is_visible);
     const {
       data
     } = await axios({
@@ -38,7 +37,7 @@ export const save = async ({
         order
       },
     });
-    
+    console.log(data);
     return data;
   };
 

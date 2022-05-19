@@ -1,33 +1,19 @@
 import styles from './TemplateCategorieRol.module.css';
-import { NavLink } from "react-router-dom";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { grey } from '@mui/material/colors';
-import { useCategories } from "../../contexts/CategorieProvider";
-import {
-  useEffect, useContext, useCallback, useState
-} from 'react';
+import {useEffect, useContext, useCallback, useState} from 'react';
 import {TemplateContext} from '../../contexts/TemplatesProvider';
-
 import Alert from '@mui/material/Alert';
-
-//customisable
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import EditOffIcon from '@mui/icons-material/EditOff';
 
 export default function TemplateCategorieRol({isPersonalisatieScherm, ...r}) {
-  
-  let {id, is_visible, rol, icon, category_id, is_costumisable, rolTemplate } = r;
-
-  const {currentCategorie, setCatId, getCategorieByID} = useCategories();
-  const {setTemplateToUpdate, createOrUpdateTemplate, currentTemplate} = useContext(TemplateContext);
+  const {id, is_visible, icon, category_id, is_costumisable, rolTemplate } = r;
+  const {createOrUpdateTemplate} = useContext(TemplateContext);
   const [visible, setVisible] = useState(is_visible);
   const [verander, setVerander] = useState(0);
   const [gelukt, setGelukt] = useState(0);
-  //customisable
   const [customisable, setCustomisable] = useState(0);
-
-
 
   const handleClick = useCallback(async (data) => {
     try {
@@ -89,7 +75,6 @@ export default function TemplateCategorieRol({isPersonalisatieScherm, ...r}) {
   useEffect(() =>
   {
     setVisible(is_visible);
-    //stakeholders krijgen niet de optie hun dashboard te personaliseren
     if (rolTemplate[0] === "Stakeholder") {
       setCustomisable(0);
     } else {
@@ -157,8 +142,7 @@ export default function TemplateCategorieRol({isPersonalisatieScherm, ...r}) {
       </>
     }
     </>
-    }
-        
+    } 
     </>
   );
 }
