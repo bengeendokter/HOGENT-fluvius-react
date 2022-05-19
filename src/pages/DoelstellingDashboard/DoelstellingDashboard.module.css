@@ -207,12 +207,6 @@
     outline: var(--clr-accent) double 6.3px;
 }
 
-/* .form_input, .form_button
-{
-    border-radius: 15px;
-    box-shadow: 7px 7px 0px 0px var(--clr-primary);
-} */
-
 .modal
 {
     background: var(--clr-background-muted);
@@ -239,7 +233,7 @@
 .form_buttons_container
 {
     display: flex;
-    gap: 16em;
+    gap: 8em;
     justify-content: center;
 }
 
@@ -265,7 +259,7 @@
 
 .form_input
 {
-    font-size: 1.9rem;
+    font-size: 1.6rem;
     border: none;
     padding: 0.4em;
     margin-block-start: 0.6em;

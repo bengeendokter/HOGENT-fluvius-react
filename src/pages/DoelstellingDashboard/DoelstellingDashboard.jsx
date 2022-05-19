@@ -219,7 +219,7 @@ export default function DoelstellingDashboard()
         <form id='form_datasource' className={styles.form_datasource} onSubmit={(e) => e.preventDefault()}>
         <h2 className={styles.form_title}>Foutieve data melden</h2>
           <label className={styles.form_label} htmlFor="comment">Beschrijving van de fout</label>
-          <textarea className={styles.form_input} name="comment" id="comment" cols="60" rows="10"></textarea>
+          <textarea className={styles.form_input} name="comment" id="comment" cols="50" rows="7"></textarea>
           <div className={styles.form_buttons_container}>
             <button onClick={(e) => closeModal(e)} className={[styles.form_annuleer, styles.form_button].join(" ")} >Annuleer</button>
             <button onClick={(e) => submitModal(e)} form='form_datasource' className={[styles.form_verstuur, styles.form_button].join(" ")} >Verstuur melding</button>
