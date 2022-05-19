@@ -1,60 +1,19 @@
 import * as React from 'react';
 import styles from './OverzichtWijzigen.module.css';
-import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Chip from '@mui/material/Chip';
-import {RolContext} from '../../contexts/RolProvider';
-import eye from "../../images/eye.jpg";
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { grey } from '@mui/material/colors';
 import {TemplateContext} from '../../contexts/TemplatesProvider';
 import TemplateCategorieRol from '../../components/TemplateCategorieRol/TemplateCategorieRol';
-import { Link, useParams, useNavigate } from "react-router-dom";
-import {
-  useEffect, useContext, useState
-} from 'react';
-// BEAUTIFUL DRAG AND DROP
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { useSession, useAuth } from "../../contexts/AuthProvider";
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
+import {useEffect, useContext, useState} from 'react';
+import { DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
+import { useSession} from "../../contexts/AuthProvider";
+import Alert from '@mui/material/Alert';
 
 export default function OverzichtWijzigen() {
-  const theme = useTheme();
   const [selectedRol, setSelectedRol] = React.useState('');
-  const {rollen} = useContext(RolContext);
-  const {orderVoorTemplate, verander, rolNaam, createOrUpdateTemplate, getTemplatesMetCategorie, templatesMetCategorie, setTemplatesRol, templatesRol, getAllTemplatesByRol, setRolNaam, templates, setTemplateToUpdate, currentTemplate} = useContext(TemplateContext);
-  const { id } = useParams();
+  const {orderVoorTemplate, verander, rolNaam, getTemplatesMetCategorie, templatesMetCategorie, templatesRol, getAllTemplatesByRol, setRolNaam} = useContext(TemplateContext);
   const [temps, updateTemps] = useState([]);
   const {roles} = useSession();
-  let voerUit = true;
+  const [gelukt, setGelukt] = useState(0);
 
-   // DRAG AND DROP
    function handleOnDragEnd(result) {
     if (!result.destination) return;
     const items = Array.from(temps);
@@ -64,61 +23,17 @@ export default function OverzichtWijzigen() {
 
   }
 
-  const getListStyle = () => ({
-    background: 'white',
-    // TODO: scherm kleiner maken flex column
-    display: 'flex',
-    padding: 4,
-    overflow: 'none',
-  });
-
   const getItemStyle = (isDragging, draggableStyle) => ({
-    // some basic styles to make the items look a bit nicer
     userSelect: 'none',
     padding: 4 * 2,
     margin: `0 4px 0 0`,
-  
-    // change background colour if dragging
     background: isDragging ? 'lightblue' : 'white',
-  
-    // styles we need to apply on draggables
     ...draggableStyle,
   });
 
-
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setSelectedRol(
-      typeof value === 'string' ? value.split(',') : value,
-    );
-  };
-
-  const saveOrder = React.useCallback(
-    async (temp, index) => {
-      try {
-          await createOrUpdateTemplate({
-           id: temp.id,
-           category_id: temp.category_id,
-           rol: selectedRol[0],
-           is_visible: temp.is_visible,
-           is_costumisable: temp.is_visible,
-           order: index + 1,
-          });
-          
-      } catch (error) {
-
-        throw error;
-      }
-    },
-    [
-      selectedRol, createOrUpdateTemplate
-    ]
-  );
-
   const save = () => {
       orderVoorTemplate(temps);
+      setGelukt(1);
   };
 
   const reset = React.useCallback(() => {
@@ -126,6 +41,7 @@ export default function OverzichtWijzigen() {
     newTemps.forEach((t, index) => t.order = index);
     updateTemps(newTemps);
     orderVoorTemplate(temps);
+    setGelukt(1);
   }, [orderVoorTemplate, temps])
 
   useEffect(() =>
@@ -158,6 +74,7 @@ export default function OverzichtWijzigen() {
   return (
     <>
     <div className={styles["personalisation-all"]}>
+      {gelukt === 1 &&<Alert severity="success" className={styles["categorie-title-personalisatie"]}>Wijzigingen zijn opgeslagen!</Alert>}
       <div className={styles["categorie-titles-personalisatie"]}>
         <p className={styles["categorie-title-personalisatie"]}>Template {roles}</p>
         <p className={styles["categorie-title-personalisatie"]}>Verander de volgorde van je categorieën!</p>
@@ -166,7 +83,7 @@ export default function OverzichtWijzigen() {
         {verander && rolNaam && temps &&
         <DragDropContext onDragEnd={handleOnDragEnd} >
           <Droppable droppableId="characters"  direction="horizontal">
-            {(provided, snapshot) => (
+            {(provided) => (
             <div className={styles["draggable-categorie-container"]} {...provided.droppableProps} ref={provided.innerRef}>
             {temps.map((element, index) => {
             return (
@@ -186,21 +103,17 @@ export default function OverzichtWijzigen() {
         </div>)}
           </Droppable>
         </DragDropContext>}
-
           <div className={styles["saveButton-container"]}>
-
             <button onClick={reset} className={styles["resetButton"]}>
               Herstellen
             </button>
-
             <button onClick={save} className={styles["saveButton"]}>
               Opslaan
             </button>
-        
           </div>
       </div>
     </div>
-    <div className={styles["personalisation-none"]}>Het personaliseren van je categorieën kan alleen gebeuren op een grotere scherm. Zoom uit of probeer opnieuw op een bredere scherm.</div>
+    <div className={styles["personalisation-none"]}>Het personaliseren van je categorieën kan alleen gebeuren op een groter scherm. Zoom uit of probeer opnieuw op een breder scherm.</div>
     </>
   );
 }

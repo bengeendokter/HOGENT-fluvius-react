@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 import {useLogin, useSession} from '../contexts/AuthProvider';
 
 const validationRules = {
-  email: {
+  gebruikersnaam: {
     required: true
   },
   password: {
@@ -81,7 +81,8 @@ export default function Login()
             label="Gebruikersnaam"
             type="text"
             defaultValue=""
-            data-cy="gebruikersnaam_input" />
+            data-cy="gebruikersnaam_input" 
+            validation={validationRules.gebruikersnaam}/>
           <LabelInput
             name="wachtwoord"
             label="Wachtwoord"
@@ -92,7 +93,6 @@ export default function Login()
           <button disabled={loading} data-cy="submit_btn" type="submit" className="disabled:opacity-50 block mt-2 lg:inline-block  lg:mt-0 text-white  bg-[#055063] xl:p-1 xl:text-xl  p-1.5  text-white ">
             Meld aan
           </button>
-
           <Link to="/itsme" href="#responsive-header" className="itsme_login">
             <p className="itsme_tekst" >Aanmelden met</p>
             <img
@@ -101,12 +101,9 @@ export default function Login()
               className="itsme_afb"
             />
           </Link>
-
           <style>
             {css}
           </style>
-
-
         </form>
       </div>
     </FormProvider>
