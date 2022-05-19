@@ -187,6 +187,92 @@
     color: #B8CE44;
 }
 
+/* fout melden */
+.modal, .form_input, .form_button
+{
+    --clr-shadow: var(--clr-primary);
+    border-radius: 15px;
+    box-shadow: 7px 7px 0px 0px var(--clr-shadow);
+    transition: box-shadow .2s ease;
+}
+
+.form_input:hover, .form_button:hover, .form_input:focus-visible, .form_button:focus-visible
+{
+    box-shadow: 0px 0px 0px 5px var(--clr-shadow);
+    transition: box-shadow .2s ease;
+}
+
+.form_input:focus-visible, .form_button:focus-visible
+{
+    outline: var(--clr-accent) double 6.3px;
+}
+
+/* .form_input, .form_button
+{
+    border-radius: 15px;
+    box-shadow: 7px 7px 0px 0px var(--clr-primary);
+} */
+
+.modal
+{
+    background: var(--clr-background-muted);
+    padding: 2.2em;
+}
+
+.modal::backdrop
+{
+    background: hsla(var(--hsl-blauw-fluvius), 0.5);
+}
+
+.form_datasource
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.form_title
+{
+    font-weight: 700;
+    font-size: 2.3rem;
+}
+
+.form_buttons_container
+{
+    display: flex;
+    gap: 16em;
+    justify-content: center;
+}
+
+.form_button
+{
+    --clr-button-background: var(--clr-negative);
+    background: var(--clr-button-background);
+    color: var(--clr-accent);
+    padding: 0.5em;
+}
+
+.form_verstuur
+{
+    --clr-button-background: var(--clr-secondary); 
+}
+
+.form_label, .form_button
+{
+    font-weight: 600;
+    font-size: 1.6rem;
+    margin-block-start: 0.6em;
+}
+
+.form_input
+{
+    font-size: 1.9rem;
+    border: none;
+    padding: 0.4em;
+    margin-block-start: 0.6em;
+}
+
+
+
 @media screen and (min-width: 1280px) {
     .subdoelstellingen {
         justify-content: left;

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+:root, ::backdrop {
     --hsl-blauw-fluvius: 192, 90%, 20%;
     --hsl-groen-fluvius: 70, 58%, 54%;
     --hsl-black: 240, 100%, 0%;
@@ -12,6 +12,7 @@
     --hsl-yellow: 51, 94%, 69%;
     --hsl-red: 360, 96%, 51%;
     --hsl-orange: 26, 95%, 59%;
+    --hsl-blauw-fluvius-muted: 193, 22%, 92%;
 
     --clr-primary: hsla(var(--hsl-blauw-fluvius));
     --clr-secondary: hsla(var(--hsl-groen-fluvius));
@@ -19,7 +20,7 @@
     --clr-negative: hsla(var(--hsl-oranje-itsme));
     --clr-grenswaardeBijnaGoed: hsla(var(--hsl-yellow));
     --clr-background: hsla(var(--hsl-white));
-    --clr-background-muted: hsla(var(--hsl-blauw-fluvius), .1);
+    --clr-background-muted: hsla(var(--hsl-blauw-fluvius-muted));
     --clr-foreground: hsla(var(--hsl-black));
 
     --clr-grenswaardeBijnaGoed: hsla(var(--hsl-yellow));

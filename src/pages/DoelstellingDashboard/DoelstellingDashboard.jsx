@@ -1,47 +1,55 @@
 import styles from './DoelstellingDashboard.module.css';
-import { DoelstellingContext } from '../../contexts/DoelstellingProvider';
-import { useData } from '../../contexts/DataProvider';
-import { useParams } from "react-router-dom";
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { NavLink } from "react-router-dom";
+import {DoelstellingContext} from '../../contexts/DoelstellingProvider';
+import {useData} from '../../contexts/DataProvider';
+import {useParams} from "react-router-dom";
+import {useCallback, useContext, useEffect, useMemo, useState, useRef} from 'react';
+import React from 'react';
+import {NavLink} from "react-router-dom";
 import BarChart from '../../components/BarChart';
-import { SdgContext } from '../../contexts/SdgProvider';
+import {SdgContext} from '../../contexts/SdgProvider';
 import DoelstellingPreview from "../../components/DoelstellingPreview/DoelstellingPreview";
-import { DatasourceContext } from '../../contexts/DatasourceProvider';
 import {useSession} from "../../contexts/AuthProvider";
 
-export default function DoelstellingDashboard() {
-  const { doelstellingen, setCurrentDoelstelling, currentDoel, pad } = useContext(DoelstellingContext);
-  const {updateDatasource} = useContext(DatasourceContext);
-  const { sdgs } = useContext(SdgContext);
-  const { data } = useData();
-  const { id } = useParams();
-  const { roles } = useSession();
-  const [fout, setFout] = useState(0);
-  useEffect(() => {
+export default function DoelstellingDashboard()
+{
+  const {doelstellingen, setCurrentDoelstelling, currentDoel, pad} = useContext(DoelstellingContext);
+  const {sdgs} = useContext(SdgContext);
+  const {data} = useData();
+  const {id} = useParams();
+  const {roles} = useSession();
+  const [isGemeld, setGemeld] = useState(false);
+  const ref_dialog = useRef(null);
+  useEffect(() =>
+  {
     //laden
-    if (doelstellingen.length >= 1) {
+    if(doelstellingen.length >= 1)
+    {
       setCurrentDoelstelling(id);
     }
 
   }, [doelstellingen, id, setCurrentDoelstelling]);
 
-  const vindDataDoelstelling = useMemo(() => {
-    if (currentDoel) {
+  const vindDataDoelstelling = useMemo(() =>
+  {
+    if(currentDoel)
+    {
       const wow = data.filter(d => d.naam === currentDoel.naam)[0];
       return wow
     }
     return null;
   }, [currentDoel, data])
 
-  const vindActueleWaardeData = useMemo(() => {
-    if (vindDataDoelstelling) {
+  const vindActueleWaardeData = useMemo(() =>
+  {
+    if(vindDataDoelstelling)
+    {
       return Object.values(vindDataDoelstelling?.data.sort((a, b) => Object.keys(a)[0] < Object.keys(b)[0])[0])[0][0];
     }
     return null
   }, [vindDataDoelstelling])
 
-  const berekenPercentage = useMemo(() => {
+  const berekenPercentage = useMemo(() =>
+  {
     const huidigeWaarde = vindActueleWaardeData;
     const doelwaarde = currentDoel["doelwaarde"];
     let percentage;
@@ -55,22 +63,28 @@ export default function DoelstellingDashboard() {
     }
   }, [currentDoel, vindActueleWaardeData])
 
-  const vindSdgs = useMemo(() => {
+  const vindSdgs = useMemo(() =>
+  {
     let validSDGs = [];
     let categorie;
 
-    if (currentDoel && currentDoel.categorie) {
-      if (currentDoel.parent_doelstelling && currentDoel.categorie.id === null) {
+    if(currentDoel && currentDoel.categorie)
+    {
+      if(currentDoel.parent_doelstelling && currentDoel.categorie.id === null)
+      {
         categorie = doelstellingen.find(d => d.id === currentDoel.parent_doelstelling.id).categorie;
-      } else {
+      } else
+      {
         categorie = currentDoel.categorie;
       }
       console.log("sdgssss", sdgs);
       const allSDGs = sdgs.filter(s => s.idSDG === currentDoel.sdg_goal.id);
 
-      allSDGs.forEach((sdg, index) => {
+      allSDGs.forEach((sdg, index) =>
+      {
         const subArray = allSDGs.slice(0, index);
-        if (!subArray.some(s => s.AFBEELDINGNAAM === sdg.AFBEELDINGNAAM)) {
+        if(!subArray.some(s => s.AFBEELDINGNAAM === sdg.AFBEELDINGNAAM))
+        {
           validSDGs.push(sdg);
         }
       });
@@ -78,15 +92,27 @@ export default function DoelstellingDashboard() {
     return validSDGs.sort((a, b) => Number(a.AFBEELDINGNAAM) > Number(b.AFBEELDINGNAAM));
   }, [sdgs, currentDoel, doelstellingen])
 
-  const handleReport = useCallback(() => {
-    //TODO fout melden
-    if (currentDoel)
-      updateDatasource(currentDoel.datasource.id);
-      setFout(1);
+  // report datasource
+  const handleReport = useCallback(() =>
+  {
+    setGemeld(false);
+    ref_dialog.current.showModal();
+  }, [ref_dialog]);
 
-    console.log("Reported doelstelling: '", currentDoel.naam);
-  }, [currentDoel]);
+  const closeModal = useCallback((e) =>
+  {
+    ref_dialog.current.close();
+    setGemeld(false);
+  }, [ref_dialog]);
 
+  const submitModal = useCallback((e) =>
+  {
+    ref_dialog.current.close();
+    setGemeld(true);
+  }, [ref_dialog]);
+
+  
+  
   return (
 
     <>
@@ -107,10 +133,11 @@ export default function DoelstellingDashboard() {
             </NavLink>
 
             {
-              pad.map(p => {
+              pad.map(p =>
+              {
                 return <p key={`${p.naam}${currentDoel.naam}`}>
                   &nbsp; /  &nbsp;
-                {(p.naam !== currentDoel.naam) ?
+                  {(p.naam !== currentDoel.naam) ?
                     <NavLink to={`/doelstellingDashboard/${p.id}`} className={styles["breadcrumb-link"]}>
                       {p.naam}
                     </NavLink>
@@ -122,7 +149,8 @@ export default function DoelstellingDashboard() {
             }
           </div>
           <div className={styles["sdgs"]}>
-            {vindSdgs?.map(s => {
+            {vindSdgs?.map(s =>
+            {
               return <>
                 <a href={`https://sdgs.un.org/goals/goal${s.AFBEELDINGNAAM}`} target="_blank" rel="noreferrer">
                   <img className={styles["sdg"]} src={`/assets/images/${s.AFBEELDINGNAAM}.jpg`} key={`${s.idSDG}${s.AFBEELDINGNAAM}${s.CATID}`} alt={s.NAAM} />
@@ -157,12 +185,12 @@ export default function DoelstellingDashboard() {
                 <div className={!berekenPercentage.isOnder ? styles["percentage-onder"] : styles["percentage-boven"]}>{Math.abs(Math.round(berekenPercentage.percentage))}% {vindActueleWaardeData >= currentDoel.doelwaarde ? "boven" : "onder"} {currentDoel.isMax ? "drempel" : "doel"}</div>
               </div>
             </div>
-            { roles && roles === "Manager" &&
+            {roles && roles === "Manager" &&
               <div className={styles["detail-fout-melden-div"]}>
                 <div className={styles["detail-fout-melden"]}>
-                  <p>Fout melden</p>
+                {isGemeld ? <p className={styles[`${isGemeld? "fout" : "juist"}`]}>Bedankt, uw fout is gemeld</p> : <p>Foutieve data melden</p>}
                   <img onClick={handleReport} src="/assets/images/exlamation_icon.png" alt="meld icon" />
-                  {fout === 1 && <><p className={styles[`${fout? "fout" : "juist"}`]}>Fout melden was succesvol</p></>}
+
                 </div>
               </div>
             }
@@ -177,7 +205,8 @@ export default function DoelstellingDashboard() {
           {currentDoel.subdoelstellingen &&
             <div className={styles["subdoelstellingen"]}>
               {
-                currentDoel.subdoelstellingen.map(sub => {
+                currentDoel.subdoelstellingen.map(sub =>
+                {
                   return <DoelstellingPreview {...sub} key={`${sub.id}${sub.naam}`}></DoelstellingPreview>
                 })
               }
@@ -185,6 +214,19 @@ export default function DoelstellingDashboard() {
           }
         </div>
       </div>
+
+      <dialog ref={ref_dialog} className={styles.modal}>
+        <form id='form_datasource' className={styles.form_datasource} onSubmit={(e) => e.preventDefault()}>
+        <h2 className={styles.form_title}>Foutieve data melden</h2>
+          <label className={styles.form_label} htmlFor="comment">Beschrijving van de fout</label>
+          <textarea className={styles.form_input} name="comment" id="comment" cols="60" rows="10"></textarea>
+          <div className={styles.form_buttons_container}>
+            <button onClick={(e) => closeModal(e)} className={[styles.form_annuleer, styles.form_button].join(" ")} >Annuleer</button>
+            <button onClick={(e) => submitModal(e)} form='form_datasource' className={[styles.form_verstuur, styles.form_button].join(" ")} >Verstuur melding</button>
+          </div>
+        </form>
+      </dialog>
+
     </>
   );
 }
