@@ -17,7 +17,6 @@ const BarChart = ({naam, id}) =>
 
   //const {data: x} = useData();
   const {data: x, getAllDataByDoelstellingId, alldata} = useContext(DataContext);
-
   useEffect(() => {
     if(x.length >= 1) {
       getAllDataByDoelstellingId(ID);
@@ -64,10 +63,9 @@ const BarChart = ({naam, id}) =>
       label: ['Waarden'],
       data: dataWaarden,
       borderColor: dataKleuren,
-      backgroundColor: dataKleuren,
-      borderWidth: 2
+      backgroundColor: dataKleuren
     }]
-  }
+  };
 
   if (alldata.length !== 1) {
     data.datasets.push({
@@ -81,10 +79,10 @@ const BarChart = ({naam, id}) =>
     });
   } 
 
-  let op = {};
+  let optionAnnotations = [];
 
   if (alldata.length === 1) { 
-    op = {
+    optionAnnotations.push({
       type: "line",
       mode: "horizontal",
       scaleID: "y-axis-0",
@@ -99,10 +97,8 @@ const BarChart = ({naam, id}) =>
           size: 25,
         }
       },
-    }
-  } else {
-    op = {};
-  }
+    });
+  } 
 
   const options = {
     scales: {
@@ -122,9 +118,7 @@ const BarChart = ({naam, id}) =>
     },
     plugins: {
       annotation: {
-        annotations: [
-          op
-        ],
+        annotations: optionAnnotations
       },
       legend: {
         display: true,
@@ -135,7 +129,7 @@ const BarChart = ({naam, id}) =>
           },
         }
       },
-      /*zoom: {
+      zoom: {
         zoom: {
           wheel: {
             enabled: false, // SET SCROLL ZOOM TO TRUE
@@ -148,14 +142,17 @@ const BarChart = ({naam, id}) =>
           mode: "xy",
           speed: 100,
         },
-      },*/
+      },
     },
   };
+
+  
+
   
   return (
     x && alldata && dataD && <>
     <div className={styles["barchart"]}>
-      {<Bar data={data} options={options}/> }
+      {<Bar data={data} options={options}/> }  
     </div>
     </>
     
