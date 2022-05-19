@@ -263,6 +263,12 @@ export const TemplatesProvider = ({
     [templates]
   );
 
+  useEffect(() => {
+    if(templatesRol) {
+      getAllTemplatesByRol();
+      getTemplatesMetCategorie(templatesRol)
+    }
+  }, [templates])
 
 
   return (
