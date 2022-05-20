@@ -43,8 +43,9 @@ export default function DoelstellingDashboard()
   {
     if(vindDataDoelstelling)
     {
-      return Object.values(vindDataDoelstelling?.data.sort((a, b) => Object.keys(a)[0] < Object.keys(b)[0])[0])[0][0];
-    }
+      let x = vindDataDoelstelling.data;
+      return (Object.values(x.sort().reverse()[0]));
+    } 
     return null
   }, [vindDataDoelstelling])
 
