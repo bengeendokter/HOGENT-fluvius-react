@@ -89,12 +89,12 @@ export default function TemplateCategorieRol({isPersonalisatieScherm, ...r}) {
     {r &&
     <>
     {!isPersonalisatieScherm?
-      <div className={styles["card"]}>
+      <div data-cy="template_rol" className={styles["card"]}>
         <img className={styles["card-img"]} src={`/assets${icon.substring(8)}`}  alt="icon"/>
         <div className={styles["card-info"]}>
           <div className={styles["card-title"]}>{category_id}</div>
           {!isPersonalisatieScherm && 
-            <div className={styles["card-buttons"]}>
+            <div data-cy="oog" className={styles["card-buttons"]}>
               {visible === 1?
                 <div onClick={handleClick} className={styles["card-button-green"]}>
                   <VisibilityIcon />

@@ -35,9 +35,9 @@ export default function NavMenu()
 				</div>
 				<div className="mt-3">
 					<nav className="navigation">
-						<NavItem to="/dashboard" label="DASHBOARD" />
-							{isAuthed && hasRole("MVO coördinator") ? (<><NavItem to="/templateBeheren" label="ROLLEN BEHEREN" /></>) : (<></>)}
-							{isAuthed && (hasRole("MVO coördinator") || hasRole("Manager") || hasRole("Directie"))? (<><NavItem to="/overzichtWijzigen" label="DASHBOARD PERSONALISEREN" /></>) : (<></>)}
+						<NavItem data-cy="label_dashboard" to="/dashboard" label="DASHBOARD" />
+							{isAuthed && hasRole("MVO coördinator") ? (<><NavItem data-cy="label_rollen_beheren" to="/templateBeheren" label="ROLLEN BEHEREN" /></>) : (<></>)}
+							{isAuthed && (hasRole("MVO coördinator") || hasRole("Manager") || hasRole("Directie"))? (<><NavItem data-cy="label_personaliseren" to="/overzichtWijzigen" label="DASHBOARD PERSONALISEREN" /></>) : (<></>)}
 					</nav>
 				</div>
 				<div className="mt-3 text-center">

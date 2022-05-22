@@ -14,7 +14,7 @@ export default function AccordionCategory({naam, id, doelstellingen, sdgs})
 
   return (
     <>
-      <div className={["accordion-item", styles.item].join(" ")}>
+      <div data-cy="dashboard_categorie" className={["accordion-item", styles.item].join(" ")}>
         <div className={["accordion-header", styles.header].join(" ")} id={`headingOne${id}`}>
           <button
           className={["accordion-button flex", styles.button].join(" ")}

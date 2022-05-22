@@ -76,7 +76,7 @@ export default function OverzichtWijzigen() {
     <div className={styles["personalisation-all"]}>
       {gelukt === 1 &&<Alert severity="success" className={styles["categorie-title-personalisatie"]}>Wijzigingen zijn opgeslagen!</Alert>}
       <div className={styles["categorie-titles-personalisatie"]}>
-        <p className={styles["categorie-title-personalisatie"]}>Template {roles}</p>
+        <p data-cy="naam_rol_template" className={styles["categorie-title-personalisatie"]}>Template {roles}</p>
         <p className={styles["categorie-title-personalisatie"]}>Verander de volgorde van je categorieën!</p>
       </div>
       <div >
