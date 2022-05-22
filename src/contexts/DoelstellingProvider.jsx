@@ -92,6 +92,8 @@ import {
         setError('');
         setLoading(true);
         let newCategoriesMetDoelstellingen = [];
+
+        console.log(categories, "categories");
  
         for(const categorie of categories)
         {

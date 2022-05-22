@@ -76,7 +76,7 @@ export const TemplatesProvider = ({
       if(rolNaam)
       {
         const data = await templatesApi.getAllTemplatesByRol(rolNaam);
-
+        console.log(data, "data");
         if (data.length === 0) {
           if (categories && categories.length > 0) {
             const templatesToCreate = categories.map(c => ({
@@ -109,7 +109,7 @@ export const TemplatesProvider = ({
       setLoading(false)
     }
 
-  }, [rolNaam]);
+  }, [rolNaam, categories]);
 
   const getTemplatesMetCategorie = useCallback(async (templatesRol) =>
   {
