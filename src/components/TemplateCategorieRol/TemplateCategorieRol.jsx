@@ -104,7 +104,7 @@ export default function TemplateCategorieRol({isPersonalisatieScherm, ...r}) {
                   <VisibilityOffIcon />
                 </div>
               }
-              {(rolTemplate[0] !== "Stakeholder") &&
+              {(false) &&
                 <>
                   {customisable === 1?
                     <div onClick={handleClickCustom} className={styles["card-button-green"]}>
