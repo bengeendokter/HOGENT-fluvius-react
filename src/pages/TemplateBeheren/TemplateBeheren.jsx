@@ -107,7 +107,7 @@ export default function TemplateBeheren()
           </Select>
         </FormControl>
           <button onClick={reset} className={styles["beheren-header-button"]}>
-            Herstel standaard weergave
+            Herstel standaardweergave
           </button>
       </div>
       <div>
