@@ -9,19 +9,26 @@ import {useCategories} from "../../contexts/CategorieProvider";
 
 export default function CategorieDashboard()
 {
-  const {doelstellingenCat, getDoelstellingByCategorieID, setCatId} = useContext(DoelstellingContext);
+  const {doelstellingen, doelstellingenCat, getDoelstellingByCategorieID, setCatId} = useContext(DoelstellingContext);
   const {sdgsCat, getSdgsByCategorieId, setCatId1} = useContext(SdgContext);
-  const {currentCategorie} = useCategories();
+  const {categories, catId, currentCategorie} = useCategories();
   const {id} = useParams();
 
 
   useEffect(() =>
   {
-    setCatId(id);
-    getDoelstellingByCategorieID();
-    setCatId1(id);
-    getSdgsByCategorieId();
+    if (categories.length >= 1 && doelstellingen.length >= 1) {
+      setCatId(id);
+      getDoelstellingByCategorieID();
+      setCatId1(id);
+      getSdgsByCategorieId();
+    }
+    
   }, [setCatId, setCatId1, getDoelstellingByCategorieID, getSdgsByCategorieId, id]);
+
+  let cat = categories.filter(c => c.CATEGORIEID === Number(id))[0];
+
+  let doelen = doelstellingen.filter(d => d.categorie.id === Number(id));
 
   let arrayIcons = [];
   sdgsCat.forEach(s =>
@@ -36,23 +43,23 @@ export default function CategorieDashboard()
   });
 
   return (
-
+    categories && doelstellingen && cat && (doelen) && arrayIcons &&
     <>
-      <div className={styles["detail-container"]}>
+      {<div className={styles["detail-container"]}>
         <div className={styles["detail-header"]}>
           <div className={styles["detail-breadcrumb"]}>
             <NavLink to="/dashboard" className={styles["breadcrumb-link"]}>
               Dashboard
             </NavLink>
             &nbsp;  /  &nbsp;
-            <NavLink to={`/categorieDashboard/${(currentCategorie === undefined || currentCategorie.CATEGORIEID === null) ? 2 : currentCategorie.CATEGORIEID}`} className={styles["breadcrumb-link"]}>
+            <p className={styles["breadcrumb-link"]}>
               {
-                (currentCategorie === undefined || currentCategorie.NAAM === null) ?
+                (cat === undefined || cat.NAAM === null) ?
                   "Ecologie"
                   :
-                  currentCategorie.NAAM
+                  cat.NAAM
               }
-            </NavLink>
+            </p>
 
           </div>
           <div className={styles["sdgs"]}>
@@ -65,16 +72,17 @@ export default function CategorieDashboard()
             })}
           </div>
         </div>
+
         <div className={styles["detail-bottom"]}>
           <div className={styles["subdoelstellingen-titel"]}>
-            {(doelstellingenCat && doelstellingenCat.length > 0) ?
+            {(doelen && doelen.length > 0) ?
               "Doelstellingen" : "Geen doelstellingen"
             }
           </div>
-          {doelstellingenCat &&
+          {doelen &&
             <div className={styles["subdoelstellingen"]}>
               {
-                doelstellingenCat.map(sub =>
+                doelen.map(sub =>
                 {
                   return <DoelstellingPreview {...sub} key={`${sub.id}${sub.naam}`}></DoelstellingPreview>
                 })
@@ -82,7 +90,8 @@ export default function CategorieDashboard()
             </div>
           }
         </div>
-      </div>
+        
+        </div>}
     </>
   );
 }
