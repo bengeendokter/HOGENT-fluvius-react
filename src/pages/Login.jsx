@@ -8,10 +8,10 @@ import {useLogin, useSession} from '../contexts/AuthProvider';
 
 const validationRules = {
   gebruikersnaam: {
-    required: true
+    required: 'Gebruikersnaam is verplicht in te vullen'
   },
   password: {
-    required: true
+    required: 'Wachtwoord is verplicht in te vullen'
   }
 };
 
@@ -28,6 +28,7 @@ export default function Login()
 
   const handleLogin = useCallback(async ({gebruikersnaam, wachtwoord}) =>
   {
+
     const success = await login(gebruikersnaam, wachtwoord);
 
     if(success)
