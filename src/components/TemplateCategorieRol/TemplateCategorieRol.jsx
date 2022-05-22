@@ -4,8 +4,6 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import {useEffect, useContext, useCallback, useState} from 'react';
 import {TemplateContext} from '../../contexts/TemplatesProvider';
 import Alert from '@mui/material/Alert';
-import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import EditOffIcon from '@mui/icons-material/EditOff';
 
 export default function TemplateCategorieRol({isPersonalisatieScherm, ...r}) {
   const {id, is_visible, icon, category_id, is_costumisable, rolTemplate } = r;
@@ -13,9 +11,8 @@ export default function TemplateCategorieRol({isPersonalisatieScherm, ...r}) {
   const [visible, setVisible] = useState(is_visible);
   const [verander, setVerander] = useState(0);
   const [gelukt, setGelukt] = useState(0);
-  const [customisable, setCustomisable] = useState(0);
 
-  const handleClick = useCallback(async (data) => {
+  const handleClick = useCallback(async () => {
     try {
       setVerander(1);
       if (visible === 1) {
@@ -24,7 +21,7 @@ export default function TemplateCategorieRol({isPersonalisatieScherm, ...r}) {
           category_id: category_id,
           rol: rolTemplate[0],
           is_visible: 0,
-          is_costumisable: customisable,
+          is_costumisable: is_costumisable,
         });
         setVisible(0);
       } else {
@@ -33,7 +30,7 @@ export default function TemplateCategorieRol({isPersonalisatieScherm, ...r}) {
           category_id: category_id,
           rol: rolTemplate[0],
           is_visible: 1,
-          is_costumisable: customisable,
+          is_costumisable: is_costumisable,
         });
         setVisible(1);
       }
@@ -42,47 +39,13 @@ export default function TemplateCategorieRol({isPersonalisatieScherm, ...r}) {
       setGelukt(0);
       console.error(error);
     }
-  }, [visible, customisable, category_id, createOrUpdateTemplate, id, rolTemplate]);
-
-  const handleClickCustom = useCallback(async (data) => {
-    try {
-      if (customisable === 1) {
-        await createOrUpdateTemplate({
-          id: id,
-          category_id: category_id,
-          rol: rolTemplate[0],
-          is_visible: visible,
-          is_costumisable: 0,
-        });
-        setCustomisable(0);
-      } else {
-        await createOrUpdateTemplate({
-          id: id,
-          category_id: category_id,
-          rol: rolTemplate[0],
-          is_visible: visible,
-          is_costumisable: 1,
-        });
-        setCustomisable(1);
-      }
-      setGelukt(1);
-    } catch (error) {
-      setGelukt(0);
-      console.error(error);
-    }
-  }, [visible, customisable, category_id, rolTemplate, createOrUpdateTemplate, id]);
+  }, [visible, is_costumisable, category_id, createOrUpdateTemplate, id, rolTemplate]);
 
   useEffect(() =>
   {
     setVisible(is_visible);
-    if (rolTemplate[0] === "Stakeholder") {
-      setCustomisable(0);
-    } else {
-      setCustomisable(is_costumisable);
-    }
-    
-  }, [is_visible, is_costumisable, rolTemplate]);
 
+  }, [is_visible]);
 
   return (
     <>
@@ -103,19 +66,6 @@ export default function TemplateCategorieRol({isPersonalisatieScherm, ...r}) {
                 <div onClick={handleClick} className={styles["card-button-red"]}>
                   <VisibilityOffIcon />
                 </div>
-              }
-              {(false) &&
-                <>
-                  {customisable === 1?
-                    <div onClick={handleClickCustom} className={styles["card-button-green"]}>
-                      <ModeEditIcon />
-                    </div>
-                    :
-                    <div onClick={handleClickCustom} className={styles["card-button-red"]}>
-                      <EditOffIcon />
-                    </div>
-                  }
-                </>
               }
             </div>
           }

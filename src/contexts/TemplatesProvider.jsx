@@ -76,7 +76,6 @@ export const TemplatesProvider = ({
       if(rolNaam)
       {
         const data = await templatesApi.getAllTemplatesByRol(rolNaam);
-        console.log(data, "data");
         if (data.length === 0) {
           if (categories && categories.length > 0) {
             const templatesToCreate = categories.map(c => ({
@@ -159,6 +158,12 @@ export const TemplatesProvider = ({
 
     try
     {
+      const arr = templatesMetCategorie.filter(el => el.is_visible === 0);
+      if((arr.length === templatesMetCategorie.length - 1) && is_visible === 0){
+        throw error;
+      } else{
+
+      
       const changedTemplate = await templatesApi.save({
         id,
         category_id,
@@ -169,6 +174,7 @@ export const TemplatesProvider = ({
       });
       await refreshTemplates();
       return changedTemplate;
+    }
     } catch(error)
     {
       throw error;
@@ -177,7 +183,7 @@ export const TemplatesProvider = ({
     {
       setLoading(false)
     }
-  }, [refreshTemplates]);
+  }, [refreshTemplates, templatesMetCategorie]);
 
   const orderVoorTemplate = useCallback(async (orderTemplates, zetIndexAlsOrder = true
   ) =>
