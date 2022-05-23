@@ -6,6 +6,7 @@ import {useEffect, useContext, useState} from 'react';
 import { DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import { useSession} from "../../contexts/AuthProvider";
 import Alert from '@mui/material/Alert';
+import { useToasts } from 'react-toast-notifications';
 
 export default function OverzichtWijzigen() {
   const [selectedRol, setSelectedRol] = React.useState('');
@@ -13,6 +14,7 @@ export default function OverzichtWijzigen() {
   const [temps, updateTemps] = useState([]);
   const {roles} = useSession();
   const [gelukt, setGelukt] = useState(0);
+  const { addToast } = useToasts();
 
    function handleOnDragEnd(result) {
     if (!result.destination) return;
@@ -34,6 +36,10 @@ export default function OverzichtWijzigen() {
   const save = () => {
       orderVoorTemplate(temps);
       setGelukt(1);
+      addToast("Wijzigingen zijn opgeslagen!", {
+        appearance: 'success',
+        autoDismiss: true,
+      });
   };
 
   const reset = React.useCallback(() => {
@@ -42,6 +48,10 @@ export default function OverzichtWijzigen() {
     updateTemps(newTemps);
     orderVoorTemplate(temps);
     setGelukt(1);
+    addToast("Wijzigingen zijn opgeslagen!", {
+      appearance: 'success',
+      autoDismiss: true,
+    });
   }, [orderVoorTemplate, temps])
 
   useEffect(() =>
@@ -74,7 +84,6 @@ export default function OverzichtWijzigen() {
   return (
     <>
     <div className={styles["personalisation-all"]}>
-      {gelukt === 1 &&<Alert severity="success" className={styles["categorie-title-personalisatie"]}>Wijzigingen zijn opgeslagen!</Alert>}
       <div className={styles["categorie-titles-personalisatie"]}>
         <p data-cy="naam_rol_template" className={styles["categorie-title-personalisatie"]}>Template {roles}</p>
         <p className={styles["categorie-title-personalisatie"]}>Verander de volgorde van je categorieën!</p>

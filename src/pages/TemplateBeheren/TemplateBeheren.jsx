@@ -9,7 +9,7 @@ import {RolContext} from '../../contexts/RolProvider';
 import {TemplateContext} from '../../contexts/TemplatesProvider';
 import TemplateCategorieRol from '../../components/TemplateCategorieRol/TemplateCategorieRol';
 import{useEffect, useContext} from 'react';
-
+import { useToasts } from 'react-toast-notifications';
 function getStyles(name, personName, theme)
 {
   return {
@@ -26,7 +26,7 @@ export default function TemplateBeheren()
   const [selectedRol, setSelectedRol] = React.useState('MVO Coördinator');
   const {rollen} = useContext(RolContext);
   const {verander, rolNaam, createOrUpdateTemplate, getTemplatesMetCategorie, templatesMetCategorie, templatesRol, getAllTemplatesByRol, setRolNaam} = useContext(TemplateContext);
-  
+  const { addToast } = useToasts();
   const handleChange = (event) =>
   {
     const {
@@ -57,6 +57,10 @@ export default function TemplateBeheren()
           getAllTemplatesByRol();
           getTemplatesMetCategorie(templatesRol);
         }
+        addToast("Wijzigingen zijn opgeslagen!", {
+          appearance: 'success',
+          autoDismiss: true,
+        });
       } catch(error)
       {
         throw error;

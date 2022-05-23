@@ -14,8 +14,10 @@ import { TemplatesProvider } from "./contexts/TemplatesProvider";
 import { AuthProvider } from "./contexts/AuthProvider";
 import "tw-elements";
 import { DatasourceProvider } from "./contexts/DatasourceProvider";
+import { ToastProvider} from 'react-toast-notifications';
 
 createRoot(document.getElementById("root")).render(
+  <ToastProvider placement= 'bottom-right'>
   <BrowserRouter>
     <AuthProvider>
       <DataProvider>
@@ -35,6 +37,7 @@ createRoot(document.getElementById("root")).render(
       </DataProvider>
     </AuthProvider>
   </BrowserRouter>
+  </ToastProvider>
 );
 
 // If you want your app to work offline and load faster, you can change
