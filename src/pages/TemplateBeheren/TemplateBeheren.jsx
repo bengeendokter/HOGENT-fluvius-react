@@ -90,6 +90,7 @@ export default function TemplateBeheren()
         <FormControl className={styles["beheren-header-select"]}>
           <InputLabel id="demo-simple-select-label">Rol</InputLabel>
           <Select
+            data-cy="template_select"
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={selectedRol}
@@ -113,7 +114,7 @@ export default function TemplateBeheren()
       <div>
         {verander && rolNaam && selectedRol && 
           <>
-            <div className={styles["categorie-title"]}> Weergave {selectedRol}</div>
+            <div data-cy="template_weergave" className={styles["categorie-title"]}> Weergave {selectedRol}</div>
             <div className={styles["categorie-container"]}>
               {templatesMetCategorie.map(r => <TemplateCategorieRol key={r.id} {...r} rolTemplate={selectedRol} isPersonalisatieScherm={false} />)}
             </div>
