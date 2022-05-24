@@ -225,21 +225,17 @@ export const TemplatesProvider = ({
     if (categories && categories.length > 0) {
       if (templates.length !== 0) {
         let categorieIDs = categories.map(c => c.CATEGORIEID);
-        console.log("Alle categorieIDS ", categorieIDs)
         const templatesVanRol = templates.filter(t => t.rol === roles);
 
         if (categorieIDs.length !== templatesVanRol.length) {
-          console.log("Alle templates van rol ", templatesVanRol)
           const lengte = categorieIDs.length;
             for (let i = 0; i < lengte; i++) {
               if (i < templatesVanRol.length) {
                 if (categorieIDs.includes(templatesVanRol[i].category_id)) {
-                  console.log("gevonden template", templatesVanRol[i])
                   categorieIDs = categorieIDs.filter(c => c !==templatesVanRol[i].category_id)
                 }
               }
             }
-            console.log("casts", categorieIDs)
             const templatesToCreate = categorieIDs.map(c => ({
               category_id : c,
               rol : roles,
