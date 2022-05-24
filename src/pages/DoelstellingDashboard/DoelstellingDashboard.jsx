@@ -41,7 +41,13 @@ export default function DoelstellingDashboard()
     if(vindDataDoelstelling)
     {
       let x = vindDataDoelstelling.data;
-      return (Object.values(x.sort().reverse()[0]));
+      let maxIndex;
+      let jaren = [];
+      let waarde;
+      x.forEach(d => jaren.push(Number(Object.keys(d)[0])));
+      maxIndex = jaren.indexOf(Math.max(...jaren));
+      waarde = x[maxIndex][`${Math.max(...jaren)}`][0];
+      return waarde;
     }
     return null
   }, [vindDataDoelstelling])
