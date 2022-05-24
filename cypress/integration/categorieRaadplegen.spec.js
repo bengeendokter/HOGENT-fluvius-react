@@ -42,11 +42,6 @@ describe("Categorie raadplegen:", () => {
   });
 
   it("toon bijbehorende doelstellingen", () => {
-    // cy.intercept(
-    //   "GET",
-    //   `http://localhost:9000/api/doelstellingen/categorie/2`,
-    //   { fixture: "doelstellingenCategorie1.json" }
-    // );
 
     cy.intercept("GET", `http://localhost:9000/api/categories/1`, {
       fixture: "categorie.json",
