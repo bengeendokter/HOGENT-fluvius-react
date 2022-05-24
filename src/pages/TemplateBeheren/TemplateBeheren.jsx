@@ -122,7 +122,7 @@ export default function TemplateBeheren()
       <div>
         {verander && rolNaam && selectedRol &&
           <>
-            <div data-cy="template_weergave" className={styles["categorie-title"]}> Weergave {selectedRol.isArray()  ? (selectedRol[0].startsWith("MVO") ? "MVO-coördinator" : selectedRol[0]) : (selectedRol.startsWith("MVO") ? "MVO-coördinator" : selectedRol)}</div>
+            <div data-cy="template_weergave" className={styles["categorie-title"]}> Weergave {selectedRol.length !== 0  ? (selectedRol[0].startsWith("MVO") ? "MVO-coördinator" : selectedRol[0]) : (selectedRol.startsWith("MVO") ? "MVO-coördinator" : selectedRol)}</div>
             <div className={styles["categorie-container"]}>
               {templatesMetCategorie.map(r => <TemplateCategorieRol key={r.id} {...r} rolTemplate={selectedRol} isPersonalisatieScherm={false} />)}
             </div>
