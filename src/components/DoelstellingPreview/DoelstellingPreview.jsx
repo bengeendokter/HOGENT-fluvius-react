@@ -36,7 +36,7 @@ export default function DoelstellingPreview({id, doelwaarde: doelwaardeProp, isM
             {
                 setKleur('doelbehaaldGoed');
             }
-            else if(percentage < 20)
+            else if(percentage < 0)
             {
                 setKleur('doelbehaaldBijnaGoed');
             }
@@ -56,7 +56,7 @@ export default function DoelstellingPreview({id, doelwaarde: doelwaardeProp, isM
             {
                 setKleur('doelbehaaldGoed');
             }
-            else if(percentage >= - 20)
+            else if(percentage >= 0)
             {
                 setKleur('doelbehaaldBijnaGoed');
             }
