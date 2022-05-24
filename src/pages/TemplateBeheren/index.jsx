@@ -1,1 +1,1 @@
-export {default} from "./TemplateBeheren"
+export {default} from "./TemplateBeheren";

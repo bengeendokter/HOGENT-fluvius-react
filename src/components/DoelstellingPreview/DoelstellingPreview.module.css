@@ -3,7 +3,7 @@
   --clr-doel: var(--clr-negative);
   border-radius: 15px;
   background-color: var(--clr-background);
-  padding: 0.3em;
+  padding: .3em;
   box-shadow: 7px 7px 0px 0px var(--clr-doel);
   transition: box-shadow .2s ease;
   width: 100%;
@@ -25,14 +25,17 @@
 {
   --clr-doel: var(--clr-grenswaardeGoed);
 }
+
 .doelbehaaldBijnaGoed
 {
   --clr-doel: var(--clr-grenswaardeBijnaGoed);
 }
+
 .doelbehaaldSlecht
 {
   --clr-doel: var(--clr-grenswaardeSlecht);
 }
+
 .doelbehaaldHeelSlecht
 {
   --clr-doel: var(--clr-grenswaardeHeelSlecht);
@@ -45,17 +48,17 @@
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 33px;
-  margin-block-end: 0.3em;
+  margin-block-end: .3em;
 }
 
 .label
 {
-  font-size:  1.2rem;
+  font-size: 1.2rem;
   font-style: italic;
 }
 
-.huidigeWaarde-div,
-.doelwaarde-div{
+.huidigeWaarde-div, .doelwaarde-div
+{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -72,7 +75,8 @@
   margin-left: auto;
 }
 
-.doelstelling div + div {
+.doelstelling div + div
+{
   margin-top: 10px;
 }
 
@@ -81,7 +85,7 @@
   text-align: right;
   font-weight: 500;
   font-size: 1.3rem;
-  margin-block-start: 0.6em;
+  margin-block-start: .6em;
   color: var(--clr-doel);
   font-style: italic;
 }
@@ -99,8 +103,10 @@
   --percent-decoratie: underline;
 }
 
-@media screen and (min-width: 1280px) {
-  .doelstelling {
+@media screen and (min-width: 1280px)
+{
+  .doelstelling
+  {
     flex: 0 1 350px;
   }
 }

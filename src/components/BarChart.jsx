@@ -1,21 +1,23 @@
+import annotationPlugin from "chartjs-plugin-annotation";
+import zoomPlugin from "chartjs-plugin-zoom";
 import React, {useContext, useEffect} from "react";
 import {Bar, Chart} from "react-chartjs-2";
-import zoomPlugin from "chartjs-plugin-zoom";
-import annotationPlugin from "chartjs-plugin-annotation";
-import styles from "./BarChart/BarChart.module.css"
-import { DataContext } from '../contexts/DataProvider';
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
+import {DataContext} from '../contexts/DataProvider';
+import styles from "./BarChart/BarChart.module.css";
 
 Chart.register(zoomPlugin);
 Chart.register(annotationPlugin);
 
 const BarChart = ({naam, id}) =>
 {
-  const { id: ID} = useParams();
+  const {id: ID} = useParams();
 
   const {data: x, getAllDataByDoelstellingId, alldata} = useContext(DataContext);
-  useEffect(() => {
-    if(x.length >= 1) {
+  useEffect(() =>
+  {
+    if(x.length >= 1)
+    {
       getAllDataByDoelstellingId(ID);
     }
   }, [ID, getAllDataByDoelstellingId, x.length]);
@@ -35,23 +37,24 @@ const BarChart = ({naam, id}) =>
 
 
   alldata.reverse().map(d =>
+  {
+    let kleur = kleuren[Math.floor(Math.random() * kleuren.length)];
+    let voorwaarde = gebruikt.includes(kleur);
+    while(voorwaarde)
     {
-      let kleur = kleuren[Math.floor(Math.random()*kleuren.length)];
-      let voorwaarde = gebruikt.includes(kleur);
-      while (voorwaarde) {
-        kleur = kleuren[Math.floor(Math.random()*kleuren.length)];
-        voorwaarde = gebruikt.includes(kleur);
-      }
-      gebruikt.push(kleur);
-
-      doels.push(d.doelwaarde);
-
-      dataLabels.push(d.jaar);
-      dataWaarden.push(d.data[0].value);
-      dataKleuren.push(kleur);
-      return true;
+      kleur = kleuren[Math.floor(Math.random() * kleuren.length)];
+      voorwaarde = gebruikt.includes(kleur);
     }
-  ); 
+    gebruikt.push(kleur);
+
+    doels.push(d.doelwaarde);
+
+    dataLabels.push(d.jaar);
+    dataWaarden.push(d.data[0].value);
+    dataKleuren.push(kleur);
+    return true;
+  }
+  );
 
   let data = {
     labels: dataLabels,
@@ -65,7 +68,8 @@ const BarChart = ({naam, id}) =>
     }],
   };
 
-  if (alldata.length !== 1) {
+  if(alldata.length !== 1)
+  {
     data.datasets.push({
       order: 0,
       type: 'line',
@@ -75,11 +79,12 @@ const BarChart = ({naam, id}) =>
       borderColor: "orange",
       lineTension: 0.5
     });
-  } 
+  }
 
   let optionAnnotations = [];
 
-  if (alldata.length === 1) { 
+  if(alldata.length === 1)
+  {
     optionAnnotations.push({
       type: "line",
       mode: "horizontal",
@@ -96,7 +101,7 @@ const BarChart = ({naam, id}) =>
         }
       },
     });
-  } 
+  }
 
   const options = {
     scales: {
@@ -124,7 +129,8 @@ const BarChart = ({naam, id}) =>
             size: 25,
             weight: 600,
           },
-          filter: item => {
+          filter: item =>
+          {
             return item.text !== "Waarden"
           }
         }
@@ -146,16 +152,16 @@ const BarChart = ({naam, id}) =>
     },
   };
 
-  
 
-  
+
+
   return (
     x && alldata && dataD && <>
-    <div className={styles["barchart"]}>
-      {<Bar data={data} options={options}/> }  
-    </div>
+      <div className={styles["barchart"]}>
+        {<Bar data={data} options={options} />}
+      </div>
     </>
-    
+
   );
 };
 

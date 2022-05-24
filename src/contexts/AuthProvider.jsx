@@ -1,34 +1,37 @@
-import { createContext, useMemo, useState, useCallback, useEffect, useContext } from 'react';
-import * as klantenApi from '../api/klanten';
+import {Buffer} from 'buffer';
+import {createContext, useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import * as api from '../api';
+import * as klantenApi from '../api/klanten';
 import config from '../config.json';
 
-import {Buffer} from 'buffer';
 
 const JWT_TOKEN_KEY = config.token_key;
 const AuthContext = createContext();
 
-function parseJwt(token) {
-  if (!token) return {};
+function parseJwt(token)
+{
+  if(!token) return {};
   const base64Url = token.split('.')[1];
   const payload = Buffer.from(base64Url, 'base64');
   const jsonPayload = payload.toString('utf8');
   return JSON.parse(jsonPayload);
-  
+
 }
 
-function parseExp(exp) {
-  if (!exp) return null;
-  if (typeof exp !== 'number') exp = Number(exp);
-  if (isNaN(exp)) return null;
+function parseExp(exp)
+{
+  if(!exp) return null;
+  if(typeof exp !== 'number') exp = Number(exp);
+  if(isNaN(exp)) return null;
   return new Date(exp * 1000);
-  
+
 }
 
 const useAuth = () => useContext(AuthContext);
 
-export const useSession = () => {
-  const { token, klant, roles, ready, loading, error, setError, hasRole, setSession } = useAuth();
+export const useSession = () =>
+{
+  const {token, klant, roles, ready, loading, error, setError, hasRole, setSession} = useAuth();
   return {
     token,
     klant,
@@ -43,24 +46,28 @@ export const useSession = () => {
   };
 };
 
-export const useLogin = () => {
-  const { login } = useAuth();
+export const useLogin = () =>
+{
+  const {login} = useAuth();
   return login;
 };
 
-export const useLogout = () => {
-  const { logout } = useAuth();
+export const useLogout = () =>
+{
+  const {logout} = useAuth();
   return logout;
 };
 
-export const useRegister = () => {
-  const { register } = useAuth();
+export const useRegister = () =>
+{
+  const {register} = useAuth();
   return register;
 };
 
 export const AuthProvider = ({
   children,
-}) => {
+}) =>
+{
   const [ready, setReady] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -68,72 +75,88 @@ export const AuthProvider = ({
   const [klant, setKlant] = useState(null);
   const [roles, setRoles] = useState([]);
 
-  const setSession = useCallback(async (token, klant) => {
+  const setSession = useCallback(async (token, klant) =>
+  {
     setKlant(klant);
     const {exp, roles} = parseJwt(token);
     setRoles(roles);
     const expiry = parseExp(exp);
     const stillValid = expiry >= new Date();
 
-    if (token) {
-      if (stillValid) {
+    if(token)
+    {
+      if(stillValid)
+      {
         localStorage.setItem(JWT_TOKEN_KEY, token);
-      } else {
+      } else
+      {
         localStorage.removeItem(JWT_TOKEN_KEY);
         token = null;
         setError("Uw sessie is verlopen, log in om toegang te krijgen")
       }
-    } else {
+    } else
+    {
       localStorage.removeItem(JWT_TOKEN_KEY);
     }
-    
+
     api.setAuthToken(token);
     setToken(token);
     setReady(token && stillValid);
-    
+
   }, []);
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     setSession(token, klant);
   });
 
-  
 
-  const login = useCallback(async (gebruikersnaam, wachtwoord) => {
-    try {
+
+  const login = useCallback(async (gebruikersnaam, wachtwoord) =>
+  {
+    try
+    {
       setLoading(true);
       setError(null);
-      const { token, user } = await klantenApi.login(gebruikersnaam, wachtwoord);
+      const {token, user} = await klantenApi.login(gebruikersnaam, wachtwoord);
       await setSession(token, user);
       return true;
-    } catch (error) {
+    } catch(error)
+    {
       setError('Het inloggen is mislukt, probeer opnieuw');
       return false;
-    } finally {
+    } finally
+    {
       setLoading(false);
     }
   }, [setSession]);
 
-  const register = useCallback(async (data) => {
-    try {
+  const register = useCallback(async (data) =>
+  {
+    try
+    {
       setLoading(true);
       setError(null);
-      const { token, klant } = await klantenApi.register(data);
+      const {token, klant} = await klantenApi.register(data);
       await setSession(token, klant);
       return true;
-    } catch (error) {
+    } catch(error)
+    {
       setError(error);
       return false;
-    } finally {
+    } finally
+    {
       setLoading(false);
     }
   }, [setSession]);
 
-  const logout = useCallback(() => {
+  const logout = useCallback(() =>
+  {
     setSession(null, null);
   }, [setSession]);
 
-  const hasRole = useCallback((role) => {
+  const hasRole = useCallback((role) =>
+  {
     return roles.includes(role);
   }, [roles]);
 

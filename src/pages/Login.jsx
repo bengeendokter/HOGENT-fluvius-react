@@ -1,10 +1,10 @@
 import {useCallback} from 'react';
 import {FormProvider, useForm} from 'react-hook-form';
-import {useNavigate, Navigate} from 'react-router';
-import LabelInput from '../components/LabelInput';
-import itsme from "../images/itsme.avif";
+import {Navigate, useNavigate} from 'react-router';
 import {Link} from "react-router-dom";
+import LabelInput from '../components/LabelInput';
 import {useLogin, useSession} from '../contexts/AuthProvider';
+import itsme from "../images/itsme.avif";
 
 const validationRules = {
   gebruikersnaam: {
@@ -82,8 +82,8 @@ export default function Login()
             label="Gebruikersnaam"
             type="text"
             defaultValue=""
-            data-cy="gebruikersnaam_input" 
-            validation={validationRules.gebruikersnaam}/>
+            data-cy="gebruikersnaam_input"
+            validation={validationRules.gebruikersnaam} />
           <LabelInput
             name="wachtwoord"
             label="Wachtwoord"

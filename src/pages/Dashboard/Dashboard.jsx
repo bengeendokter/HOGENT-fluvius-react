@@ -1,11 +1,11 @@
-import styles from './Dashboard.module.css';
+import {useContext, useEffect, useState} from 'react';
 import AccordionCategory from '../../components/AccordionCategory';
-import {useCategories} from "../../contexts/CategorieProvider";
 import {useSession} from "../../contexts/AuthProvider";
-import{useContext, useEffect, useState} from 'react';
-import {SdgContext} from '../../contexts/SdgProvider';
+import {useCategories} from "../../contexts/CategorieProvider";
 import {DoelstellingContext} from '../../contexts/DoelstellingProvider';
+import {SdgContext} from '../../contexts/SdgProvider';
 import {TemplateContext} from '../../contexts/TemplatesProvider';
+import styles from './Dashboard.module.css';
 
 export default function Dashboard()
 {
@@ -17,24 +17,27 @@ export default function Dashboard()
   const [nieuwe, setNieuwe] = useState([]);
 
   useEffect(() =>
-  {async function fetchData()
   {
-    setRolNaam(roles);
-    await getAllTemplatesByRol();
-  }
-  fetchData();
-}, [setRolNaam, roles, getAllTemplatesByRol]);
-
-
-  useEffect(() => {
-    if(templatesRol.length !== 0){
-        getTemplatesMetCategorie(templatesRol);
-      }
+    async function fetchData()
+    {
+      setRolNaam(roles);
+      await getAllTemplatesByRol();
     }
-  ,[templatesRol,getTemplatesMetCategorie ]);
+    fetchData();
+  }, [setRolNaam, roles, getAllTemplatesByRol]);
+
 
   useEffect(() =>
-  { 
+  {
+    if(templatesRol.length !== 0)
+    {
+      getTemplatesMetCategorie(templatesRol);
+    }
+  }
+    , [templatesRol, getTemplatesMetCategorie]);
+
+  useEffect(() =>
+  {
     setCategoriesSdgs(categories);
     getSdgsVoorCategories();
   }, [categories, setCategoriesSdgs, getSdgsVoorCategories]);
@@ -45,24 +48,31 @@ export default function Dashboard()
     getDoelstellingenVoorCategories();
   }, [categoriesMetSdgs, setCategoriesDoelstellingen, getDoelstellingenVoorCategories]);
 
-  useEffect(() => {
-    if(categoriesMetDoelstellingen.length !== 0){
-      const templatesMetCategorieVisiblesSorted = templatesMetCategorie.filter(el => el.is_visible === 1).sort(({ order: f1 }, { order: f2 }) => {
+  useEffect(() =>
+  {
+    if(categoriesMetDoelstellingen.length !== 0)
+    {
+      const templatesMetCategorieVisiblesSorted = templatesMetCategorie.filter(el => el.is_visible === 1).sort(({order: f1}, {order: f2}) =>
+      {
         return f1 < f2 ? -1 : f1 > f2 ? 1 : 0;
-        });
-        const newar = [];
-        for (let m = 0; m < categoriesMetDoelstellingen.length; m++) {
-          for (let k = 0; k < templatesMetCategorieVisiblesSorted.length; k++) {
-            if(templatesMetCategorieVisiblesSorted[k].category_id === categoriesMetDoelstellingen[m].naam){
-              newar.push({id: categoriesMetDoelstellingen[m].id, naam: categoriesMetDoelstellingen[m].naam, sdgs: categoriesMetDoelstellingen[m].sdgs, doelstellingen: categoriesMetDoelstellingen[m].doelstellingen, order:templatesMetCategorieVisiblesSorted[k].order });
-            }
+      });
+      const newar = [];
+      for(let m = 0; m < categoriesMetDoelstellingen.length; m++)
+      {
+        for(let k = 0; k < templatesMetCategorieVisiblesSorted.length; k++)
+        {
+          if(templatesMetCategorieVisiblesSorted[k].category_id === categoriesMetDoelstellingen[m].naam)
+          {
+            newar.push({id: categoriesMetDoelstellingen[m].id, naam: categoriesMetDoelstellingen[m].naam, sdgs: categoriesMetDoelstellingen[m].sdgs, doelstellingen: categoriesMetDoelstellingen[m].doelstellingen, order: templatesMetCategorieVisiblesSorted[k].order});
           }
         }
-          setNieuwe(newar.sort(({ order: f1 }, { order: f2 }) => {
-            return f1 < f2 ? -1 : f1 > f2 ? 1 : 0;
-            }));
+      }
+      setNieuwe(newar.sort(({order: f1}, {order: f2}) =>
+      {
+        return f1 < f2 ? -1 : f1 > f2 ? 1 : 0;
+      }));
     }
-  },[categoriesMetDoelstellingen, templatesMetCategorie]);
+  }, [categoriesMetDoelstellingen, templatesMetCategorie]);
 
 
   return (

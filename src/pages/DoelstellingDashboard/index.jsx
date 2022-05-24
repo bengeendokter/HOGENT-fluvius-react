@@ -1,1 +1,1 @@
-export {default} from "./DoelstellingDashboard"
+export {default} from "./DoelstellingDashboard";

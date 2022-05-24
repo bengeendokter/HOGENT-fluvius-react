@@ -2,15 +2,15 @@
 {
   background-color: var(--clr-background-muted);
   border-radius: 15px;
-  box-shadow: -2px 2px 20px rgba(0, 0, 0, 0.18);
+  box-shadow: -2px 2px 20px rgba(0, 0, 0, .18);
 }
 
 .header
 {
   display: flex;
-  padding-inline: 0.8em;
-  padding-block: 0.7em;
-  gap: 0.7em;
+  padding-inline: .8em;
+  padding-block: .7em;
+  gap: .7em;
   align-items: center;
 }
 

@@ -1,15 +1,15 @@
-import * as React from 'react';
-import styles from './TemplateBeheren.module.css';
-import {useTheme} from '@mui/material/styles';
+import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import {useTheme} from '@mui/material/styles';
+import * as React from 'react';
+import {useContext, useEffect} from 'react';
+import {useToasts} from 'react-toast-notifications';
+import TemplateCategorieRol from '../../components/TemplateCategorieRol/TemplateCategorieRol';
 import {RolContext} from '../../contexts/RolProvider';
 import {TemplateContext} from '../../contexts/TemplatesProvider';
-import TemplateCategorieRol from '../../components/TemplateCategorieRol/TemplateCategorieRol';
-import{useEffect, useContext} from 'react';
-import { useToasts } from 'react-toast-notifications';
+import styles from './TemplateBeheren.module.css';
 
 function getStyles(name, personName, theme)
 {
@@ -27,7 +27,7 @@ export default function TemplateBeheren()
   const [selectedRol, setSelectedRol] = React.useState('MVO Coördinator');
   const {rollen} = useContext(RolContext);
   const {verander, rolNaam, createOrUpdateTemplate, getTemplatesMetCategorie, templatesMetCategorie, templatesRol, getAllTemplatesByRol, setRolNaam} = useContext(TemplateContext);
-  const { addToast } = useToasts();
+  const {addToast} = useToasts();
   const handleChange = (event) =>
   {
     const {
@@ -45,15 +45,16 @@ export default function TemplateBeheren()
       {
         if(selectedRol[0] !== undefined)
         {
-         for (let m = 0; m < templatesMetCategorie.length; m++) {
-          await createOrUpdateTemplate({
-            id: templatesMetCategorie[m].id,
-            category_id: templatesMetCategorie[m].category_id,
-            rol: selectedRol[0],
-            is_visible: 1,
-            is_costumisable: (selectedRol[0] === "Stakeholder") ? 0 : 1,
-            order: templatesMetCategorie[m].order
-          });
+          for(let m = 0; m < templatesMetCategorie.length; m++)
+          {
+            await createOrUpdateTemplate({
+              id: templatesMetCategorie[m].id,
+              category_id: templatesMetCategorie[m].category_id,
+              rol: selectedRol[0],
+              is_visible: 1,
+              is_costumisable: (selectedRol[0] === "Stakeholder") ? 0 : 1,
+              order: templatesMetCategorie[m].order
+            });
           }
           getAllTemplatesByRol();
           getTemplatesMetCategorie(templatesRol);
@@ -102,22 +103,22 @@ export default function TemplateBeheren()
             label="Age"
             onChange={handleChange}
           >
-          {rollen.map((rol) => (
-            <MenuItem
-              key={rol.NAAM}
-              value={rol.NAAM}
-              style={getStyles(rol.NAAM, selectedRol, theme)}
-            >
-              {rol.NAAM}
-            </MenuItem>))}
+            {rollen.map((rol) => (
+              <MenuItem
+                key={rol.NAAM}
+                value={rol.NAAM}
+                style={getStyles(rol.NAAM, selectedRol, theme)}
+              >
+                {rol.NAAM}
+              </MenuItem>))}
           </Select>
         </FormControl>
-          <button onClick={reset} className={styles["beheren-header-button"]}>
-            Herstel standaardweergave
-          </button>
+        <button onClick={reset} className={styles["beheren-header-button"]}>
+          Herstel standaardweergave
+        </button>
       </div>
       <div>
-        {verander && rolNaam && selectedRol && 
+        {verander && rolNaam && selectedRol &&
           <>
             <div data-cy="template_weergave" className={styles["categorie-title"]}> Weergave {selectedRol}</div>
             <div className={styles["categorie-container"]}>

@@ -1,11 +1,10 @@
-import styles from './CategorieDashboard.module.css';
-import {DoelstellingContext} from '../../contexts/DoelstellingProvider';
-import {useParams} from "react-router-dom";
 import {useContext, useEffect} from 'react';
-import {NavLink} from "react-router-dom";
-import {SdgContext} from '../../contexts/SdgProvider';
+import {NavLink, useParams} from "react-router-dom";
 import DoelstellingPreview from "../../components/DoelstellingPreview/DoelstellingPreview";
 import {useCategories} from "../../contexts/CategorieProvider";
+import {DoelstellingContext} from '../../contexts/DoelstellingProvider';
+import {SdgContext} from '../../contexts/SdgProvider';
+import styles from './CategorieDashboard.module.css';
 
 export default function CategorieDashboard()
 {
@@ -17,13 +16,14 @@ export default function CategorieDashboard()
 
   useEffect(() =>
   {
-    if (categories.length >= 1 && doelstellingen.length >= 1) {
+    if(categories.length >= 1 && doelstellingen.length >= 1)
+    {
       setCatId(id);
       getDoelstellingByCategorieID();
       setCatId1(id);
       getSdgsByCategorieId();
     }
-    
+
   }, [setCatId, setCatId1, getDoelstellingByCategorieID, getSdgsByCategorieId, id, categories.length, doelstellingen.length]);
 
   let cat = categories.filter(c => c.CATEGORIEID === Number(id))[0];
@@ -63,7 +63,8 @@ export default function CategorieDashboard()
 
           </div>
           <div className={styles["sdgs"]}>
-            {arrayIcons?.map(s => {
+            {arrayIcons?.map(s =>
+            {
               return <>
                 <a href={`https://sdgs.un.org/goals/goal${s.substring(8).split("").reverse().join("").substring(4).split("").reverse().join("")}`} target="_blank" rel="noreferrer">
                   <img className={styles["sdg"]} src={`/assets${s}`} key={s} alt={`${s}`} />
@@ -90,8 +91,8 @@ export default function CategorieDashboard()
             </div>
           }
         </div>
-        
-        </div>}
+
+      </div>}
     </>
   );
 }

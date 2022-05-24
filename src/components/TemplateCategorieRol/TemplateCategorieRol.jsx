@@ -1,21 +1,25 @@
-import styles from './TemplateCategorieRol.module.css';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import {useEffect, useContext, useCallback, useState} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
+import {useToasts} from 'react-toast-notifications';
 import {TemplateContext} from '../../contexts/TemplatesProvider';
-import { useToasts } from 'react-toast-notifications';
+import styles from './TemplateCategorieRol.module.css';
 
 
 
-export default function TemplateCategorieRol({isPersonalisatieScherm, ...r}) {
-  const {id, is_visible, icon, category_id, is_costumisable, rolTemplate } = r;
+export default function TemplateCategorieRol({isPersonalisatieScherm, ...r})
+{
+  const {id, is_visible, icon, category_id, is_costumisable, rolTemplate} = r;
   const {createOrUpdateTemplate} = useContext(TemplateContext);
   const [visible, setVisible] = useState(is_visible);
-  const { addToast } = useToasts();
+  const {addToast} = useToasts();
 
-  const handleClick = useCallback(async () => {
-    try {
-      if (visible === 1) {
+  const handleClick = useCallback(async () =>
+  {
+    try
+    {
+      if(visible === 1)
+      {
         await createOrUpdateTemplate({
           id: id,
           category_id: category_id,
@@ -24,7 +28,8 @@ export default function TemplateCategorieRol({isPersonalisatieScherm, ...r}) {
           is_costumisable: is_costumisable,
         });
         setVisible(0);
-      } else {
+      } else
+      {
         await createOrUpdateTemplate({
           id: id,
           category_id: category_id,
@@ -38,7 +43,8 @@ export default function TemplateCategorieRol({isPersonalisatieScherm, ...r}) {
         appearance: 'success',
         autoDismiss: true,
       });
-    } catch (error) {
+    } catch(error)
+    {
       console.error(error);
       addToast("Oops, er is iets misgegaan. Het is niet mogelijk om alle categorieën onzichtbaar te maken.", {
         appearance: 'error',
@@ -55,28 +61,28 @@ export default function TemplateCategorieRol({isPersonalisatieScherm, ...r}) {
 
   return (
     <>
-    {r &&
-    <>
-    {!isPersonalisatieScherm?
-      <div data-cy="template_rol" className={styles["card"]}>
-        <img className={styles["card-img"]} src={`/assets${icon.substring(8)}`}  alt="icon"/>
-        <div className={styles["card-info"]}>
-          <div className={styles["card-title"]}>{category_id}</div>
-          {!isPersonalisatieScherm && 
-            <div data-cy="oog" className={styles["card-buttons"]}>
-              {visible === 1?
-                <div onClick={handleClick} className={styles["card-button-green"]}>
-                  <VisibilityIcon />
-                </div>
-                :
-                <div onClick={handleClick} className={styles["card-button-red"]}>
-                  <VisibilityOffIcon />
-                </div>
-              }
-            </div>
-          }
-        </div>
-        {/* {!isPersonalisatieScherm && 
+      {r &&
+        <>
+          {!isPersonalisatieScherm ?
+            <div data-cy="template_rol" className={styles["card"]}>
+              <img className={styles["card-img"]} src={`/assets${icon.substring(8)}`} alt="icon" />
+              <div className={styles["card-info"]}>
+                <div className={styles["card-title"]}>{category_id}</div>
+                {!isPersonalisatieScherm &&
+                  <div data-cy="oog" className={styles["card-buttons"]}>
+                    {visible === 1 ?
+                      <div onClick={handleClick} className={styles["card-button-green"]}>
+                        <VisibilityIcon />
+                      </div>
+                      :
+                      <div onClick={handleClick} className={styles["card-button-red"]}>
+                        <VisibilityOffIcon />
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+              {/* {!isPersonalisatieScherm && 
           <>
             {verander === 1 && gelukt === 1 &&
               <Alert severity="success">Wijzigingen zijn opgeslagen!</Alert>
@@ -86,19 +92,19 @@ export default function TemplateCategorieRol({isPersonalisatieScherm, ...r}) {
             }
           </>
         } */}
-      </div>
-      :
-      <>
-        <img className={styles["card-img"]} src={`/assets${icon.substring(8)}`}  alt="icon"/>
-        <div className={styles["card-info"]}>
-          <div className={styles["card-title"]}>
-            {category_id}
-          </div>
-        </div>
-      </>
-    }
-    </>
-    } 
+            </div>
+            :
+            <>
+              <img className={styles["card-img"]} src={`/assets${icon.substring(8)}`} alt="icon" />
+              <div className={styles["card-info"]}>
+                <div className={styles["card-title"]}>
+                  {category_id}
+                </div>
+              </div>
+            </>
+          }
+        </>
+      }
     </>
   );
 }

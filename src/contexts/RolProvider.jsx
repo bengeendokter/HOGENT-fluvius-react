@@ -1,12 +1,10 @@
-import {
-  createContext,
-  useState,
-  useEffect,
-  useCallback,
+import
+{
+  createContext, useCallback, useEffect, useState
 } from 'react';
-
 import * as rolApi from "../api/rollen";
-import { useSession } from './AuthProvider';
+import {useSession} from './AuthProvider';
+
 
 export const RolContext = createContext();
 
@@ -14,35 +12,42 @@ export const RolContext = createContext();
 
 export const RolProvider = ({
   children
-}) => {
+}) =>
+{
   const [initialLoad, setInitialLoad] = useState(false);
 
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [rollen, setRollen] = useState([]);
 
-  
 
-  const { ready : authReady } = useSession();
 
-  const refreshRollen = useCallback(async () => {
-    try {
+  const {ready: authReady} = useSession();
+
+  const refreshRollen = useCallback(async () =>
+  {
+    try
+    {
       setError('');
       setLoading(true);
       const data = await rolApi.getAllRollen();
       setRollen(data.data);
       return true;
-    } catch (error) {
+    } catch(error)
+    {
       setError(error);
       return false;
-    } finally {
+    } finally
+    {
       setLoading(false)
     }
 
   }, []);
 
-  useEffect(() => {
-    if (authReady && !initialLoad) {
+  useEffect(() =>
+  {
+    if(authReady && !initialLoad)
+    {
       refreshRollen();
       setInitialLoad(true);
     }
@@ -52,7 +57,7 @@ export const RolProvider = ({
 
 
   return (
-    <RolContext.Provider value={{ refreshRollen,  rollen, error, setError, loading, setLoading}}>
+    <RolContext.Provider value={{refreshRollen, rollen, error, setError, loading, setLoading}}>
       {children}
     </RolContext.Provider>
   );

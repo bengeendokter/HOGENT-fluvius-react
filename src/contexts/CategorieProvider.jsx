@@ -1,56 +1,61 @@
-import {
-  createContext,
-  useState,
-  useEffect,
-  useCallback,
-  useContext,
-  useMemo
+import
+{
+  createContext, useCallback,
+  useContext, useEffect, useMemo, useState
 } from 'react';
-
 import * as categoriesApi from "../api/categories";
-import { useSession } from './AuthProvider';
+import {useSession} from './AuthProvider';
+
 
 export const CategorieContext = createContext();
 export const useCategories = () => useContext(CategorieContext);
 
 export const CategorieProvider = ({
   children
-}) => {
+}) =>
+{
   const [initialLoad, setInitialLoad] = useState(false);
-  const [currentCategorie, setCurrentCategorie] = useState({test:0});
+  const [currentCategorie, setCurrentCategorie] = useState({test: 0});
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [catId, setCatId] = useState(0);
 
-  const { ready : authReady } = useSession();
+  const {ready: authReady} = useSession();
 
-  const refreshCategories = useCallback(async () => {
-    try {
+  const refreshCategories = useCallback(async () =>
+  {
+    try
+    {
       setError('');
       setLoading(true);
       const data = await categoriesApi.getAllCategories();
       setCategories(data.data);
       return true;
-    } catch (error) {
+    } catch(error)
+    {
       setError(error);
       return false;
-    } finally {
+    } finally
+    {
       setLoading(false)
     }
 
   }, []);
 
-  useEffect(() => {
-    if (authReady && !initialLoad) {
+  useEffect(() =>
+  {
+    if(authReady && !initialLoad)
+    {
       refreshCategories();
       setInitialLoad(true);
     }
   }, [authReady, initialLoad, refreshCategories]);
 
-  
+
   const setCategorieToUpdate = useCallback(
-    (id) => {
+    (id) =>
+    {
       setCurrentCategorie(
         id === null ? {} : categories.find((t) => t.CATEGORIEID === parseInt(id))
       );
@@ -59,7 +64,8 @@ export const CategorieProvider = ({
   );
 
   const setCurrent = useCallback(
-    (categorie) => {
+    (categorie) =>
+    {
 
       setCurrentCategorie(
         categorie === null ? {} : categorie
@@ -68,17 +74,21 @@ export const CategorieProvider = ({
     []
   );
 
-  const getCategorieByID = useCallback(async () => {
-    try {
+  const getCategorieByID = useCallback(async () =>
+  {
+    try
+    {
       setError('');
       setLoading(true);
       const data = await categoriesApi.getCategorieByID(catId);
       setCurrentCategorie(data);
       return data;
-    } catch (error) {
+    } catch(error)
+    {
       setError(error);
       return null;
-    } finally {
+    } finally
+    {
       setLoading(false)
     }
 

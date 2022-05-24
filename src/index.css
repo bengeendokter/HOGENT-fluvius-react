@@ -2,176 +2,198 @@
 @tailwind components;
 @tailwind utilities;
 
-:root, ::backdrop {
-    --hsl-blauw-fluvius: 192, 90%, 20%;
-    --hsl-groen-fluvius: 70, 58%, 54%;
-    --hsl-black: 240, 100%, 0%;
-    --hsl-white: 240, 100%, 100%;
-    --hsl-oranje-itsme: 13, 100%, 54%;
-    --hsl-gray: 180, 8%, 95%;
-    --hsl-yellow: 51, 94%, 69%;
-    --hsl-red: 360, 96%, 51%;
-    --hsl-orange: 26, 95%, 59%;
-    --hsl-blauw-fluvius-muted: 193, 22%, 92%;
-
-    --clr-primary: hsla(var(--hsl-blauw-fluvius));
-    --clr-secondary: hsla(var(--hsl-groen-fluvius));
-    --clr-accent: hsla(var(--hsl-white));
-    --clr-negative: hsla(var(--hsl-oranje-itsme));
-    --clr-grenswaardeBijnaGoed: hsla(var(--hsl-yellow));
-    --clr-background: hsla(var(--hsl-white));
-    --clr-background-muted: hsla(var(--hsl-blauw-fluvius-muted));
-    --clr-foreground: hsla(var(--hsl-black));
-
-    --clr-grenswaardeBijnaGoed: hsla(var(--hsl-yellow));
-    --clr-grenswaardeGoed: hsla(var(--hsl-groen-fluvius));
-    --clr-grenswaardeSlecht: hsla(var(--hsl-orange));
-    --clr-grenswaardeHeelSlecht: hsla(var(--hsl-red));
+:root, ::backdrop
+{
+  --hsl-blauw-fluvius: 192, 90%, 20%;
+  --hsl-groen-fluvius: 70, 58%, 54%;
+  --hsl-black: 240, 100%, 0%;
+  --hsl-white: 240, 100%, 100%;
+  --hsl-oranje-itsme: 13, 100%, 54%;
+  --hsl-gray: 180, 8%, 95%;
+  --hsl-yellow: 51, 94%, 69%;
+  --hsl-red: 360, 96%, 51%;
+  --hsl-orange: 26, 95%, 59%;
+  --hsl-blauw-fluvius-muted: 193, 22%, 92%;
+  --clr-primary: hsla(var(--hsl-blauw-fluvius));
+  --clr-secondary: hsla(var(--hsl-groen-fluvius));
+  --clr-accent: hsla(var(--hsl-white));
+  --clr-negative: hsla(var(--hsl-oranje-itsme));
+  --clr-grenswaardeBijnaGoed: hsla(var(--hsl-yellow));
+  --clr-background: hsla(var(--hsl-white));
+  --clr-background-muted: hsla(var(--hsl-blauw-fluvius-muted));
+  --clr-foreground: hsla(var(--hsl-black));
+  --clr-grenswaardeBijnaGoed: hsla(var(--hsl-yellow));
+  --clr-grenswaardeGoed: hsla(var(--hsl-groen-fluvius));
+  --clr-grenswaardeSlecht: hsla(var(--hsl-orange));
+  --clr-grenswaardeHeelSlecht: hsla(var(--hsl-red));
 }
 
-body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+body
+{
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-        monospace;
+code
+{
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  monospace;
 }
 
 /* Navigation menu */
-nav ul {
-    color: white;
+nav ul
+{
+  color: white;
 }
 
-nav a {
-    text-decoration: none;
+nav a
+{
+  text-decoration: none;
 }
 
-nav a.active {
-    background-color: white;
-    color: #055063;
+nav a.active
+{
+  background-color: white;
+  color: #055063;
 }
 
-nav a.active:hover {
-    text-decoration: none;
+nav a.active:hover
+{
+  text-decoration: none;
 }
 
-nav ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
+nav ul
+{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
 }
 
-nav a {
-    display: block;
-
+nav a
+{
+  display: block;
 }
 
-.header {
-    display: grid;
-    grid-auto-flow: column;
+.header
+{
+  display: grid;
+  grid-auto-flow: column;
 }
 
-@media screen and (max-width: 890px) {
-    .header {
-        grid-auto-flow: row;
-    }
+@media screen and (max-width: 890px)
+{
+  .header
+  {
+    grid-auto-flow: row;
+  }
 
-    .logofluvius,
-    .acountknoppen {
-        justify-self: center;
-    }
+  .logofluvius, .acountknoppen
+  {
+    justify-self: center;
+  }
 }
 
-.navigation {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.navigation
+{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 /* HAMBURGER MENU */
 
 /* muisaanwijzer instellen */
-nav img#hamburger-icon {
-    cursor: pointer;
+nav img#hamburger-icon
+{
+  cursor: pointer;
 }
 
 /* default verbergen we het menu */
-nav ul {
-    display: none;
+nav ul
+{
+  display: none;
 }
 
 /* als de checkbox checked is geven we het menu
 terug weer */
-nav #menu-checkbox:checked~ul {
-    display: block;
+nav #menu-checkbox:checked ~ ul
+{
+  display: block;
 }
 
 /* checkbox moet niet zichtbaar zijn */
-nav #menu-checkbox {
-    display: none;
+nav #menu-checkbox
+{
+  display: none;
 }
 
 /* we plaatsen een 'break point" bij 576px */
-@media screen and (min-width: 576px) {
+@media screen and (min-width: 576px)
+{
+  /* in desktop view is het horizontaal menu altijd zichtbaar */
+  nav ul
+  {
+    display: block;
+    text-align: left;
+  }
 
-    /* in desktop view is het horizontaal menu altijd zichtbaar */
-    nav ul {
-        display: block;
-        text-align: left;
-    }
 
 
-
-    /* in desktop view verbergen we het label dat het hamburger-icon bevat */
-    nav label[for='menu-checkbox'] {
-        display: none;
-    }
+  /* in desktop view verbergen we het label dat het hamburger-icon bevat */
+  nav label[for="menu-checkbox"]
+  {
+    display: none;
+  }
 }
 
 /**/
-.accordion {
-    max-width: 600px;
-    margin: 2rem auto;
+.accordion
+{
+  max-width: 600px;
+  margin: 2rem auto;
 }
 
-.accordion-title {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    cursor: pointer;
-    background-color: #21aeca;
+.accordion-title
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: pointer;
+  background-color: #21aeca;
 }
 
-.accordion-title:hover {
-    background-color: #3ab4cc;
+.accordion-title:hover
+{
+  background-color: #3ab4cc;
 }
 
-.accordion-title,
-.accordion-content {
-    padding: 1rem;
+.accordion-title, .accordion-content
+{
+  padding: 1rem;
 }
 
-.accordion-content {
-    background-color: #39b9d2;
+.accordion-content
+{
+  background-color: #39b9d2;
 }
 
 
-button.accordion-button:not(.collapsed) {
-    background-color: unset;
-    box-shadow: unset;
-    color: unset;
-    fill: unset;
+button.accordion-button:not(.collapsed)
+{
+  background-color: unset;
+  box-shadow: unset;
+  color: unset;
+  fill: unset;
 }
 
-.logout {
-    color: white;
-    width: 50px;
-    height: 50px;
-    z-index: 5;
+.logout
+{
+  color: white;
+  width: 50px;
+  height: 50px;
+  z-index: 5;
 }

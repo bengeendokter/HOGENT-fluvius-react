@@ -1,12 +1,12 @@
-import {NavLink, Link} from 'react-router-dom';
 import {useCallback} from 'react';
-import logo from "../images/logo.png";
+import {Link, NavLink} from 'react-router-dom';
 import {useLogout, useSession} from '../contexts/AuthProvider';
+import logo from "../images/logo.png";
 
 const NavItem = ({
 	to,
 	label,
-	 ...other
+	...other
 }) => (
 
 	<span {...other}>
@@ -36,12 +36,12 @@ export default function NavMenu()
 				<div className="mt-3">
 					<nav className="navigation">
 						<NavItem data-cy="label_dashboard" to="/dashboard" label="DASHBOARD" />
-							{isAuthed && hasRole("MVO coördinator") ? (<><NavItem data-cy="label_rollen_beheren" to="/templateBeheren" label="ROLLEN BEHEREN" /></>) : (<></>)}
-							{isAuthed && (hasRole("MVO coördinator") || hasRole("Manager") || hasRole("Directie"))? (<><NavItem data-cy="label_personaliseren" to="/overzichtWijzigen" label="DASHBOARD PERSONALISEREN" /></>) : (<></>)}
+						{isAuthed && hasRole("MVO coördinator") ? (<><NavItem data-cy="label_rollen_beheren" to="/templateBeheren" label="ROLLEN BEHEREN" /></>) : (<></>)}
+						{isAuthed && (hasRole("MVO coördinator") || hasRole("Manager") || hasRole("Directie")) ? (<><NavItem data-cy="label_personaliseren" to="/overzichtWijzigen" label="DASHBOARD PERSONALISEREN" /></>) : (<></>)}
 					</nav>
 				</div>
 				<div className="mt-3 text-center">
-					{isAuthed ? <NavItem to="/login" label="AFMELDEN" className='logout' data-cy="logout_btn" onClick={handleClick}/> : <NavItem to="/login" label="AANMELDEN" />}
+					{isAuthed ? <NavItem to="/login" label="AFMELDEN" className='logout' data-cy="logout_btn" onClick={handleClick} /> : <NavItem to="/login" label="AANMELDEN" />}
 				</div>
 			</div>
 		</>

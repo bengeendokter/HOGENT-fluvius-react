@@ -1,1 +1,1 @@
-export {default} from "./OverzichtWijzigen"
+export {default} from "./OverzichtWijzigen";

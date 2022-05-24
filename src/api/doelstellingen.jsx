@@ -1,26 +1,29 @@
 import {axios} from '.';
 
-export const getAllDoelstellingen = async () => {
-    const { data } = await axios.get("doelstellingen");
+export const getAllDoelstellingen = async () =>
+{
+    const {data} = await axios.get("doelstellingen");
     return data;
 };
 
-export const getDoelstellingPerRolByID = async ({      
+export const getDoelstellingPerRolByID = async ({
     id,
-}) => {
-    const { data } = await axios({
-        method : "get",
-        url : `doelstellingen/rol/${id}`
+}) =>
+{
+    const {data} = await axios({
+        method: "get",
+        url: `doelstellingen/rol/${id}`
     });
-      return data;
+    return data;
 };
 
-export const getDoelstellingByCategorieID = async (      
+export const getDoelstellingByCategorieID = async (
     id
-) => {
-    const { data } = await axios({
-        method : "get",
-        url : `doelstellingen/categorie/${id}`
+) =>
+{
+    const {data} = await axios({
+        method: "get",
+        url: `doelstellingen/categorie/${id}`
     });
-      return data;
+    return data;
 };

@@ -1,14 +1,12 @@
-import styles from './DoelstellingDashboard.module.css';
-import {DoelstellingContext} from '../../contexts/DoelstellingProvider';
-import {useData} from '../../contexts/DataProvider';
-import {useParams} from "react-router-dom";
-import {useCallback, useContext, useEffect, useMemo, useState, useRef} from 'react';
-import React from 'react';
-import {NavLink} from "react-router-dom";
+import React, {useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react';
+import {NavLink, useParams} from "react-router-dom";
 import BarChart from '../../components/BarChart';
-import {SdgContext} from '../../contexts/SdgProvider';
 import DoelstellingPreview from "../../components/DoelstellingPreview/DoelstellingPreview";
 import {useSession} from "../../contexts/AuthProvider";
+import {useData} from '../../contexts/DataProvider';
+import {DoelstellingContext} from '../../contexts/DoelstellingProvider';
+import {SdgContext} from '../../contexts/SdgProvider';
+import styles from './DoelstellingDashboard.module.css';
 
 export default function DoelstellingDashboard()
 {
@@ -43,14 +41,8 @@ export default function DoelstellingDashboard()
     if(vindDataDoelstelling)
     {
       let x = vindDataDoelstelling.data;
-      let maxIndex;
-      let jaren = [];
-      let waarde;
-      x.forEach(d => jaren.push(Number(Object.keys(d)[0])));
-      maxIndex = jaren.indexOf(Math.max(...jaren));
-      waarde = x[maxIndex][`${Math.max(...jaren)}`][0];
-      return waarde;
-    } 
+      return (Object.values(x.sort().reverse()[0]));
+    }
     return null
   }, [vindDataDoelstelling])
 
@@ -107,8 +99,8 @@ export default function DoelstellingDashboard()
     setGemeld(true);
   }, [ref_dialog]);
 
-  
-  
+
+
   return (
 
     <>
@@ -184,7 +176,7 @@ export default function DoelstellingDashboard()
             {roles && roles === "Manager" &&
               <div className={styles["detail-fout-melden-div"]}>
                 <div className={styles["detail-fout-melden"]}>
-                {isGemeld ? <p className={styles[`${isGemeld? "fout" : "juist"}`]}>Bedankt, uw fout is gemeld</p> : <p>Foutieve data melden</p>}
+                  {isGemeld ? <p className={styles[`${isGemeld ? "fout" : "juist"}`]}>Bedankt, uw fout is gemeld</p> : <p>Foutieve data melden</p>}
                   <img onClick={handleReport} src="/assets/images/exlamation_icon.png" alt="meld icon" />
 
                 </div>
@@ -213,7 +205,7 @@ export default function DoelstellingDashboard()
 
       <dialog ref={ref_dialog} className={styles.modal}>
         <form id='form_datasource' className={styles.form_datasource} onSubmit={(e) => e.preventDefault()}>
-        <h2 className={styles.form_title}>Foutieve data melden</h2>
+          <h2 className={styles.form_title}>Foutieve data melden</h2>
           <label className={styles.form_label} htmlFor="comment">Beschrijving van de fout</label>
           <textarea className={styles.form_input} name="comment" id="comment" cols="50" rows="7"></textarea>
           <div className={styles.form_buttons_container}>
