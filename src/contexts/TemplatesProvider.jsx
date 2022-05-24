@@ -223,16 +223,33 @@ export const TemplatesProvider = ({
 
   useEffect(() => {
     if (categories && categories.length > 0) {
-      if (templates.length === 0 || !templates.some(d => d.rol === roles)) {
-        const templatesToCreate = categories.map(c => ({
-          category_id : c.CATEGORIEID,
-          rol : roles,
-          is_visible : 1,
-          is_costumisable: 1,
-          order: null
-        }))
-  
-        orderVoorTemplate(templatesToCreate, false);
+      if (templates.length !== 0) {
+        let categorieIDs = categories.map(c => c.CATEGORIEID);
+        console.log("Alle categorieIDS ", categorieIDs)
+        const templatesVanRol = templates.filter(t => t.rol === roles);
+
+        if (categorieIDs.length !== templatesVanRol.length) {
+          console.log("Alle templates van rol ", templatesVanRol)
+          const lengte = categorieIDs.length;
+            for (let i = 0; i < lengte; i++) {
+              if (i < templatesVanRol.length) {
+                if (categorieIDs.includes(templatesVanRol[i].category_id)) {
+                  console.log("gevonden template", templatesVanRol[i])
+                  categorieIDs = categorieIDs.filter(c => c !==templatesVanRol[i].category_id)
+                }
+              }
+            }
+            console.log("casts", categorieIDs)
+            const templatesToCreate = categorieIDs.map(c => ({
+              category_id : c,
+              rol : roles,
+              is_visible : 1,
+              is_costumisable: 1,
+              order: null
+            }))
+      
+            orderVoorTemplate(templatesToCreate, false);
+        }
       }
     }
   }, [roles, categories, templates])
