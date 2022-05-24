@@ -179,7 +179,7 @@ export default function DoelstellingDashboard()
                 <div>{Math.abs(Math.round(berekenPercentage.percentage))}% {vindActueleWaardeData >= currentDoel.doelwaarde ? "boven" : "onder"} {currentDoel.isMax ? "drempel" : "doel"}</div>
               </div>
             </div>
-            {roles && roles === "Manager" &&
+            {roles && (roles === "Manager" || roles === "MVO coördinator") &&
               <div className={styles["detail-fout-melden-div"]}>
                 <div className={styles["detail-fout-melden"]}>
                   {isGemeld ? <p className={styles[`${isGemeld ? "fout" : "juist"}`]}>Bedankt, uw fout is gemeld</p> : <p>Foutieve data melden</p>}
