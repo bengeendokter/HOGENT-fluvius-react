@@ -28,7 +28,7 @@ const BarChart = ({naam, id}) =>
 
   const eenheid = dataD[0]['eenheid'];
 
-  const kleuren = ["#d30b7a", "#d3640b", "#0bd364", "#0bd364", "#640bd3"];
+  const kleuren = ["#d30b7a", "#d3640b", "#0bd364", "#0bd364", "#640bd3", "#c95df7", "#f75d8b", "#8bf75d", "#5df7c9", "#5d8bf7"];
   const gebruikt = [];
 
   let doels = [];
