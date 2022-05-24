@@ -13,7 +13,7 @@ const BarChart = ({naam, id}) =>
 {
   const {id: ID} = useParams();
 
-  const {data: x, getAllDataByDoelstellingId, alldata} = useContext(DataContext);
+  const {data: x, getAllDataByDoelstellingId, alldata: fetchedData} = useContext(DataContext);
   useEffect(() =>
   {
     if(x.length >= 1)
@@ -36,7 +36,7 @@ const BarChart = ({naam, id}) =>
   let doels = [];
 
 
-  alldata.reverse().map(d =>
+  let alldata = fetchedData.slice().reverse().map(d =>
   {
     let kleur = kleuren[Math.floor(Math.random() * kleuren.length)];
     let voorwaarde = gebruikt.includes(kleur);
