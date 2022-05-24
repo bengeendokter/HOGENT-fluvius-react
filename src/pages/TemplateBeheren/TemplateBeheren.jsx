@@ -40,14 +40,6 @@ export default function TemplateBeheren()
     );
   };
 
-  // useEffect(() => {
-  //   if(selectedRol && (selectedRol === 'MVO Coördinator' || (selectedRol[0] !== undefined && selectedRol[0] === 'MVO Coördinator'))){
-
-  //           setSelectedRol('MVO-coördinator');
-  //   }
-
-  // }, [selectedRol]);
-
   const reset = React.useCallback(
     async () =>
     {
