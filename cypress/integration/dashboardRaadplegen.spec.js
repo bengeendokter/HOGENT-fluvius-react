@@ -7,21 +7,11 @@ describe("Dashboard raadplegen:", () => {
     cy.logout();
   });
 
-  it("controleer categorienaam", () => {
-    cy.intercept("GET", `http://localhost:9000/api/categories/1`, {
-      fixture: "categorie.json",
-    });
-    cy.intercept("GET", `http://localhost:9000/api/categories/2`, {
-      fixture: "categorie.json",
-    });
-    cy.intercept("GET", `http://localhost:9000/api/categories/3`, {
-      fixture: "categorie.json",
-    });
+  it("er is minstens 1 categorie beschikbaar", () => {
 
-    cy.get("[data-cy=categorieClick]").eq(0).contains("Economie");
-    cy.get("[data-cy=categorieClick]").eq(1).contains("Sociaal");
-    cy.get("[data-cy=categorieClick]").eq(2).contains("Omgeving");
-    cy.get("[data-cy=categorieClick]").eq(3).contains("Ecologie");
+
+    cy.get("[data-cy=categorieClick]").should("exist");
+    
   });
 
   it("toon bijbehorende doelstellingen", () => {

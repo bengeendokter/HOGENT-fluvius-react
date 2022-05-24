@@ -1,12 +1,15 @@
 import
-{
-  createContext, useCallback, useEffect, useState
-} from 'react';
-import * as categoriesApi from "../api/categories";
-import * as templatesApi from "../api/template";
-import {useSession} from './AuthProvider';
-import {useCategories} from './CategorieProvider';
+  {
+    createContext,
+    useState,
+    useEffect,
+    useCallback,
+  } from 'react';
 
+import * as templatesApi from "../api/template";
+import * as categoriesApi from "../api/categories";
+import { useSession } from './AuthProvider';
+import { useCategories } from './CategorieProvider';
 
 export const TemplateContext = createContext();
 
@@ -27,7 +30,7 @@ export const TemplatesProvider = ({
 
   const [verander, setVerander] = useState(false);
 
-  const {ready: authReady} = useSession();
+  const { ready : authReady } = useSession();
 
   const refreshTemplates = useCallback(async () =>
   {
@@ -70,14 +73,12 @@ export const TemplatesProvider = ({
       if(rolNaam)
       {
         const data = await templatesApi.getAllTemplatesByRol(rolNaam);
-        if(data.length === 0)
-        {
-          if(categories && categories.length > 0)
-          {
+        if (data.length === 0) {
+          if (categories && categories.length > 0) {
             const templatesToCreate = categories.map(c => ({
-              category_id: c.CATEGORIEID,
-              rol: rolNaam,
-              is_visible: 1,
+              category_id : c.CATEGORIEID,
+              rol : rolNaam,
+              is_visible : 1,
               is_costumisable: 1,
               order: null
             }))
@@ -87,12 +88,11 @@ export const TemplatesProvider = ({
 
             setTemplatesRol(data2)
             return data2;
-          }
-        } else
-        {
-          setTemplatesRol(data);
-          return data;
         }
+      } else {
+        setTemplatesRol(data);
+        return data;
+      }
         return null;
       }
 
@@ -119,10 +119,10 @@ export const TemplatesProvider = ({
         const newCat = await categoriesApi.getCategorieByID(temp.category_id);
         newTemplatesMetCategorie.push({order: temp.order, id: temp.id, category_id: newCat[0].NAAM, is_visible: temp.is_visible, icon: newCat[0].ICON, is_costumisable: temp.is_costumisable});
       }
+
       setTemplatesMetCategorie(newTemplatesMetCategorie);
-
       setVerander(true);
-
+      
       return newTemplatesMetCategorie;
     } catch(error)
     {
@@ -133,7 +133,7 @@ export const TemplatesProvider = ({
       setLoading(false)
     }
 
-  }, []);
+  }, [templates]);
 
   const createOrUpdateTemplate = useCallback(async ({
     id,
@@ -150,24 +150,22 @@ export const TemplatesProvider = ({
     try
     {
       const arr = templatesMetCategorie.filter(el => el.is_visible === 0);
-      if((arr.length === templatesMetCategorie.length - 1) && is_visible === 0)
-      {
+      if((arr.length === templatesMetCategorie.length - 1) && is_visible === 0){
         throw error;
-      } else
-      {
+      } else{
 
-
-        const changedTemplate = await templatesApi.save({
-          id,
-          category_id,
-          rol,
-          is_visible,
-          is_costumisable,
-          order
-        });
-        await refreshTemplates();
-        return changedTemplate;
-      }
+      
+      const changedTemplate = await templatesApi.save({
+        id,
+        category_id,
+        rol,
+        is_visible,
+        is_costumisable,
+        order
+      });
+      await refreshTemplates();
+      return changedTemplate;
+    }
     } catch(error)
     {
       throw error;
@@ -176,19 +174,18 @@ export const TemplatesProvider = ({
     {
       setLoading(false)
     }
-  }, [refreshTemplates, templatesMetCategorie, error]);
+  }, [refreshTemplates, templatesMetCategorie]);
 
   const orderVoorTemplate = useCallback(async (orderTemplates, zetIndexAlsOrder = true
   ) =>
   {
     setError();
     setLoading(true);
+
     try
     {
-      if(zetIndexAlsOrder)
-      {
-        orderTemplates.forEach((temp, index) =>
-        {
+      if (zetIndexAlsOrder) {
+        orderTemplates.forEach((temp, index) => {
           temp.order = index;
         });
       }
@@ -224,20 +221,17 @@ export const TemplatesProvider = ({
     }
   }, [refreshTemplates]);
 
-  useEffect(() =>
-  {
-    if(categories && categories.length > 0)
-    {
-      if(templates.length === 0 || !templates.some(d => d.rol === roles))
-      {
+  useEffect(() => {
+    if (categories && categories.length > 0) {
+      if (templates.length === 0 || !templates.some(d => d.rol === roles)) {
         const templatesToCreate = categories.map(c => ({
-          category_id: c.CATEGORIEID,
-          rol: roles,
-          is_visible: 1,
+          category_id : c.CATEGORIEID,
+          rol : roles,
+          is_visible : 1,
           is_costumisable: 1,
           order: null
         }))
-
+  
         orderVoorTemplate(templatesToCreate, false);
       }
     }
@@ -253,14 +247,12 @@ export const TemplatesProvider = ({
     [templates]
   );
 
-  useEffect(() =>
-  {
-    if(templatesRol)
-    {
+  useEffect(() => {
+    if(templatesRol) {
       getAllTemplatesByRol();
       getTemplatesMetCategorie(templatesRol)
     }
-  }, [templates, getAllTemplatesByRol, getTemplatesMetCategorie, templatesRol])
+  }, [templates])
 
 
   return (

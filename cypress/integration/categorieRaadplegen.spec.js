@@ -38,7 +38,7 @@ describe("Categorie raadplegen:", () => {
 
     cy.get("[data-cy=categorieClick]").eq(0).click();
 
-    cy.get("[data-cy=naamCurrentCategorie]").contains("Economie");
+    cy.get("[data-cy=naamCurrentCategorie]").contains("Sociaal");
   });
 
   it("toon bijbehorende doelstellingen", () => {
