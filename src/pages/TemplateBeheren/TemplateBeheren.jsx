@@ -28,6 +28,8 @@ export default function TemplateBeheren()
   const {rollen} = useContext(RolContext);
   const {verander, rolNaam, createOrUpdateTemplate, getTemplatesMetCategorie, templatesMetCategorie, templatesRol, getAllTemplatesByRol, setRolNaam} = useContext(TemplateContext);
   const {addToast} = useToasts();
+
+
   const handleChange = (event) =>
   {
     const {
@@ -109,7 +111,7 @@ export default function TemplateBeheren()
                 value={rol.NAAM}
                 style={getStyles(rol.NAAM, selectedRol, theme)}
               >
-                {rol.NAAM}
+                {rol.NAAM === 'MVO Coördinator' ? 'MVO-coördinator': rol.NAAM}
               </MenuItem>))}
           </Select>
         </FormControl>
@@ -120,7 +122,7 @@ export default function TemplateBeheren()
       <div>
         {verander && rolNaam && selectedRol &&
           <>
-            <div data-cy="template_weergave" className={styles["categorie-title"]}> Weergave {selectedRol}</div>
+            <div data-cy="template_weergave" className={styles["categorie-title"]}> Weergave {selectedRol[0] === 'MVO Coördinator' ? 'MVO-coördinator': selectedRol}</div>
             <div className={styles["categorie-container"]}>
               {templatesMetCategorie.map(r => <TemplateCategorieRol key={r.id} {...r} rolTemplate={selectedRol} isPersonalisatieScherm={false} />)}
             </div>

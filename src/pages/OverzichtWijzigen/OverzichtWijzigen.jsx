@@ -12,6 +12,7 @@ export default function OverzichtWijzigen()
   const {orderVoorTemplate, verander, rolNaam, getTemplatesMetCategorie, templatesMetCategorie, templatesRol, getAllTemplatesByRol, setRolNaam} = useContext(TemplateContext);
   const [temps, updateTemps] = useState([]);
   const {roles} = useSession();
+  const [rol, setRol] = useState('');
   const {addToast} = useToasts();
 
   useEffect(() =>
@@ -20,7 +21,12 @@ export default function OverzichtWijzigen()
       appearance: 'info',
       autoDismiss: true,
     })
-  }, [addToast]);
+    if(roles === 'MVO coördinator'){
+      setRol('MVO-coördinator');
+    }else{
+      setRol(roles);
+    }
+  }, [addToast, roles]);
 
   function handleOnDragEnd(result)
   {
@@ -92,11 +98,13 @@ export default function OverzichtWijzigen()
     return <div className={styles["noneLeft"]}>Er zijn geen categorieën om te personaliseren.</div>
   }
 
+
+
   return (
     <>
       <div className={styles["personalisation-all"]}>
         <div className={styles["categorie-titles-personalisatie"]}>
-          <p data-cy="naam_rol_template" className={styles["categorie-title-personalisatie"]}>Template {roles}</p>
+          <p data-cy="naam_rol_template" className={styles["categorie-title-personalisatie"]}>Template {rol}</p>
         </div>
         <div >
           {verander && rolNaam && temps &&
