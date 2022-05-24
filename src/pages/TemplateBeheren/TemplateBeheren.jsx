@@ -40,6 +40,14 @@ export default function TemplateBeheren()
     );
   };
 
+  // useEffect(() => {
+  //   if(selectedRol && (selectedRol === 'MVO Coördinator' || (selectedRol[0] !== undefined && selectedRol[0] === 'MVO Coördinator'))){
+
+  //           setSelectedRol('MVO-coördinator');
+  //   }
+
+  // }, [selectedRol]);
+
   const reset = React.useCallback(
     async () =>
     {
@@ -104,6 +112,7 @@ export default function TemplateBeheren()
             value={selectedRol}
             label="Age"
             onChange={handleChange}
+            defaultValue="MVO Coördinator"
           >
             {rollen.map((rol) => (
               <MenuItem
@@ -122,7 +131,7 @@ export default function TemplateBeheren()
       <div>
         {verander && rolNaam && selectedRol &&
           <>
-            <div data-cy="template_weergave" className={styles["categorie-title"]}> Weergave {typeof selectedRol === Object  ? (selectedRol[0].startsWith("MVO") ? "MVO-coördinator" : selectedRol[0]) : (selectedRol.startsWith("MVO") ? "MVO-coördinator" : selectedRol)}</div>
+            <div data-cy="template_weergave" className={styles["categorie-title"]}> Weergave {selectedRol === 'MVO Coördinator'? 'MVO-coördinator': selectedRol}</div>
             <div className={styles["categorie-container"]}>
               {templatesMetCategorie.map(r => <TemplateCategorieRol key={r.id} {...r} rolTemplate={selectedRol} isPersonalisatieScherm={false} />)}
             </div>
