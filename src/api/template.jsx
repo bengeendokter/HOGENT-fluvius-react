@@ -37,7 +37,6 @@ export const save = async ({
         order
       },
     });
-    console.log(data);
     return data;
   };
 

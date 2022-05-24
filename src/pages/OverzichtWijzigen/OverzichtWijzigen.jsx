@@ -5,16 +5,20 @@ import TemplateCategorieRol from '../../components/TemplateCategorieRol/Template
 import {useEffect, useContext, useState} from 'react';
 import { DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import { useSession} from "../../contexts/AuthProvider";
-import Alert from '@mui/material/Alert';
 import { useToasts } from 'react-toast-notifications';
 
 export default function OverzichtWijzigen() {
-  const [selectedRol, setSelectedRol] = React.useState('');
   const {orderVoorTemplate, verander, rolNaam, getTemplatesMetCategorie, templatesMetCategorie, templatesRol, getAllTemplatesByRol, setRolNaam} = useContext(TemplateContext);
   const [temps, updateTemps] = useState([]);
   const {roles} = useSession();
-  const [gelukt, setGelukt] = useState(0);
   const { addToast } = useToasts();
+
+  useEffect(() => {
+    addToast("Wijzig de volgorde van de categorieën door de items te verslepen", {
+      appearance: 'info',
+      autoDismiss: true,
+    })
+  },[addToast]);
 
    function handleOnDragEnd(result) {
     if (!result.destination) return;
@@ -22,7 +26,6 @@ export default function OverzichtWijzigen() {
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
     updateTemps(items);
-
   }
 
   const getItemStyle = (isDragging, draggableStyle) => ({
@@ -35,7 +38,6 @@ export default function OverzichtWijzigen() {
 
   const save = () => {
       orderVoorTemplate(temps);
-      setGelukt(1);
       addToast("Wijzigingen zijn opgeslagen!", {
         appearance: 'success',
         autoDismiss: true,
@@ -47,12 +49,11 @@ export default function OverzichtWijzigen() {
     newTemps.forEach((t, index) => t.order = index);
     updateTemps(newTemps);
     orderVoorTemplate(temps);
-    setGelukt(1);
     addToast("Wijzigingen zijn opgeslagen!", {
       appearance: 'success',
       autoDismiss: true,
     });
-  }, [orderVoorTemplate, temps])
+  }, [orderVoorTemplate, temps, addToast])
 
   useEffect(() =>
   {
@@ -86,7 +87,6 @@ export default function OverzichtWijzigen() {
     <div className={styles["personalisation-all"]}>
       <div className={styles["categorie-titles-personalisatie"]}>
         <p data-cy="naam_rol_template" className={styles["categorie-title-personalisatie"]}>Template {roles}</p>
-        <p className={styles["categorie-title-personalisatie"]}>Verander de volgorde van je categorieën!</p>
       </div>
       <div >
         {verander && rolNaam && temps &&
@@ -103,7 +103,7 @@ export default function OverzichtWijzigen() {
                   snapshot.isDragging,
                   provided.draggableProps.style
                 )}>
-                  <TemplateCategorieRol key={element.id} rolTemplate={selectedRol} isPersonalisatieScherm={true} {...element}/>
+                  <TemplateCategorieRol key={element.id} isPersonalisatieScherm={true} {...element}/>
                 </div>
               )}
             </Draggable>

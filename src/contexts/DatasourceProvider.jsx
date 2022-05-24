@@ -50,7 +50,6 @@ import {
           id,
           CORRUPT: 1,
         });
-        //const data = null;
         await refreshDatasources();
         return data;
       } catch(error)

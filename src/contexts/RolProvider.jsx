@@ -3,8 +3,6 @@ import {
   useState,
   useEffect,
   useCallback,
-  useContext,
-  useMemo
 } from 'react';
 
 import * as rolApi from "../api/rollen";
@@ -18,7 +16,7 @@ export const RolProvider = ({
   children
 }) => {
   const [initialLoad, setInitialLoad] = useState(false);
-  //const [currentGame, setCurrentGame] = useState({});
+
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [rollen, setRollen] = useState([]);

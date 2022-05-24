@@ -12,9 +12,6 @@ describe("Inloggen:", () => {
       fixture: "categorie.json",
     });
 
-    cy.get("[data-cy=dashboard-label]").contains("Dashboard");
-    cy.get("[data-cy=dashboard-label]").should("be.visible");
-
     cy.logout();
   });
 

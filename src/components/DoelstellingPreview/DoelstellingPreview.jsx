@@ -10,8 +10,8 @@ export default function DoelstellingPreview({id, doelwaarde: doelwaardeProp, isM
     const [isMax] = useState(isMaxProp);
     const [huidieWaarde, setHuidieWaarde] = useState(0);
     const [eenheid, setEenheid] = useState("...");
-    const {data, error} = useData();
-    // TODO hoe geef ik error boodschap door aan parent (Dashboard.jsx) ?
+    const {data} = useData();
+
     const [isDoelBehaald, setDoelBehaald] = useState(false);
     const [percentage, setPercentage] = useState(0);
     const [kleur, setKleur] = useState('');

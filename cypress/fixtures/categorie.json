@@ -1,22 +1,22 @@
 [
-  {
-    "CATEGORIEID":1,
-    "ICON":"file:src/images/people.png",
-    "NAAM":"Economie"
-  },
-  {
-    "CATEGORIEID":2,
-    "ICON":"file:src/images/peace.png",
-    "NAAM":"Sociaal"
-  },
-  {
-    "CATEGORIEID":3,
-    "ICON":"file:src/images/planet.jpg",
-    "NAAM":"Omgeving"
-  },
-  {
-    "CATEGORIEID": 4,
-    "ICON": "file:src/images/planet.jpg",
-    "NAAM": "Ecologie"
-}
-]
+      {
+          "CATEGORIEID": 1,
+          "ICON": "file:src/images/peace.png",
+          "NAAM": "Sociaal"
+      },
+      {
+          "CATEGORIEID": 2,
+          "ICON": "file:src/images/people.png",
+          "NAAM": "Economie"
+      },
+      {
+          "CATEGORIEID": 3,
+          "ICON": "file:src/images/planet.jpg",
+          "NAAM": "Ecologie"
+      },
+      {
+          "CATEGORIEID": 4,
+          "ICON": "file:src/images/planet.jpg",
+          "NAAM": "Omgeving"
+      }
+  ]

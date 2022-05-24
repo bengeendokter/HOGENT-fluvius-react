@@ -18,9 +18,6 @@ describe("Dashboard raadplegen:", () => {
       fixture: "categorie.json",
     });
 
-    //cy.visit("http://localhost:3000/");
-    //cy.wait(2000);
-
     cy.get("[data-cy=categorieClick]").eq(0).contains("Economie");
     cy.get("[data-cy=categorieClick]").eq(1).contains("Sociaal");
     cy.get("[data-cy=categorieClick]").eq(2).contains("Omgeving");
@@ -50,9 +47,10 @@ describe("Dashboard raadplegen:", () => {
     cy.get("[data-cy=doelstellingNaam]")
       .eq(1)
       .contains("Bijscholingen personeel");
-    cy.get("[data-cy=doelstellingNaam]").eq(2).contains("CO2NeutraalVervoer");
+    cy.get("[data-cy=doelstellingNaam]")
+    .eq(2).contains("CO2NeutraalVervoer");
     cy.get("[data-cy=doelstellingNaam]")
       .eq(3)
-      .contains("CO2-uitstoot transport");
+      .contains("Aantal klanten");
   });
 });

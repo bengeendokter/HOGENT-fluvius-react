@@ -41,7 +41,7 @@ export default function NavMenu()
 					</nav>
 				</div>
 				<div className="mt-3 text-center">
-					{isAuthed ? <NavItem to="/login" label="UITLOGGEN" className='logout' data-cy="logout_btn" onClick={handleClick}/> : <NavItem to="/login" label="INLOGGEN" />}
+					{isAuthed ? <NavItem to="/login" label="AFMELDEN" className='logout' data-cy="logout_btn" onClick={handleClick}/> : <NavItem to="/login" label="AANMELDEN" />}
 				</div>
 			</div>
 		</>

@@ -22,6 +22,5 @@ export const getDoelstellingByCategorieID = async (
         method : "get",
         url : `doelstellingen/categorie/${id}`
     });
-    // console.log("api doel", data);
       return data;
 };

@@ -1,10 +1,8 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect} from "react";
 import {Bar, Chart} from "react-chartjs-2";
 import zoomPlugin from "chartjs-plugin-zoom";
 import annotationPlugin from "chartjs-plugin-annotation";
-//import {useData, getAllDataByDoelstellingId, alldata} from "../contexts/DataProvider";
 import styles from "./BarChart/BarChart.module.css"
-import {BloodtypeOutlined} from "@mui/icons-material";
 import { DataContext } from '../contexts/DataProvider';
 import { useParams } from "react-router-dom";
 
@@ -15,28 +13,27 @@ const BarChart = ({naam, id}) =>
 {
   const { id: ID} = useParams();
 
-  //const {data: x} = useData();
   const {data: x, getAllDataByDoelstellingId, alldata} = useContext(DataContext);
   useEffect(() => {
     if(x.length >= 1) {
       getAllDataByDoelstellingId(ID);
     }
-  }, []);
+  }, [ID, getAllDataByDoelstellingId, x.length]);
 
   let dataLabels = [];  //jaar
   let dataWaarden = []; //data.value
   let dataKleuren = []; //willekeurig kleur
 
   const dataD = x.filter(d => d.naam === naam);
-  //const doelwaardes = dataD[0]['doelwaarde'];
+
   const eenheid = dataD[0]['eenheid'];
-  //const kleuren = ["#055063", "#05635f", "#056348", "#053963", "#0b7ad3"];
+
   const kleuren = ["#d30b7a", "#d3640b", "#0bd364", "#0bd364", "#640bd3"];
   const gebruikt = [];
 
   let doels = [];
 
-  //alldata.sort((a,b) => a.jaar - b.jaar);
+
   alldata.reverse().map(d =>
     {
       let kleur = kleuren[Math.floor(Math.random()*kleuren.length)];
@@ -52,6 +49,7 @@ const BarChart = ({naam, id}) =>
       dataLabels.push(d.jaar);
       dataWaarden.push(d.data[0].value);
       dataKleuren.push(kleur);
+      return true;
     }
   ); 
 
@@ -103,7 +101,6 @@ const BarChart = ({naam, id}) =>
   const options = {
     scales: {
       y: {
-        //max: 800,
         title: {display: true, text: `${eenheid}`, font: {size: 25, weight: 600, }},
         ticks: {
           font: {
@@ -128,7 +125,7 @@ const BarChart = ({naam, id}) =>
             weight: 600,
           },
           filter: item => {
-            return item.text != "Waarden"
+            return item.text !== "Waarden"
           }
         }
       },

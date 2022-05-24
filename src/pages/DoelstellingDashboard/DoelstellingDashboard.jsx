@@ -21,7 +21,6 @@ export default function DoelstellingDashboard()
   const ref_dialog = useRef(null);
   useEffect(() =>
   {
-    //laden
     if(doelstellingen.length >= 1)
     {
       setCurrentDoelstelling(id);
@@ -58,7 +57,6 @@ export default function DoelstellingDashboard()
     percentage = (huidigeWaarde - doelwaarde) / (doelwaarde !== 0 ? doelwaarde : 0.01) * 100;
 
     return {
-      // isMax ? huidigFetch <= doelwaarde : huidigFetch >= doelwaarde
       isOnder: currentDoel.isMax ? huidigeWaarde <= doelwaarde : huidigeWaarde >= doelwaarde,
       percentage
     }
@@ -67,18 +65,9 @@ export default function DoelstellingDashboard()
   const vindSdgs = useMemo(() =>
   {
     let validSDGs = [];
-    let categorie;
 
     if(currentDoel && currentDoel.categorie)
     {
-      if(currentDoel.parent_doelstelling && currentDoel.categorie.id === null)
-      {
-        categorie = doelstellingen.find(d => d.id === currentDoel.parent_doelstelling.id).categorie;
-      } else
-      {
-        categorie = currentDoel.categorie;
-      }
-      console.log("sdgssss", sdgs);
       const allSDGs = sdgs.filter(s => s.idSDG === currentDoel.sdg_goal.id);
 
       allSDGs.forEach((sdg, index) =>
@@ -91,7 +80,7 @@ export default function DoelstellingDashboard()
       });
     }
     return validSDGs.sort((a, b) => Number(a.AFBEELDINGNAAM) > Number(b.AFBEELDINGNAAM));
-  }, [sdgs, currentDoel, doelstellingen])
+  }, [sdgs, currentDoel])
 
   // report datasource
   const handleReport = useCallback(() =>

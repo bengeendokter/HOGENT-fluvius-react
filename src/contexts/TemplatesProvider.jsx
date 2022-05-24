@@ -28,7 +28,6 @@ export const TemplatesProvider = ({
   const {categories} = useCategories();
   const {roles} = useSession();
 
-  //test
   const [verander, setVerander] = useState(false);
 
   const { ready : authReady } = useSession();
@@ -71,8 +70,6 @@ export const TemplatesProvider = ({
     {
       setError('');
       setLoading(true);
-      // TODO aanpassen naar rolNaam!!!
-      //console.log(rolNaam);
       if(rolNaam)
       {
         const data = await templatesApi.getAllTemplatesByRol(rolNaam);
@@ -117,19 +114,13 @@ export const TemplatesProvider = ({
       setError('');
       setLoading(true);
       let newTemplatesMetCategorie = [];
-      //console.log("dikke miserie", templatesRol);
       for(const temp of templatesRol)
       {
-        //console.log("temp", temp);
         const newCat = await categoriesApi.getCategorieByID(temp.category_id);
-        //console.log("newcat NAAM", newCat[0].NAAM);
-        //newTemplatesMetCategorie.push({id: temp.id, category_id: newCat[0].NAAM, is_visible: temp.is_visible, icon: newCat[0].ICON});
         newTemplatesMetCategorie.push({order: temp.order, id: temp.id, category_id: newCat[0].NAAM, is_visible: temp.is_visible, icon: newCat[0].ICON, is_costumisable: temp.is_costumisable});
       }
-      //console.log("miserie", newTemplatesMetCategorie);
-      //newTemplatesMetCategorie.sort((a, b) => a.order - b.order);
       setTemplatesMetCategorie(newTemplatesMetCategorie);
-      //test
+
       setVerander(true);
       
       return newTemplatesMetCategorie;
@@ -142,7 +133,7 @@ export const TemplatesProvider = ({
       setLoading(false)
     }
 
-  }, [templates]);
+  }, []);
 
   const createOrUpdateTemplate = useCallback(async ({
     id,
@@ -183,16 +174,13 @@ export const TemplatesProvider = ({
     {
       setLoading(false)
     }
-  }, [refreshTemplates, templatesMetCategorie]);
+  }, [refreshTemplates, templatesMetCategorie, error]);
 
   const orderVoorTemplate = useCallback(async (orderTemplates, zetIndexAlsOrder = true
   ) =>
   {
     setError();
     setLoading(true);
-    //templatesMetCategorie veranderen met orderTemplates
-    //de orde is de volgorde van de array orderTemplates
-
     try
     {
       if (zetIndexAlsOrder) {
@@ -221,7 +209,6 @@ export const TemplatesProvider = ({
     setError();
     try
     {
-      //console.log("delete");
       await templatesApi.deleteTemplate(id);
       refreshTemplates();
     } catch(error)
@@ -232,16 +219,6 @@ export const TemplatesProvider = ({
       setLoading(false)
     }
   }, [refreshTemplates]);
-
-  // const setTemplateToUpdate = useCallback(
-  //   (naam) =>
-  //   {
-  //     setCurrentTemplate(
-  //       naam === null ? {} : templates.find((t) => t.rol === naam)
-  //     );
-  //   },
-  //   [templates]
-  // );
 
   useEffect(() => {
     if (categories && categories.length > 0) {
@@ -274,7 +251,7 @@ export const TemplatesProvider = ({
       getAllTemplatesByRol();
       getTemplatesMetCategorie(templatesRol)
     }
-  }, [templates])
+  }, [templates,getAllTemplatesByRol,getTemplatesMetCategorie, templatesRol])
 
 
   return (

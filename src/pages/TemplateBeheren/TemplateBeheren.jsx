@@ -10,6 +10,7 @@ import {TemplateContext} from '../../contexts/TemplatesProvider';
 import TemplateCategorieRol from '../../components/TemplateCategorieRol/TemplateCategorieRol';
 import{useEffect, useContext} from 'react';
 import { useToasts } from 'react-toast-notifications';
+
 function getStyles(name, personName, theme)
 {
   return {
@@ -67,7 +68,7 @@ export default function TemplateBeheren()
       }
     },
     [
-      createOrUpdateTemplate, selectedRol, getAllTemplatesByRol, getTemplatesMetCategorie, templatesRol, templatesMetCategorie
+      createOrUpdateTemplate, selectedRol, getAllTemplatesByRol, getTemplatesMetCategorie, templatesRol, templatesMetCategorie, addToast
     ]
   );
 

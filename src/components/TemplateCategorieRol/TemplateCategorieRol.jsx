@@ -3,7 +3,6 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import {useEffect, useContext, useCallback, useState} from 'react';
 import {TemplateContext} from '../../contexts/TemplatesProvider';
-import Alert from '@mui/material/Alert';
 import { useToasts } from 'react-toast-notifications';
 
 
@@ -12,13 +11,10 @@ export default function TemplateCategorieRol({isPersonalisatieScherm, ...r}) {
   const {id, is_visible, icon, category_id, is_costumisable, rolTemplate } = r;
   const {createOrUpdateTemplate} = useContext(TemplateContext);
   const [visible, setVisible] = useState(is_visible);
-  const [verander, setVerander] = useState(0);
-  const [gelukt, setGelukt] = useState(0);
   const { addToast } = useToasts();
 
   const handleClick = useCallback(async () => {
     try {
-      setVerander(1);
       if (visible === 1) {
         await createOrUpdateTemplate({
           id: id,
@@ -38,20 +34,18 @@ export default function TemplateCategorieRol({isPersonalisatieScherm, ...r}) {
         });
         setVisible(1);
       }
-      setGelukt(1);
       addToast("Wijzigingen zijn opgeslagen!", {
         appearance: 'success',
         autoDismiss: true,
       });
     } catch (error) {
-      setGelukt(0);
       console.error(error);
       addToast("Oops, er is iets misgegaan. Het is niet mogelijk om alle categorieën onzichtbaar te maken.", {
         appearance: 'error',
         autoDismiss: true,
       });
     }
-  }, [visible, is_costumisable, category_id, createOrUpdateTemplate, id, rolTemplate]);
+  }, [visible, is_costumisable, category_id, createOrUpdateTemplate, id, rolTemplate, addToast]);
 
   useEffect(() =>
   {

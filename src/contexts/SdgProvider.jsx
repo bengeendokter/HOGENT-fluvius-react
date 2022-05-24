@@ -3,8 +3,6 @@ import {
     useState,
     useEffect,
     useCallback,
-    useContext,
-    useMemo
   } from 'react';
 
   import * as sdgApi from "../api/sdgs";
@@ -18,7 +16,6 @@ import {
     children
   }) => {
     const [initialLoad, setInitialLoad] = useState(false);
-    //const [currentGame, setCurrentGame] = useState({});
     const [error, setError] = useState();
     const [loading, setLoading] = useState(false);
     const [catId1, setCatId1] = useState(0);
@@ -92,21 +89,6 @@ import {
       }
 
     }, [categories]);
-
-    // const value = useMemo(() => ({
-    //   refreshDoelstellingen,
-    //   getDoelstellingPerRolByID,
-    //   getDoelstellingByCategorieID,
-    //   //currentGame,
-    //   //setCurrentGame,
-    //   doelstellingen,
-    //   error,
-    //   setCatId,
-    //   setError,
-    //   loading,
-    //   setLoading,
-      
-    // }), [setCatId, refreshDoelstellingen, getDoelstellingPerRolByID,getDoelstellingByCategorieID, doelstellingen, error, setError, loading, setLoading])
 
     return (
       <SdgContext.Provider value={{getSdgsVoorCategories, categoriesMetSdgs, setCategories, sdgsCat, setCatId1, refreshSdgs, getSdgsByCategorieId, sdgs, error, setError, loading, setLoading}}>

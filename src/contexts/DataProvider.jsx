@@ -18,7 +18,6 @@ export const DataProvider = ({
   children
 }) => {
   const [initialLoad, setInitialLoad] = useState(false);
-  //const [currentGame, setCurrentGame] = useState({});
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -89,21 +88,9 @@ export const DataProvider = ({
     useEffect(() => {
       if (authReady && !initialLoad) {
         refreshData();
-
-        /* 
-        Testen of alle methodes werken \/
-
-        const wow = async () => {
-          console.log("Data by doelstellingID: ", await getDataByDoelstellingId(8));
-          console.log("Data doelstelling op id en jaar: ", await getDataByDoelstellingIdAndYear(8, 2022));
-          console.log("Alle data van doelstelling: ", await getAllDataByDoelstellingId(8));
-        }
-
-        wow();
-        */
         setInitialLoad(true);
       }
-    }, [authReady, initialLoad, refreshData/*, getDataByDoelstellingId,getDataByDoelstellingIdAndYear,getAllDataByDoelstellingId*/]);
+    }, [authReady, initialLoad, refreshData]);
 
 
    const value = useMemo(() => ({
@@ -111,8 +98,6 @@ export const DataProvider = ({
      getDataByDoelstellingId,
      getDataByDoelstellingIdAndYear,
      getAllDataByDoelstellingId,
-     //currentGame,
-     //setCurrentGame,
      data,
      error,
      setError,

@@ -9,7 +9,7 @@ import {
   import { useSession } from './AuthProvider';
 
   export const DoelstellingContext = createContext();
-  // export const useDoelstellingen = () => useContext(DoelstellingContext);
+
   
 
   export const DoelstellingProvider = ({
@@ -72,11 +72,8 @@ import {
       try {
         setError('');
         setLoading(true);
-        
-        console.log(catId);
         const data = await doelstellingApi.getDoelstellingByCategorieID(catId);
         setDoelstellingenCat(data);
-        // console.log("doelst cat", data);
         return data;
       } catch (error) {
         setError(error);
@@ -93,8 +90,6 @@ import {
         setLoading(true);
         let newCategoriesMetDoelstellingen = [];
 
-        console.log(categories, "categories");
- 
         for(const categorie of categories)
         {
           const newDoelstellingen = await doelstellingApi.getDoelstellingByCategorieID(categorie.id);
@@ -167,7 +162,6 @@ import {
       try {
         setError('');
         setLoading(true);
-        //console.log(id)
         let doelstelling = doelstellingen.filter(e => e.id === Number(id))[0];
         
         if (doelstelling === undefined) {
@@ -176,33 +170,32 @@ import {
         
         setCurrentDoel(doelstelling);
 
-        //let pad1 = ["An-Sofie", "Ben", "Cas", "Mert", "Yigit"];
         let pad1 = [];
         
         if (doelstelling && doelstelling.parent_doelstelling.id !== null) {
           const parentid = doelstelling.parent_doelstelling.id;
-          //console.log(parentid);
+
           //alle parents steken in de array
           let parent = doelstellingen.filter(e => e.id === Number(parentid))[0];
           if (parent === undefined) {
             parent = await getSubWithID(parentid);
           }
-          //console.log("parent", parent);
+
           pad1.unshift(parent);
 
           while (parent.parent_doelstelling.id !== null) {
             let x = parent;
             parent = doelstellingen.filter(e => e.id === Number(x.parent_doelstelling.id))[0];
-            //console.log("parent", parent);
+
             if (parent === undefined) {
-              //console.log("parent", test);
+
               parent = await getSubWithID(parentid);
             }
 
-            //console.log("parent", parent);
+
             pad1.unshift(parent);
           }
-          //pad1.push(doelstelling.naam);
+
         }
         pad1.push(doelstelling);
         setPad(pad1);
@@ -216,21 +209,6 @@ import {
       }
 
     }, [doelstellingen, getSubWithID]);
-
-    // const value = useMemo(() => ({
-    //   refreshDoelstellingen,
-    //   getDoelstellingPerRolByID,
-    //   getDoelstellingByCategorieID,
-    //   //currentGame,
-    //   //setCurrentGame,
-    //   doelstellingen,
-    //   error,
-    //   setCatId,
-    //   setError,
-    //   loading,
-    //   setLoading,
-      
-    // }), [setCatId, refreshDoelstellingen, getDoelstellingPerRolByID,getDoelstellingByCategorieID, doelstellingen, error, setError, loading, setLoading])
 
     return (
       <DoelstellingContext.Provider value={{setPad, pad, currentDoel, setCurrentDoelstelling, getSubWithID,  getDoelstellingenVoorCategories, setCategories, categoriesMetDoelstellingen, doelstellingenCat, setCatId, refreshDoelstellingen, getDoelstellingPerRolByID,getDoelstellingByCategorieID, doelstellingen, error, setError, loading, setLoading}}>

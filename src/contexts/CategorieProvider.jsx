@@ -30,9 +30,7 @@ export const CategorieProvider = ({
       setError('');
       setLoading(true);
       const data = await categoriesApi.getAllCategories();
-      // const categorieMetProps = {...data.data, }
       setCategories(data.data);
-      // console.log(categories);
       return true;
     } catch (error) {
       setError(error);
@@ -53,8 +51,6 @@ export const CategorieProvider = ({
   
   const setCategorieToUpdate = useCallback(
     (id) => {
-      console.log("api id", id);
-      console.log("cats", categories);
       setCurrentCategorie(
         id === null ? {} : categories.find((t) => t.CATEGORIEID === parseInt(id))
       );
@@ -69,19 +65,15 @@ export const CategorieProvider = ({
         categorie === null ? {} : categorie
       );
     },
-    [categories]
+    []
   );
 
   const getCategorieByID = useCallback(async () => {
     try {
       setError('');
       setLoading(true);
-      
-      console.log(catId);
       const data = await categoriesApi.getCategorieByID(catId);
-      console.log("datacategorybyid", data);
       setCurrentCategorie(data);
-      // console.log("doelst cat", data);
       return data;
     } catch (error) {
       setError(error);

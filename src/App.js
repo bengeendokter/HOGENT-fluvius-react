@@ -7,7 +7,6 @@ import {
   Navigate,
 
 } from "react-router-dom";
-// pagina's en componenten
 import NavMenu from "./components/NavMenu";
 import Dashboard from "./pages/Dashboard";
 import OverzichtWijzigen from "./pages/OverzichtWijzigen";
@@ -15,12 +14,9 @@ import TemplateBeheren from "./pages/TemplateBeheren";
 import CategorieDashboard from "./pages/CategorieDashboard";
 import Login from "./pages/Login";
 import Itsme from "./pages/Itsme";
-// Imports nodig voor de grid layout
 import DoelstellingDashboard from "./pages/DoelstellingDashboard";
 import PrivateRoute from "./components/PrivateRoute";
 
-// Dit is nodig om de grid layout op te bouwen
-// extra library toevoegen: yarn add @mui/material @emotion/react @emotion/styled
 
 
 function App() {
