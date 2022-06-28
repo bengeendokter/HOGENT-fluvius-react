@@ -6,7 +6,8 @@ Deze web applicatie is online te vinden op [online te vinden op Netlify](https:/
 
 De inlog gegevens voor de authenticatie zijn:
 ```
-...
+JanJansens
+123456789
 ```
 
 ## Lokale versie
@@ -28,7 +29,8 @@ De web app draait nu op [http://localhost:3000](http://localhost:3000) en kan in
 
 Ook hier zijn de inlog gegevens:
 ```
-...
+JanJansens
+123456789
 ```
 
 ### Lokale PWA
